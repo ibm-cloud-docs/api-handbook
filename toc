@@ -1,7 +1,7 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="api-handbook" category="platform_services" audience="platform" href="/docs/api-handbook?topic=api-handbook-intro" path="api-handbook"}
+{: .toc subcollection="api-handbook" category="dev_ops" audience="platform" href="/docs/api-handbook?topic=api-handbook-intro" path="api-handbook"}
 IBM Cloud API Handbook
 
     {: .navgroup id="reference"}
