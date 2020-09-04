@@ -18,7 +18,7 @@ model.
 In designing an API, the system must be decomposed into resources and each resource carefully
 modeled. This process must be guided by how the consumer is expected to understand the system. It
 should not be dictated by how the system itself represents or stores objects internally. The mapping
-between models and internal structures—such as classes—must be well-behaved but it need not be
+between models and internal structures — such as classes — must be well-behaved but it need not be
 one-to-one.
 
 An API's models should be described and implemented consistently in the API's specification and
@@ -43,21 +43,21 @@ Types constrain the kinds of values a field can contain. Each field must support
 below types. Note that most field types are stricter than their base JSON type. Each type below is
 linked to more information.
 
-* An [Identifier](types.html#identifier) field contains a string value uniquely identifying a
+* An [Identifier](/docs/api-handbook/design/types.html#identifier) field contains a string value uniquely identifying a
   resource.
-* A [Boolean](types.html#boolean) field contains a `true` or `false` value.
-* An [Integer](types.html#integer) field contains a whole number.
-* A [Float](types.html#float) field contains a number that could have a decimal point or scientific
+* A [Boolean](/docs/api-handbook/design/types.html#boolean) field contains a `true` or `false` value.
+* An [Integer](/docs/api-handbook/design/types.html#integer) field contains a whole number.
+* A [Float](/docs/api-handbook/design/types.html#float) field contains a number that could have a decimal point or scientific
   notation.
-* A [String](types.html#string) field contains a free-form string.
-* A [Date](types.html#date) field contains a specifically-formatted date string.
-* A [Date/Time](types.html#datetime) field contains a specifically-formatted date and time string.
-* A [CRN](types.html#crn) field contains a Cloud Resource
+* A [String](/docs/api-handbook/design/types.html#string) field contains a free-form string.
+* A [Date](/docs/api-handbook/design/types.html#date) field contains a specifically-formatted date string.
+* A [Date/Time](/docs/api-handbook/design/types.html#datetime) field contains a specifically-formatted date and time string.
+* A [CRN](/docs/api-handbook/design/types.html#crn) field contains a Cloud Resource
 	Name.
-* An [Enumeration](types.html#enumeration) field contains one of a predefined set of lower snake
+* An [Enumeration](/docs/api-handbook/design/types.html#enumeration) field contains one of a predefined set of lower snake
   case strings.
-* A [Model](types.html#model) field contains a nested object. This object must be an instance of a
+* A [Model](/docs/api-handbook/design/types.html#model) field contains a nested object. This object must be an instance of a
   specific model; the field's definition must specify this model.
-* An [Array](types.html#array) field contains an array which itself contains zero or more values.
+* An [Array](/docs/api-handbook/design/types.html#array) field contains an array which itself contains zero or more values.
   Each value must conform to a specific type (excluding the Array type itself); the field's
   definition must specify this type.
