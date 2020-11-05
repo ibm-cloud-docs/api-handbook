@@ -233,7 +233,7 @@ A date/time value which case-insensitively matches either of the valid date/time
 be considered a valid date/time value. A date/time value provided by the client SHOULD NOT be
 required to have the same precision—either second or millisecond—as the field returns.
 
-Additionally, a date value provided as input SHOULD be permitted to supply an explicit timezone
+Additionally, a date/time value provided as input SHOULD be permitted to supply an explicit timezone
 offset in place of a literal `Z`. This offset MUST be formatted as `±HH:mm` where:
 
 * `±` is a literal `+` or `-`
@@ -241,7 +241,7 @@ offset in place of a literal `Z`. This offset MUST be formatted as `±HH:mm` whe
 * `mm` is the number of additional minutes by which the timezone differs from UTC
 
 In particularly delicate situations where input must be guaranteed to be correct, input with no
-timezone offset (i.e., input in UTC) MAY be required.
+timezone offset (that is, input in UTC indicated by a literal `Z`) MAY be required.
 
 All other values MUST NOT be considered valid. An invalid date/time value in the request body MUST
 be rejected with a `400` status code and appropriate error response model if the field is required
