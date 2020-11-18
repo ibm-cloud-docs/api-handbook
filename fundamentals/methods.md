@@ -98,9 +98,10 @@ supported to give the client control over whether the resource is included.
 
 ## PATCH
 
-A successful `PATCH` request SHOULD update one or more fields on a resource. The resource updated by
-a `PATCH` request MUST be located at the URI used in the request.[^patch-uri] Unlike with a `PUT`
-request, services SHOULD NOT require a `PATCH` request to reference all mutable fields.
+A `PATCH` request SHOULD specify new values for one or more fields on a resource and SHOULD be
+considered successful if each field was updated to, or already contained, the value specified in the request.
+The resource updated by a `PATCH` request MUST be located at the URI used in the request.[^patch-uri]
+Unlike with a `PUT` request, services SHOULD NOT require a `PATCH` request to reference all mutable fields.
 
 Services MAY support either or both of the below formats for `PATCH` requests:
 

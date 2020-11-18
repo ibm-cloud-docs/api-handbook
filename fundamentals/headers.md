@@ -80,8 +80,11 @@ header.
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
-| [ETag](https://tools.ietf.org/html/rfc7232#section-2.3) | Response | The `ETag` header MAY be supplied with the response to any `GET` or `HEAD` request. It MUST be supplied for any resources which support the `If-Match` or `If-None-Match` headers for any methods. If supported, the `ETag` SHOULD be a quoted lowercase base-36 string, at least 16 characters in length (e.g., `"md9weho39cn2302n"`). It MUST be based on a checksum or hash of the resource that guarantees it will change if the resource representation changes. |
+| [ETag](https://tools.ietf.org/html/rfc7232#section-2.3) | Response | The `ETag` header MAY be supplied with the response to any `GET` or `HEAD` request. It MUST be supplied for any resources which support the `If-Match` or `If-None-Match` headers for any methods. If supported, the `ETag` SHOULD be a quoted lowercase base-36 string, at least 16 characters in length (e.g., `"md9weho39cn2302n"`) and MUST be based on a checksum or hash of the resource that guarantees it will change if the resource changes. The value MUST have a `W/` prefix if strong ETag semantics are not supported. Even if `W/`-prefixed, an `ETag` MUST be guaranteed to change if any properties are changed that are directly mutable by a client. |
 | [Last-Modified](https://tools.ietf.org/html/rfc7232#section-2.2) | Response | The `Last-Modified` header MAY be supplied with the response to any `GET` or `HEAD` request. It MUST be supplied for any resources which support the `If-Modified-Since` or `If-Unmodified-Since` headers for any methods. It MUST contain a valid [HTTP-date](https://tools.ietf.org/html/rfc5322#section-3.3) value (e.g., `Tue, 15 Nov 1994 12:45:26 GMT`) and MUST NOT be a date/time occurring in the future. |
+
+If `ETag` is supplied for any resources within a service, it SHOULD be supplied for all resources in
+the service.
 
 ## Conditional headers
 
@@ -95,6 +98,16 @@ up-to-date and use optimistic locking in order to mitigate race conditions.
 | [If-Modified-Since](https://tools.ietf.org/html/rfc7232#section-3.3) | Request | This header MAY be supported for any request; it is particularly applicable to `GET` and `HEAD` requests. It addresses similar needs to the `If-None-Match` header, but because of its increased precision, documentation SHOULD encourage clients to use `If-None-Match` where possible. If this condition fails for a `GET` or `HEAD` request, the server MUST send a response with a `304` status and no body. If it fails for a request of any other method, the server MUST send a `412` status and an appropriate error response model. |
 | [If-Unmodified-Since](https://tools.ietf.org/html/rfc7232#section-3.4) | Request | This header MAY be supported for any request; it is particularly applicable to `POST`, `PUT`, `PATCH`, and `DELETE`. It addresses similar needs to the `If-Match` header, but because of its increased precision, documentation SHOULD encourage clients to use `If-Match` where possible. If this condition fails, the server MUST send a `412` status and an appropriate error response model. |
 | [If-Range](https://tools.ietf.org/html/rfc7233#section-3.2) | Request | This header MAY be supported for requests which support the `Range` header. If this condition fails, the server MUST ignore the `Range` header and send the entire resource. |
+
+If any conditional headers are supported for any operation within a service, the same conditional 
+headers MUST be supported for all methods of any path that supports them and SHOULD be supported 
+uniformly for all operations across the service.
+
+If a client sends an unsupported conditional header with a request, the server SHOULD return a 
+`400` error with an error model indicating that the header is unsupported. If any 
+[validator](#validator-headers) or conditional headers are supported for any operations in the
+service, such an error MUST be returned for all unsupported conditional headers across all
+operations.[^conditional-header-requirements]
 
 ## CORS headers
 
@@ -190,3 +203,5 @@ parameter `if_match`.
 [^rate-limiting-retry-after]: The Retry-After header is defined in [IETF RFC 7231](https://tools.ietf.org/html/rfc7231#section-7.1.3). The rate-limiting implementation in CloudFlare does provide the Retry-After header in 429 responses.
 
 [^rate-limiting-common-practice]: These headers are used by [Twitter](https://dev.twitter.com/rest/public/rate-limiting), [GitHub](https://developer.github.com/v3/rate_limit/), [Atlassian](https://developer.atlassian.com/hipchat/guide/hipchat-rest-api/api-rate-limits), and others.
+
+[^conditional-header-requirements]: In other words, once a service gives the client reason to believe it understands conditional headers, it MUST NOT ever ignore them.

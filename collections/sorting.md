@@ -28,20 +28,20 @@ the valid sort fields. For example, the following expression would sort accounts
 
 `GET /v2/accounts?sort=company_name`
 
-The client MUST also be able to prepend the field with a `+` or `-` character, indicating
-"ascending" or "descending," respectively. For example, the expression below would sort on the last
-name of the account owner, in descending order:
+The client MUST also be able to prefix the field with a `-` character[^plus-deprecated], indicating
+a descending sort order. For example, the expression below would sort on the last name of the
+account owner, in descending order:
 
 `GET /v2/accounts?sort=-owner.last_name`
 
-If neither of these characters are provided, the sort MUST be done in ascending order.
+If the `-` prefix is not provided, the sort MUST be done in ascending order.
 
 An unrecognized or unsupported sort field MUST be ignored.
 
 ## Multi-field sorting
 
 Collections that support sorting on multiple fields MUST allow the `sort` parameter to contain a
-comma-separated sequence of fields (each, optionally, with a `+` or `-`) in the same format as
+comma-separated sequence of fields (each, optionally, with a `-` prefix) in the same format as
 described above for single-field sorting. Sorts MUST be applied to the data set in the order that
 they are provided. For example, the expression below would sort accounts first on company name
 (ascending) and second on owner last name (descending):
@@ -53,3 +53,7 @@ An unrecognized or unsupported sort field or a repeated sort field MUST be ignor
 [^custom-sorting-optional]: It is worth noting, however, that paginated collections [must
   provide](/docs/api-handbook/collections/pagination.html#pagination-and-sorting) at least a default
   sort and supplement any custom sorts to ensure a consistent order.
+
+[^plus-deprecated]: A previous version of the API Handbook recommended that a `+` prefix also be
+supported to explicitly request ascending order. This is no longer recommended for APIs except to
+maintain backward-compatibility.
