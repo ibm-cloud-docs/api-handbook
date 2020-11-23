@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2020
+lastupdated: "2020-11-23"
 
 subcollection: api-handbook
 
@@ -12,7 +12,7 @@ subcollection: api-handbook
 
 In the event that a request cannot be fulfilled, the server MUST return an appropriate `400`-series
 or `500`-series status code. More information on when specific status codes should be used can be
-found in the [Status Codes](/docs/api-handbook/fundamentals/status-codes.html) section. If a `400`-series or
+found in the [Status Codes](/docs/api-handbook?topic=api-handbook-status-codes) section. If a `400`-series or
 `500`-series status code is returned, the response body MUST be an error container model.
 
 Any `500` or `503` response made in production MUST be logged and treated as a critical failure
