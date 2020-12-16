@@ -51,3 +51,50 @@ _all_ tickets, a collection would exist at, for example, `/v2/tickets` and an in
 Additionally, if a collection of all tickets exists, it may be more practical for the collection of
 tickets belonging to user `123` to exist at `/v2/tickets?user=123` than at `/v2/users/123/tickets`.
 It is not forbidden, however, for a server to implement such collections redundantly.
+
+## Query parameters
+
+### Case insensitivity
+
+Query parameter names SHOULD NOT be case-normalized to support case insensitivity; a parameter that
+does not match the case of a defined parameter but otherwise matches its name SHOULD be treated as
+any other extraneous input[^parameter-case-normalization].
+
+However, parameter name case normalization MAY be supported for backward compatibility with
+existing clients.
+
+[^parameter-case-normalization]: Case normalization is often an error-prone process, however simple
+  it may seem. One problem is that different standard libraries may not agree on the
+  lowercase-equivalent value for a particular string. For example, `"İstanbul".ToLowerCase()` in
+  JavaScript yields `i̇stanbul` (note the two dots over the first character), but
+  `"strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
+  If the code that validates and the code that actually uses a particular string value disagree on
+  the normalization, it could lead to a bug that could be exploited to validate one value and use
+  another.
+
+### Parameter duplication
+
+Requests that provide a query string with duplicate single-value[^single-value] query parameters of
+the same name and differing values[^duplicate-query-parameters] MUST result in a `400` status and
+appropriate error response model. For backward compatibility with existing clients, query strings
+containing duplicate query parameters of the same name and with the same value MAY be
+supported[^exact-duplicate-parameters]. 
+
+If a service supports parameter name [case insensitivity](#case-insensitivity), parameter names MUST
+be normalized prior to validating uniqueness.
+
+Support for array input in query parameters SHOULD use comma-separated values within a single
+parameter (for example, `foo=1,2,3`) instead of duplicated[^array-parameter-duplication] parameters
+(`foo=1&foo=2&foo=3`).
+
+[^single-value]: That is, query parameters that do not support array input.
+
+[^duplicate-query-parameters]: Silent support for ambiguously duplicated query parameters increases
+  the risk that a malicious client could craft a request that bypasses critical authorization or
+  validation checks.
+
+[^exact-duplicate-parameters]: That is, exactly duplicated parameters can be treated as if only one
+  parameter with the duplicated name and value was provided.
+  
+[^array-parameter-duplication]: While this kind of parameter duplication is not ambiguous per se,
+  tooling support for constructing and parsing such query strings is uneven.
