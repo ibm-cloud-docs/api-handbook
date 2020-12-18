@@ -75,7 +75,7 @@ and the sum of all query parameter maximum lengths (along with the names and con
 and `=` for each parameter) for a single operation SHOULD be less than 7000 bytes[^7000-you-say].
 
 [^7000-you-say]: The recommended maximum URI length is 8000 bytes; leaving 1000 bytes for
-  imaginatively long fully qualified domain name and path segments, it shouldn't be impossible to craft
+  imaginatively long fully qualified domain name and path segments, it should be impossible to craft
   a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
   allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
 
