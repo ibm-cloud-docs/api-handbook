@@ -21,13 +21,27 @@ industry-specific need.
 All JSON data MUST be structured in an object at the top level; arrays MUST NOT be returned as the
 top-level structure in a response body.[^never-use-root-arrays]
 
+## Request body constraints
+
+Services MUST have a documented and enforced maximum payload size for request bodies. Requests with
+bodies larger than the limit MUST be rejected with a `413 Payload Too Large` status code and
+appropriate error response model.
+
+If the request body size can be determined from the request headers, the request MUST be rejected
+prior to any processing of the payload[^processing]. For chunked transfer or other cases where the
+request body size cannot be predetermined, the request SHOULD be rejected as soon as it has been
+determined to exceed the limit. 
+
+[^processing]: Specifically, a service SHOULD NOT attempt to parse the JSON in a payload prior to
+  checking and enforcing the size limit.
+
 ## Content-Type behavior
 
 If a request `Accept` header is either not provided or matches[^matching-accept-content-type]
 `application/json`, the response MUST be JSON and its `Content-Type` header MUST be
 `application/json`.
 
-# JSON processing
+## JSON processing
 
 ### Case insensitivity
 
@@ -42,12 +56,12 @@ clients.
   it may seem. One problem is that different standard libraries may not agree on the
   lowercase-equivalent value for a particular string. For example, `"İstanbul".ToLowerCase()` in
   JavaScript yields `i̇stanbul` (note the two dots over the first character), but
-  `"strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
-  If the code that validates and the code that actually uses a particular string value disagree on
-  the normalization, it could lead to a bug that could be exploited to validate one value and use
-  another.
+  `strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
+  If the code that validates and the code that actually uses a particular field disagree on the
+  normalization of its name, it could lead to a bug that could be exploited to validate one value and
+  use another.
   
-## Ambiguous JSON data
+### Ambiguous JSON data
 
 Duplicate field names MUST NOT exist in any one JSON object[^one-json-object] contained in a JSON
 response. If duplicate field names exist in an object within a request payload, the request MUST be
@@ -55,7 +69,7 @@ rejected[^duplicate-json-field-names] with a `400` status and appropriate error 
 
 Be aware that the JSON specification itself does not strictly prohibit duplicate field names in a
 single object and many unmarshalling libraries may silently choose from among duplicated fields.
-{:important: .important}
+{: important}
 
 If a service supports field name [case insensitivity](#case-insensitivity), field names MUST be
 normalized prior to validating uniqueness.

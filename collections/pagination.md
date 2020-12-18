@@ -58,9 +58,10 @@ but MAY be named `token`, for accepting a page token that specifies the resource
 to start the page on or after.
 The collection MAY also support the `limit` query parameter.
 
-Page tokens MUST be `string` values and SHOULD be presented as opaque values.
-If it is impractical for page tokens to be opaque, clients SHOULD still be discouraged from
-generating their own tokens.
+Page tokens MUST be `string` values and SHOULD be presented as opaque values. If it is impractical
+for page tokens to be opaque, clients SHOULD still be discouraged from generating their own tokens.
+Page tokens MUST have an enforced maximum length and that length SHOULD be documented and SHOULD be
+no more than 512 characters.
 
 A request made using a page token from `next`, `previous`, or `last` MUST NOT affect the response of a
 subsequent request using the same page token.

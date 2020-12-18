@@ -52,7 +52,32 @@ Additionally, if a collection of all tickets exists, it may be more practical fo
 tickets belonging to user `123` to exist at `/v2/tickets?user=123` than at `/v2/users/123/tickets`.
 It is not forbidden, however, for a server to implement such collections redundantly.
 
+## Contraints
+{: #uri-constraints}
+
+Services MUST have a documented and enforced service-wide length limit for URIs and this limit
+SHOULD be 8000 bytes[^uri-limit-rationale]. Requests with URIs longer than the limit MUST be
+rejected prior to any processing of the payload with a `414 URI Too Long` status code and
+appropriate error response model.
+
+[^uri-limit-rationale]: [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.1.1) recommends
+  supporting a _minimum_ URI length of 8000 octets. Given that various tools written to this
+  standard may support _no more_ than this recommended minimum, this handbook recommends a limit of
+  _exactly_ 8000 bytes.
+
 ## Query parameters
+
+### Contraints
+{: #query-parameter-constraints}
+
+Each query parameter supported for an operation MUST have a documented and enforced maximum length
+and the sum of all query parameter maximum lengths (along with the names and control characters `&`
+and `=` for each parameter) for a single operation SHOULD be less than 7000 bytes[^7000-you-say].
+
+[^7000-you-say]: The recommended maximum URI length is 8000 bytes; leaving 1000 bytes for
+  imaginatively long fully qualified domain name and path segments, it shouldn't be impossible to craft
+  a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
+  allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
 
 ### Case insensitivity
 
@@ -67,10 +92,10 @@ existing clients.
   it may seem. One problem is that different standard libraries may not agree on the
   lowercase-equivalent value for a particular string. For example, `"İstanbul".ToLowerCase()` in
   JavaScript yields `i̇stanbul` (note the two dots over the first character), but
-  `"strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
-  If the code that validates and the code that actually uses a particular string value disagree on
-  the normalization, it could lead to a bug that could be exploited to validate one value and use
-  another.
+  `strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
+  If the code that validates and the code that actually uses a particular parameter disagree on the
+  normalization of its name, it could lead to a bug that could be exploited to validate one value and
+  use another.
 
 ### Parameter duplication
 
