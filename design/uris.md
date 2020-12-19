@@ -51,3 +51,75 @@ _all_ tickets, a collection would exist at, for example, `/v2/tickets` and an in
 Additionally, if a collection of all tickets exists, it may be more practical for the collection of
 tickets belonging to user `123` to exist at `/v2/tickets?user=123` than at `/v2/users/123/tickets`.
 It is not forbidden, however, for a server to implement such collections redundantly.
+
+## Contraints
+{: #uri-constraints}
+
+Services MUST have a documented and enforced service-wide length limit for URIs and this limit
+SHOULD be 8000 bytes[^uri-limit-rationale]. Requests with URIs longer than the limit MUST be
+rejected prior to any processing of the payload with a `414 URI Too Long` status code and
+appropriate error response model.
+
+[^uri-limit-rationale]: [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.1.1) recommends
+  supporting a _minimum_ URI length of 8000 octets. Given that various tools written to this
+  standard may support _no more_ than this recommended minimum, this handbook recommends a limit of
+  _exactly_ 8000 bytes.
+
+## Query parameters
+
+### Contraints
+{: #query-parameter-constraints}
+
+Each query parameter supported for an operation MUST have a documented and enforced maximum length
+and the sum of all query parameter maximum lengths (along with the names and control characters `&`
+and `=` for each parameter) for a single operation SHOULD be less than 7000 bytes[^7000-you-say].
+
+[^7000-you-say]: The recommended maximum URI length is 8000 bytes; leaving 1000 bytes for
+  imaginatively long fully qualified domain name and path segments, it should be impossible to craft
+  a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
+  allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
+
+### Case insensitivity
+
+Query parameter names SHOULD NOT be case-normalized to support case insensitivity; a parameter that
+does not match the case of a defined parameter but otherwise matches its name SHOULD be treated as
+any other extraneous input[^parameter-case-normalization].
+
+However, parameter name case normalization MAY be supported for backward compatibility with
+existing clients.
+
+[^parameter-case-normalization]: Case normalization is often an error-prone process, however simple
+  it may seem. One problem is that different standard libraries may not agree on the
+  lowercase-equivalent value for a particular string. For example, `"İstanbul".ToLowerCase()` in
+  JavaScript yields `i̇stanbul` (note the two dots over the first character), but
+  `strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
+  If the code that validates and the code that actually uses a particular parameter disagree on the
+  normalization of its name, it could lead to a bug that could be exploited to validate one value and
+  use another.
+
+### Parameter duplication
+
+Requests that provide a query string with duplicate single-value[^single-value] query parameters of
+the same name and differing values[^duplicate-query-parameters] MUST result in a `400` status and
+appropriate error response model. For backward compatibility with existing clients, query strings
+containing duplicate query parameters of the same name and with the same value MAY be
+supported[^exact-duplicate-parameters]. 
+
+If a service supports parameter name [case insensitivity](#case-insensitivity), parameter names MUST
+be normalized prior to validating uniqueness.
+
+Support for array input in query parameters SHOULD use comma-separated values within a single
+parameter (for example, `foo=1,2,3`) instead of duplicated[^array-parameter-duplication] parameters
+(`foo=1&foo=2&foo=3`).
+
+[^single-value]: That is, query parameters that do not support array input.
+
+[^duplicate-query-parameters]: Silent support for ambiguously duplicated query parameters increases
+  the risk that a malicious client could craft a request that bypasses critical authorization or
+  validation checks.
+
+[^exact-duplicate-parameters]: That is, exactly duplicated parameters can be treated as if only one
+  parameter with the duplicated name and value was provided.
+  
+[^array-parameter-duplication]: While this kind of parameter duplication is not ambiguous per se,
+  tooling support for constructing and parsing such query strings is uneven.

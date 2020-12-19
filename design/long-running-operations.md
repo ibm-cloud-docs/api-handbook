@@ -43,7 +43,7 @@ The normal `GET` operation for the resource can then be used to poll for the com
 The operation resource MUST contain a status field and this field SHOULD be named `status`.
 The status field SHOULD be defined as an enumeration that includes the following values:
 - `not_started` - the processing for the operation has not started
-- `succeeded `  - the processing for the operation has completed successfully
+- `succeeded`   - the processing for the operation has completed successfully
 - `failed`      - the processing for the operation failed.
 
 The enumeration for the status field SHOULD also have a value that indicates "in progress" --
