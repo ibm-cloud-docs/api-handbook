@@ -23,6 +23,9 @@ HTTP has a set of standard status codes. These fall into five categories:
 Code | Meaning  | Description
 -----|----------|------------
 100  | [Continue](https://tools.ietf.org/html/rfc7231#section-6.2.1) | The server MAY respond with this status code if the client sends a preliminary request (sometimes called a "look-before-you-leap" request); this code indicates the client should resend the request, in full (including the previously omitted representation). This code MUST NOT be returned unless the `Expect` request header was provided with a value of `100-continue`.
+101  | This status MUST be returned for successful requests that include a supported use of the `Upgrade` header. This status MUST NOT be returned except for operations which exist specifically to switch protocols[^only-for-protocol-switching]. For example, the HTTP handshake for a WebSocket connection returns `101 Switching Protocols` and this handshake MAY be documented as an operation in an HTTP API.
+
+[^only-for-protocol-switching]: That is, services MUST NOT expect or encourage clients to handle protocol switching as a part of operations which may result in normal, successful (`2xx`) HTTP responses.
 
 ## Success: 2xx
 

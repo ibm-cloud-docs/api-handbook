@@ -68,6 +68,9 @@ header.
 | [Accept-Language](https://tools.ietf.org/html/rfc7231#section-5.3.5) | Request  | For requests including this header, the server MAY attempt to return resource in an acceptable language. This header MUST NOT be required. Furthermore, the value of this header MUST NOT prevent a request from succeeding. |
 | [Accept-Ranges](https://tools.ietf.org/html/rfc7233#section-2.3) | Response | If a resource supports range requests, this header SHOULD be used to indicate what ranges are supported. |
 | [Allow](https://tools.ietf.org/html/rfc7231#section-7.4.1) | Response | This header MUST be used to indicate allowable request methods in a `405` response. If deemed useful, it MAY be included in any other response. |
+| [Upgrade](https://tools.ietf.org/html/rfc7230#section-6.7) | Request, Response | This header MAY be supported for requests and included in responses, in keeping with HTTP standards, to negotiate the use of a new protocol on the same connection. This header MUST NOT be supported except for operations which exist specifically to switch protocols[^only-for-protocol-switching]. The successful outcome of an operation that supports this header (either for requests or responses) MUST be a `101 Switching Protocols` status. |
+
+[^only-for-protocol-switching]: That is, services MUST NOT expect or encourage clients to handle protocol switching as a part of operations which may result in normal, successful (`2xx`) HTTP responses.
 
 ## Authentication headers
 
