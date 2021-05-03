@@ -102,12 +102,12 @@ up-to-date and use optimistic locking in order to mitigate race conditions.
 | [If-Unmodified-Since](https://tools.ietf.org/html/rfc7232#section-3.4) | Request | This header MAY be supported for any request; it is particularly applicable to `POST`, `PUT`, `PATCH`, and `DELETE`. It addresses similar needs to the `If-Match` header, but because of its increased precision, documentation SHOULD encourage clients to use `If-Match` where possible. If this condition fails, the server MUST send a `412` status and an appropriate error response model. |
 | [If-Range](https://tools.ietf.org/html/rfc7233#section-3.2) | Request | This header MAY be supported for requests which support the `Range` header. If this condition fails, the server MUST ignore the `Range` header and send the entire resource. |
 
-If any conditional headers are supported for any operation within a service, the same conditional 
-headers MUST be supported for all methods of any path that supports them and SHOULD be supported 
+If any conditional headers are supported for any operation within a service, the same conditional
+headers MUST be supported for all methods of any path that supports them and SHOULD be supported
 uniformly for all operations across the service.
 
-If a client sends an unsupported conditional header with a request, the server SHOULD return a 
-`400` error with an error model indicating that the header is unsupported. If any 
+If a client sends an unsupported conditional header with a request, the server SHOULD return a
+`400` error with an error model indicating that the header is unsupported. If any
 [validator](#validator-headers) or conditional headers are supported for any operations in the
 service, such an error MUST be returned for all unsupported conditional headers across all
 operations.[^conditional-header-requirements]
@@ -164,6 +164,31 @@ services which opt to implement support for CORS.
 | [Vary](https://tools.ietf.org/html/rfc7231#section-7.1.4) | Response | This header specifies what request fields may affect the outcome of a request. It MAY be supported if the presence of caches is anticipated or to proactively signal support for different content format, encodings, languages, etc.  |
 | [Warning](https://tools.ietf.org/html/rfc7234#section-5.5) | Response | This header gives additional information that might not be conveyed in the status code and doesn't represent a total failure. It MAY be supported, particularly if the presence of caches is anticipated. |
 
+## Tracing headers
+
+Tracing headers allow services to log and propagate the context of individual requests and requests
+that are part of a larger context.
+
+A value for one of these headers MAY include ASCII alphanumerics and any of following segment
+separators: space (` `), comma (`,`), hyphen, (`-`), and underscore (`_`) and MAY have a length up
+to 1024 bytes. A value MUST be considered invalid and MUST be ignored if that value includes any
+other character or is longer than 1024 bytes.
+
+A value for one of these headers SHOULD be considered invalid and SHOULD be ignored if that value
+is known to be of static origin (such as an all-zero UUID) or insufficiently unique (such as a
+value with fewer than 8 characters).
+
+A value for the `X-Correlation-ID` header MUST be considered invalid and MUST be ignored if it is
+supplied by a client known to be untrusted (that is, a client not written and operated by IBM
+itself). This directive does not apply to a value for `X-Request-ID`.
+
+If a value for one of these headers is invalid or not supplied in a request, the service MUST
+generate a random (version 4) UUID to use in place of a client-supplied value.
+
+| Header                | Type     | Description                              |
+| --------------------- | -------- | ---------------------------------------- |
+| X-Request-ID | Request, Response | The supplied or generated value of this header MUST be logged for a request and repeated in a response header for the corresponding response. The same value MUST NOT be used for downstream requests or between retries of those requests. Documentation for a service SHOULD encourage all client developers to supply this header with a random UUID. |
+| X-Correlation-ID | Request, Response | The supplied or generated value of this header MUST be logged for a request and repeated in a response header for the corresponding response. The same value MUST be used for downstream requests and retries of those requests. Documentation for a service SHOULD encourage internal client developers to supply this header with a random UUID or (if available) a valid, trusted upstream value. |
 
 ## Rate limiting headers
 
