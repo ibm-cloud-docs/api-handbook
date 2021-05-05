@@ -16,6 +16,7 @@ IBM Cloud API Handbook
 
     {: topicgroup}
     Design
+        design/resources.md
         design/terminology.md
         design/models.md
         design/types.md
