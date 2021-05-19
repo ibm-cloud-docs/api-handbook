@@ -43,10 +43,22 @@ update.
 #### Breaking updates
 
 In rare cases, it might be necessary to make a backward-incompatible change retroactive for a major
-version and (if applicable) across all version dates.
+version and (if applicable) across all version dates. Such changes are considered "breaking," because
+they could affect existing clients that are using existing API versions.
 
-Exceptions for breaking updates MUST be justified by a security concern, legal obligation, or
-significant cost of continuing to support the previous behavior.
+Breaking API changes that are needed to mitigate a vulnerability that poses an imminent threat to the
+security of a service or its users MUST NOT be delayed to accommodate a deprecation period and MUST
+be coordinated with the organization's broader security incident response team[^psirt].
+
+[^psirt]: Such as IBM's own [Product Security Incident Response Team
+  (PSIRT)](https://www.ibm.com/trust/security-psirt).
+
+Breaking API changes that are needed to adhere to updated security best practices (but not needed to
+mitigate an imminent threat) MAY be made with an abbreviated deprecation period and SHOULD be
+preceded by targeted notifications to client maintainers.
+
+Breaking changes MUST be justified by a security issue, legal or regulatory obligation, or undue
+economic burden.
 
 ## Determining compatibility
 
