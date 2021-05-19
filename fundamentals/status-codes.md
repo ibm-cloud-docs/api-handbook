@@ -94,7 +94,7 @@ Code | Meaning  | Description
 405  | [Method Not Allowed](http://tools.ietf.org/html/rfc7231#section-6.5.5) | This code SHOULD be returned when the requested resource doesn't support the request method. When this code is returned the response MUST include the `Allow` header with the list of accepted request methods for the resource. This code MUST only be used when one of the [Methods](/docs/api-handbook/fundamentals/methods.html) documented in this handbook is not valid for a particular URI. See also `501` under [server errors](#server-errors-5xx).[^405-versus-501]
 406  | [Not Acceptable](http://tools.ietf.org/html/rfc7231#section-6.5.6) | This code MUST be returned when the resource the client requested is not available in a format allowed by the `Accept` header the client supplied.
 408  | [Request Timeout](http://tools.ietf.org/html/rfc7231#section-6.5.7) | This code SHOULD be returned when the client took too long to finish sending the request.
-409  | [Conflict](http://tools.ietf.org/html/rfc7231#section-6.5.8) | This code SHOULD be returned when the request cannot be processed because of a conflict between the request and the current state of the resource. It MAY indicate that changes which the client is unaware of have taken place.
+409  | [Conflict](http://tools.ietf.org/html/rfc7231#section-6.5.8) | This code SHOULD be returned when the request cannot be processed because of a conflict between the request and the current client-controlled state in the system. See [Conflicts](#conflicts).
 410  | [Gone](http://tools.ietf.org/html/rfc7231#section-6.5.9) | This code MAY be returned to indicate that a resource is no longer available and is not expected to return to availability. However, if it is impractical for a system to maintain a record of deleted or purged resources, or poses a security risk, `404` MAY be returned instead.
 412  | [Precondition Failed](http://tools.ietf.org/html/rfc7232#section-4.2) | This code MUST be returned when the client specified one or more preconditions in its headers, and the server cannot meet those preconditions.
 413  | [Payload Too Large](https://tools.ietf.org/html/rfc7231#section-6.5.11) | This code MUST be returned when a request payload size exceeds [the documented limit](/docs/api-handbook?topic=api-handbook-format#request-body-constraints).
@@ -104,10 +104,71 @@ Code | Meaning  | Description
 429  | [Too Many Requests](http://tools.ietf.org/html/rfc6585#section-4) | This code MUST be returned when rate-limiting is in use, and the client has sent too many requests for a given time period.
 
 ### Security implications of 401 and 403
+{: #information-exposure-with-401-and-403}
 
 There may be times when returning a `401` or a `403` would reveal the presence of a resource on the
-server that a client should not even be allowed to know exists. In these cases, the server MUST
-respond with a `404` even for requests that would succeed with proper authentication.
+server that a client should not be allowed to know exists. In these cases, the server MUST
+respond with the status code that would be used if the resource did not exist, even for requests
+that would succeed with proper authentication.
+
+For example, for a `GET` request for a resource that the client is not allowed to know exists, the
+server MUST respond with a `404 Not Found`. Or, for the creation of a binding to that resource,
+the server MUST respond with a `400 Bad Request`, exactly as if the resource did not exist.
+
+### Conflicts
+
+Though [RFC 7231][rfc-7231-409] suggests `409 Conflict` be limited to conflicts between a request
+and the "target resource," this handbook recommends a broader view of what constitutes a
+conflict. Specifically, a request SHOULD be deemed in conflict (and receive a `409` status code) if
+the request is syntactically and semantically valid but cannot be processed because of the
+client-mutable state of one or more existing resources that would be used by the request in a way
+the system deems invalid.
+
+`409 Conflict` SHOULD NOT be returned for a request that the system can determine could not be
+successfully resubmitted after the client made other requests to resolve conflicts with the state
+of existing resources.
+
+[rfc-7231-409]: https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8
+
+The following scenarios SHOULD result in a `409 Conflict`:
+
+- A request would update a certain property in a resource with a value that isn't compatible with
+  the current value of another property in the resource.
+- A request would update or create a resource with a binding to an existing resource that already
+  has an exclusive binding or has reached its binding limit.
+- A request would use an existing resource (for example, to generate a new resource) which has
+  client-mutable state preventing such use.
+- A request would delete a resource that another resource depends on.
+
+The following scenarios MUST NOT result in a `409 Conflict`:
+
+- A request has an internal conflict. This SHOULD result in a `400 Bad Request`.
+- A request depends on a resource that does not exist. This SHOULD result in a `400 Bad Request`.
+- A request would update or create a resource with a binding to an existing resource that the user
+  is unauthorized to bind to. This SHOULD result in a `403 Forbidden` unless the user is [not
+  permitted to know about](#information-exposure-with-401-and-403) the existing resource.
+- A request would conflict with state that is invisible to clients. This MUST NOT happen by
+  design, but unexpected runtime scenarios MAY result in a `500 Internal Server Error`.
+- A request would conflict with state that is immutable for clients. This SHOULD result in a
+  `400 Bad Request`.
+- A safe[^safe-requests] request cannot be made because of the current state of the system. This
+  SHOULD NOT happen by design. Consider modeling the missing functionality as an "empty" resource
+  with a `200 OK` response or an absent resource with a `404 Not Found` response.
+
+The following scenarios SHOULD NOT result in a `409 Conflict`:
+
+- A request cannot be processed because of _transient_ resource state and the client is advised to
+  wait for that state to change and retry the request. This SHOULD NOT happen by design, but if it
+  does, it MAY result in a `409 Conflict`.
+- A request would update or create a resource with a binding to an existing resource which has
+  irrecoverably failed or expired. This SHOULD result in a `400 Bad Request`.
+- A request would use an existing resource (for example, to generate a new resource) which has
+  irrecoverably failed or expired. This SHOULD result in a `400 Bad Request`.
+
+[^safe-requests]: Safe requests are generally limited to those with `GET` or `HEAD` methods but may
+  also include a safe `POST` request in [certain scenarios][post-other-uses].
+
+[post-other-uses]: /docs/api-handbook?topic=api-handbook-methods#other-uses
 
 ## Server errors: 5xx
 

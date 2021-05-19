@@ -64,14 +64,16 @@ considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs)
 
 ### Other uses
 
-Since `POST` requests are the only avenue for handling unsafe and/or non-idempotent operations that
-don't fit into another category, a `POST` request MAY invoke such an operation, even if it does not
-result in the explicit creation of a resource.
+Since `POST` requests are the only avenue for handling unsafe, non-idempotent, or safe and
+body-bearing[^safe-with-body] operations that don't fit into another category, a `POST` request MAY
+invoke such an operation, even if it does not result in the explicit creation of a resource.
 
 In this case, the request body MAY be permitted to be absent or have a format unrelated to any
 resource which can be retrieved using a `GET` request. When such a request is successful, it SHOULD
 return a `200 OK` status (for a response including a description of the result) or a `204 No
 Content` status.[^post-not-for-create]
+
+[^safe-with-body]: Such as a request supporting a complex query in a JSON payload.
 
 ## PUT
 
