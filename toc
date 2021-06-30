@@ -13,6 +13,8 @@ IBM Cloud API Handbook
         fundamentals/methods.md
         fundamentals/headers.md
         fundamentals/status-codes.md
+        fundamentals/authentication.md
+        fundamentals/authorization.md
         fundamentals/encryption.md
 
     {: topicgroup}
