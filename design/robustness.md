@@ -16,7 +16,7 @@ fixture of software design and implementation advice. It states:
 
 > Be liberal in what you accept, and conservative in what you send.
 
-In recent years, this counsel has [proven controversial][postel-was-wrong] and for a number of
+In recent years, this counsel has [proven controversial][postel-was-wrong]. For a number of
 reasons, this handbook discourages broad application of the principle. This is a reversal of
 [previous guidance][mea-culpa].
 
@@ -144,7 +144,7 @@ SHOULD NOT be ignored and SHOULD result in an error.
   [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1) that unknown HTTP
   headers be ignored.
   
-All the downsides listed for [silently ignoring invalid input](#sanitation-and-validation) also
+All of the downsides listed for [silently ignoring invalid input](#sanitation-and-validation) also
 apply to ignoring extraneous input.
 
 Additionally, ignoring extraneous input causes particular hazards for evolving a service in a
