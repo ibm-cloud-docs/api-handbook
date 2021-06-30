@@ -79,6 +79,14 @@ and `=` for each parameter) for a single operation SHOULD be less than 7000 byte
   a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
   allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
 
+### Unrecognized and invalid parameters
+
+To prevent [dangerous client bugs and backward-compatibility hazards][parameter-robustness],
+unrecognized query parameters SHOULD and invalid parameter values MUST result in a `400` status
+code and appropriate error response model.
+
+[parameter-robustness]: /docs/api-handbook?topic=api-handbook-robustness#sanitation-and-validation
+
 ### Case insensitivity
 
 Query parameter names SHOULD NOT be case-normalized to support case insensitivity; a parameter that

@@ -164,6 +164,23 @@ case](#special-cases-for-backward-compatibility) applies:
 - Changing a default value or behavior for an already-valid request
 - Redefining the nature of any relationship between resources
 
+#### Migrating to updated robustness best practices
+{: #robustness-changes }
+
+When migrating an API from previous guidance to this handbook's updated [robustness best
+practices][robustness], the following changes SHOULD be considered backward incompatible:
+
+- Rejecting an invalid or noncanonical value that was previously ignored, or coerced, or
+  canonicalized
+- Rejecting a duplicated or unrecognized query parameter or property in a request schema
+  that was previously ignored
+  
+One of [several strategies][robustness-migration-strategies] MAY be employed to complete this
+transition.
+
+[robustness]: /docs/api-handbook?topic=api-handbook-robustness#best-practices
+[robustness-migration-strategies]: /docs/api-handbook?topic=api-handbook-robustness#migrating-to-best-practices
+
 [^resource-scope]: Where a "resource scope" is the enclosing environment for resources, such as a
 specific account on a specific service deployment.
 

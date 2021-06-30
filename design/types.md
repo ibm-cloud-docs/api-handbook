@@ -88,15 +88,14 @@ A boolean value MUST be returned as the JSON keyword `true` or the JSON keyword
 {: #boolean-request-bodies}
 
 * The JSON keyword `true` or the JSON keyword `false` MUST be considered a valid boolean.
-* Any other value MUST be rejected with a `400` status code and appropriate error response model if
-  the field is required and SHOULD be ignored otherwise, subject to [robustness
-  considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs).
+* Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
 {: #boolean-query-parameters}
 
 * The strings `true` and `false` MUST be case-insensitively matched as valid booleans.
-* Any other string MUST be considered invalid and SHOULD cause the parameter to be ignored.
+* Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
+  appropriate error response model.
 
 The character set of a boolean query parameter value within a request MUST be verified prior to case
 normalization[^boolean-case-normalization].
@@ -141,9 +140,7 @@ included in a request. Failure to match constraints MUST cause the entire reques
   considered a valid integer, but MAY be rejected by other validation rules.
 * The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
   otherwise.
-* Any other value MUST be rejected with a `400` status code and appropriate error response model if
-  the field is required and SHOULD be ignored otherwise, subject to [robustness
-  considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs).
+* Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
 {: #integer-query-parameters}
@@ -154,7 +151,8 @@ included in a request. Failure to match constraints MUST cause the entire reques
   exponential value) MAY be used for comparative filtering but MUST NOT be considered an exact
   match.
 * The lowercase string `null` MUST be considered a match for an explicitly null value.
-* Any other string MUST be considered invalid and SHOULD cause the parameter to be ignored.
+* Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
+  appropriate error response model.
 
 
 ## Float
@@ -197,9 +195,7 @@ code and appropriate error response model.
   rules.
 * The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
   otherwise.
-* Any other value MUST be rejected with a `400` status code and appropriate error response model if
-  the field is required and SHOULD be ignored otherwise, subject to [robustness
-  considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs).
+* Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
 {: #float-query-parameters}
@@ -207,7 +203,8 @@ code and appropriate error response model.
 * Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
   MUST be considered a valid float.
 * The lowercase string `null` MUST be considered a match for an explicitly null value.
-* Any other string MUST be considered invalid and SHOULD cause the parameter to be ignored.
+* Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
+  appropriate error response model.
 
 
 ## String
@@ -263,9 +260,10 @@ In this format:
 
 A date value matching the returned format MUST be considered a valid date. All other values MUST NOT
 be considered valid. An invalid date in the request body MUST be rejected with a `400` status code
-and appropriate error response model if the field is required and SHOULD be ignored otherwise,
-subject to [robustness considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs).
-An invalid date in a query parameter SHOULD cause the parameter to be ignored.
+and appropriate error response model.
+
+An invalid date in a query parameter SHOULD be rejected with a `400` status code and appropriate
+error response model.
 
 
 ## Date/Time
@@ -315,10 +313,10 @@ In particularly delicate situations where input must be guaranteed to be correct
 timezone offset (that is, input in UTC as indicated by a literal `Z`) MAY be required.
 
 All other values MUST NOT be considered valid. An invalid date/time value in the request body MUST
-be rejected with a `400` status code and appropriate error response model if the field is required
-and SHOULD be ignored otherwise, subject to [robustness
-considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs). An invalid date/time
-value in a query parameter SHOULD cause the parameter to be ignored.
+be rejected with a `400` status code and appropriate error response model.
+
+An invalid date/time value in a query parameter SHOULD be rejected with a `400` status code and
+appropriate error response model.
 
 
 ## CRN
@@ -382,10 +380,10 @@ enforced prior to any case normalization[^case-normalization].
   ASCII character. This MUST NOT be allowed to occur.
 
 All other values MUST NOT be considered valid. An invalid enumeration value in the request body MUST
-be rejected with a `400` status code and appropriate error response model if the field is required
-and SHOULD be ignored otherwise, subject to [robustness
-considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs). An invalid enumeration
-value in a query parameter SHOULD cause the parameter to be ignored.
+be rejected with a `400` status code and appropriate error response model.
+
+An invalid enumeration value in a query parameter SHOULD be rejected with a `400` status code and
+appropriate error response model.
 
 
 ## Array

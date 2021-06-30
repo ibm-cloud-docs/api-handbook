@@ -59,10 +59,11 @@ including the resource is expensive (in terms of bandwidth or computation), [pre
 headers](/docs/api-handbook/fundamentals/headers.html#preference-headers) SHOULD be supported to
 give the client control over whether the resource is included.
 
-Fields which are not mutable or not recognized SHOULD be ignored, subject to [robustness
-considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs)
+Fields which are not mutable or not recognized MUST result in a `400` status code and appropriate
+error response model.
 
 ### Other uses
+{: #post-other-uses}
 
 Since `POST` requests are the only avenue for handling unsafe, non-idempotent, or safe and
 body-bearing[^safe-with-body] operations that don't fit into another category, a `POST` request MAY
@@ -86,8 +87,8 @@ For example, if `PUT /users/bob` updates a user, `GET /users/bob` MUST retrieve 
 When a `PUT` request is successfully and synchronously used to replace an existing resource, a
 status of `200 OK` MUST be returned.[^put-update-success]
 
-Fields which are not mutable or not recognized SHOULD be ignored, subject to [robustness
-considerations](/docs/api-handbook/design/errors.html#robustness-tradeoffs)
+Fields which are not mutable or not recognized MUST result in a `400` status code and appropriate
+error response model.
 
 In a scenario where the URI of a new resource can be inferred in advance by the client, a `PUT`
 request MAY create a new resource. In this case, if the creation is performed synchronously, the
@@ -124,8 +125,8 @@ resource is expensive (in terms of bandwidth or computation), [preference
 headers](/docs/api-handbook/fundamentals/headers.html#preference-headers) SHOULD be supported to
 give the client control over whether the resource is included.
 
-A `PATCH` request referencing fields which are not mutable or not recognized SHOULD be rejected by
-the service with a `400 Bad Request` status.
+A `PATCH` request referencing fields which are not mutable or not recognized MUST be rejected by
+the service with a `400` status code and appropriate error response model.
 
 ## DELETE
 

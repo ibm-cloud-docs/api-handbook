@@ -135,20 +135,5 @@ enclose field names, parameter names, header names, and specific values.
 
 ## Robustness tradeoffs
 
-In general, it is encouraged for APIs to follow the spirit of the [Robustness
-Principle](https://en.wikipedia.org/wiki/Robustness_principle):
-
-> Be conservative in what you do, be liberal in what you accept from others
-
-It is for this reason that this handbook encourages invalid input to be ignored in various
-scenarios. However, in each case that invalid input could either be ignored or prompt an error, the
-costs of each should be weighed. The cost of throwing an error is straightforward: it establishes a
-barrier, particularly for new client developers, to a successful interaction. If errors are _always_
-returned for extraneous input, they will be returned even for requests where the client intent is
-relatively unambiguous and any potential misunderstanding can be easily corrected. In these cases,
-extraneous or invalid input SHOULD be ignored.
-
-But there are scenarios where ignoring extraneous or invalid input could be costly. Client intent
-might be ambiguous in a way that could cost the client more money than they intended, be difficult
-to correct, or cause instability in a future version of the API. Any extraneous or invalid input
-which causes this kind of ambiguity SHOULD result in an error.
+The robustness principle section has been moved to a [new page](/docs/api-handbook?topic=api-handbook-robustness), and
+the previous guidance has been substantially repudiated.
