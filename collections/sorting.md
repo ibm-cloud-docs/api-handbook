@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2021
+lastupdated: "2021-06-30"
 
 subcollection: api-handbook
 
@@ -36,7 +36,8 @@ account owner, in descending order:
 
 If the `-` prefix is not provided, the sort MUST be done in ascending order.
 
-An unrecognized or unsupported sort field MUST be ignored.
+An unrecognized or unsupported sort field SHOULD result in a `400` status code and appropriate
+error response model.
 
 ## Multi-field sorting
 
@@ -48,7 +49,8 @@ they are provided. For example, the expression below would sort accounts first o
 
 `GET /v2/accounts?sort=company_name,-owner.last_name`
 
-An unrecognized or unsupported sort field or a repeated sort field MUST be ignored.
+An unrecognized or unsupported sort field or a repeated sort field SHOULD result in a `400` status
+code and appropriate error response model.
 
 [^custom-sorting-optional]: It is worth noting, however, that paginated collections [must
   provide](/docs/api-handbook/collections/pagination.html#pagination-and-sorting) at least a default

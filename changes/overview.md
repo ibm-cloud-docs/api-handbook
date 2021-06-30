@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2020
-lastupdated: "2020-02-13"
+  years: 2020, 2021
+lastupdated: "2021-06-30"
 
 subcollection: api-handbook
 
@@ -51,11 +51,23 @@ parameter MUST NOT have any alternative use.
 Each major version of a service MUST support a single range of contiguous API version dates.
 
 A non-deprecated major version of a service MUST support up to (but not beyond) the current date
-(from `00:00 UTC` of that date). An update to the service MAY move the oldest supported API version
-date forward in accordance with deprecation policies.
+(from `00:00 UTC` of that date).
 
-A deprecated major version SHOULD establish a fixed last supported date when its deprecation is
-announced.
+From an API client developer's perspective, any date in the supported range is equally valid. From
+a service developer's point of view, version dates provided by the client SHOULD be canonicalized
+to a small number of "inflection" dates — version dates at which the behavior of the service
+actually changes. This could be considered an exception to the general policy to avoid [unnecessary
+input canonicalization](/docs/api-handbook?topic=api-handbook-robustness#input-canonicalization).
+
+When a client provides a version date between two inflection dates (or after the most recent
+inflection date), the behavior of the API MUST match the behavior defined for the closest _prior_
+inflection date. For example, if the behavior of an API mostly recently changed for the
+`2021-06-01` version date and a client provides `2021-06-30`, that service MUST behave as if
+`2021-06-01` was provided.
+
+An update to the service MAY move the oldest supported API version date forward in accordance with
+deprecation policies. A deprecated major version SHOULD establish a fixed last supported date when
+its deprecation is announced.
 
 ### Version dates
 

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2020-04-12"
+  years: 2019, 2021
+lastupdated: "2021-06-30"
 
 subcollection: api-handbook
 
@@ -102,7 +102,7 @@ each collection based on reasonable maximums for request time and payload size. 
 should be highlighted in the collection's documentation.
 
 If the value provided for `limit` is not a positive integer or is greater than the maximum limit,
-the server MUST ignore the `limit` parameter.
+the server SHOULD return a `400` status code and appropriate error response model.
 
 ### Additional response fields
 {: #additional-response-fields-with-token}
@@ -171,8 +171,8 @@ Any non-negative integer MUST be a valid value for the `offset` parameter. If th
 is greater than or equal to the total number of resources present, the server MUST return an empty
 collection, and MUST NOT return an `400`- or `500`-series response code.
 
-If the value provided for `offset` is _not_ a non-negative integer, the server MUST ignore the
-`offset` parameter.
+If the value provided for `offset` is _not_ a non-negative integer, the server SHOULD return a
+`400` status code and appropriate error response model.
 
 ### Limit
 {: #limit-with-offset}
@@ -190,9 +190,9 @@ consistent across all requests to the collection.[^maximum-limit-consistency] Th
 should be determined for each collection based on reasonable maximums for request time and payload
 size.[^maximum-limit] The maximum limit should be highlighted in the collection's documentation.
 
-If the value provided for `limit` is not a positive integer the server MUST ignore the `limit`
-parameter. If the value provided is greater than the maximum value for the collection, the maximum
-MUST be used for the request.
+If the value provided for `limit` is not a positive integer, or if the value provided is greater
+than the maximum value for the collection, the server SHOULD return a `400` status code and
+appropriate error response model. 
 
 ### Additional response fields
 {: #additional-response-fields-with-offset}
