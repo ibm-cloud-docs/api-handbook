@@ -26,6 +26,7 @@ IBM Cloud API Handbook
         design/uris.md
         design/long-running-operations.md
         design/errors.md
+        design/robustness.md
 
     {: topicgroup}
     Collections
