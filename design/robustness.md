@@ -194,5 +194,5 @@ In particular, the following operations SHOULD support optimistic locking:
 If specific kinds of requests are deemed particularly dangerous in race conditions, a service MAY
 require that the client provide an `If-Match` header.
 
-[validation-headers]: /docs/api-handbook?topic=api-handbook-headers#validator-headers
+[validator-headers]: /docs/api-handbook?topic=api-handbook-headers#validator-headers
 [conditional-headers]: /docs/api-handbook?topic=api-handbook-headers#conditional-headers
