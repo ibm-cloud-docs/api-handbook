@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2021
+lastupdated: "2021-06-30"
 
 subcollection: api-handbook
 
