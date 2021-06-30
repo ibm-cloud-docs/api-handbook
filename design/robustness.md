@@ -144,7 +144,7 @@ SHOULD NOT be ignored and SHOULD result in an error.
   [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1) that unknown HTTP
   headers be ignored.
   
-All the downsides listed for [silently ignoring invalid input](sanitation-and-validation) also
+All the downsides listed for [silently ignoring invalid input](#sanitation-and-validation) also
 apply to ignoring extraneous input.
 
 Additionally, ignoring extraneous input causes particular hazards for evolving a service in a
