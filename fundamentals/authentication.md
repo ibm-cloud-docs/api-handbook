@@ -22,7 +22,7 @@ APIs SHOULD require authentication, though APIs providing publicly available inf
 Non-expiring credentials such as passwords or raw API keys MUST NOT be accepted in production environments.
 
 
-# Additional resources
+## Additional resources
 
 * [API Authorization](/docs/api-handbook?topic=api-handbook-authorization)
 * [IBM Cloud Identity and Accesss Management](/docs/account?topic=account-iamoverview)

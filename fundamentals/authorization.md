@@ -25,7 +25,7 @@ Per the [resource-oriented design](https://cloud.ibm.com/docs/api-handbook?topic
 
 Users can [manage their permissions](https://cloud.ibm.com/docs/account?topic=account-access-getstarted) using IAM, which regulates the scope and access allocated to each API key.
 
-# Additional resources
+## Additional resources
 
 * [Authorization paradigms](/docs/api-handbook?topic=api-handbook-authorization)
 * [IBM Cloud Identity and Accesss Management](/docs/account?topic=account-iamoverview)
