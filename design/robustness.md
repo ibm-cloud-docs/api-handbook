@@ -77,19 +77,20 @@ canonicalize input before sending it.
 
 But the downsides of accepting noncanonical input can be significant:
 
-* Canonicalization can be a complicated procedure with many corner cases and ambiguities that can
-  significantly increase the complexity of an API. This additional complexity makes the service
-  harder to write and maintain and increases the testing and attack surfaces.
-* If canonicalization decisions are tied to specific libraries used by the service, it may be
+* Canonicalization can be a complicated procedure with many corner cases and ambiguities that
+  significantly increase the complexity of an API. The additional complexity of transforming
+  noncanonical input makes the service harder to develop and maintain. It also expands the testing
+  and attack surfaces.
+* If canonicalization decisions are tied to specific libraries used by the service, it could be
   significantly harder to transition a service implementation to a new technology.
 * If canonicalization is done lazily[^lazy-canonicalization], the burden falls on clients to
-  compute equivalency of values, and regardless of how noncanonical values are sorted, some client
-  developers may be [surprised][astonishment].
-* If canonicalization is done eagerly[^eager-canonicalization], some clients — and in particular,
-  [declarative orchestration engines][infrastructure-as-code] — may experience undesired behavior
-  if a value the client sets is silently transformed such that the client may incorrectly assume
-  that a value it set was overridden (by another client in a race), causing the client to repeatedly
-  attempt to reset the value.
+  compute equivalency of values. Also, collection sorting behavior might [surprise][astonishment]
+  some client developers regardless of how order is computed for noncanonical values.
+* If canonicalization is done eagerly[^eager-canonicalization], some clients — [declarative
+  orchestration engines][infrastructure-as-code] in particular — could experience undesired behavior  
+  if a value the client sets is silently transformed. The client might erroneously assume that a
+  canonicalizing transformation it observes is a conflicting update (from another client in a race)
+  and repeatedly attempt to reset the value.
 * Besides increasing overall attack surface, certain classes of attacks specifically depend on
   bugs where different code paths disagree on canonicalization logic.
 
@@ -124,9 +125,9 @@ _Validation_ is better than _sanitation_.
 There are several reasons ignoring invalid input is dangerous and ill-advised. The following are
 hazards of a service that ignores invalid input:
 
-* Client developers may be confused as to why a feature is not working as expected, when in reality
+* Client developers could be confused as to why a feature is not working as expected, when in reality
   their request is inadvertently malformed in a way that's hard to spot.
-* Subtle bugs in client applications may result in dangerous unintentional consequences. For
+* Subtle bugs in client applications could result in dangerous unintentional consequences. For
   example, if a filter parameter on a list operation is ignored because a malformed value is
   unintentionally provided, a client might misconfigure or delete the wrong set of resources. In
   extreme cases such bugs could result in outages of dependent services, loss of data, or accidental
@@ -149,7 +150,7 @@ apply to ignoring extraneous input.
 
 Additionally, ignoring extraneous input causes particular hazards for evolving a service in a
 backward-compatible way. Specifically, if a client is sending a property or parameter that is
-unsupported _and ignored_, then the client application may experience a failure or an outage if and
+unsupported _and ignored_, then the client application could experience a failure or an outage if and
 when support is added to the service for a property or parameter of the same name.
 
 ## Migrating to best practices for robustness
@@ -172,10 +173,10 @@ by using one of the following approaches:
 * If a new major version for a service API is developed, updated robustness best practices MUST be
   enforced across the new version.
   
-For existing service APIs, new operations and new request headers, request schema properties, and
-query parameters on existing operations SHOULD adhere to updated robustness best practices with
-respect to invalid and extraneous input but MAY maintain consistency with existing API features
-with respect to canonicalization.
+When existing service APIs are extended, new operations and new request headers, request schema
+properties, and query parameters on existing operations SHOULD adhere to updated robustness best
+practices with respect to invalid and extraneous input but MAY maintain consistency with existing
+API features with respect to canonicalization.
 
 [robustness-changes]: /docs/api-handbook?topic=api-handbook-change-compatibility#robustness-changes
 [date-based-versioning]: /docs/api-handbook?topic=api-handbook-changes-overview
