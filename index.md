@@ -10,6 +10,13 @@ keywords: "API,API best practices,API Handbook"
 
 ---
 
+{:beta: .beta}
+{:deprecated: .deprecated}
+{:important: .important}
+{:note: .note}
+{:preview: .preview}
+{:tip: .tip}
+
 # Introduction
 {: #intro}
 
