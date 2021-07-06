@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2021
+lastupdated: "2021-07-02"
 
 subcollection: api-handbook
 
@@ -14,7 +14,7 @@ keywords: "API,API best practices,API Handbook"
 {: #intro}
 
 This handbook is designed to serve as a set of standards, styles, and best practices for IBM Cloud
-APIs. It is expected to grow and evolve over time in order to best address the needs and
+APIs. It is expected to grow and evolve, over time, in order to best address the needs and
 requirements of users and developers of IBM Cloud APIs. To learn how to get involved, see
 [Contributing](/docs/api-handbook?topic=api-handbook-contributing).
 
@@ -22,12 +22,14 @@ requirements of users and developers of IBM Cloud APIs. To learn how to get invo
 
 This handbook is intended to be used by IBM Cloud service architects and developers as guidelines
 for designing any REST API exposed publicly by IBM Cloud services. Private or internal APIs SHOULD
-also follow these guidelines for providing the same level of consistency also to internal service
-consumers and simplify the process if eventually the internal APIs will be exposed publicly.
+also follow these guidelines for providing the same level of consistency to internal service
+consumers and simplify the process if the internal APIs are subsequently exposed publicly.
 
-There are legitimate reasons for exemption from implementing this guidelines. For example in case
-the service need to adhere to well-established industry standards (S3, OpenStack, etc.), must
-interoperate with some externally defined REST API (Kubernetes CRD), etc.
+There are legitimate reasons for a service to be exempted from adhering to this handbook's
+guidelines. For example, an exemption may be approved if a service offers an API compatible with a
+de facto standard, such as S3, or if a service offers an API that seamlessly extends an open
+source project, such as Kubernetes, following that project's API standards and conventions.
+{:tip}
 
 ## Conventions used
 
@@ -38,14 +40,15 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 ## Verifying compliance
 
 The [OpenAPI Validator tool](https://github.com/IBM/openapi-validator) validates OpenAPI documents
-against a subset of the  standard defined in this handbook and identify areas of non-compliance with
-the OpenAPI specification or the IBM API Guidelines.
+against a subset of the standards defined in this handbook and identifies areas of non-compliance with
+the OpenAPI specification or the guidelines in this handbook.
 
-The output of the OpenAPI Validator is a report identifying specific elements of the API definition
+The output of the OpenAPI Validator is a report that identifies specific elements of the API definition
 that fail to comply with the OpenAPI specification or the IBM API Handbook. All errors listed by the
-report MUST be resolved prior to publication of the API unless, as described in the previous
-section, the remediations create major breaking changes with previous version of the API.
+report MUST be resolved prior to publication of the API unless the remediations would result in
+breaking changes for an existing API version.
 
-Even resolving all the issues reported by the validator it will not guarantee full compliance of
-with the handbook standard. API designer MUST perform further manual validations for the guidelines
+Resolving all issues reported by the validator does not guarantee full compliance
+with this handbook's standards. API designers MUST perform further manual validations for the guidelines
 that cannot be checked automatically by the tool.
+{:note}
