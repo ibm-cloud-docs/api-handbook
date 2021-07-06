@@ -14,7 +14,7 @@ keywords: "API,API best practices,API Handbook"
 {: #intro}
 
 This handbook is designed to serve as a set of standards, styles, and best practices for IBM Cloud
-APIs. It is expected to grow and evolve, over time, in order to best address the needs and
+APIs. It is expected to grow and evolve over time in order to best address the needs and
 requirements of users and developers of IBM Cloud APIs. To learn how to get involved, see
 [Contributing](/docs/api-handbook?topic=api-handbook-contributing).
 
