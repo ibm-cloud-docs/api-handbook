@@ -36,7 +36,7 @@ There are legitimate reasons for a service to be exempted from adhering to this 
 guidelines. For example, an exemption may be approved if a service offers an API compatible with a
 de facto standard, such as S3, or if a service offers an API that seamlessly extends an open
 source project, such as Kubernetes, following that project's API standards and conventions.
-{:tip}
+{: tip}
 
 ## Conventions used
 
@@ -58,4 +58,4 @@ breaking changes for an existing API version.
 Resolving all issues reported by the validator does not guarantee full compliance
 with this handbook's standards. API designers MUST perform further manual validations for the guidelines
 that cannot be checked automatically by the tool.
-{:note}
+{: note}
