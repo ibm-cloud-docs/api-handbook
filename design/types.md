@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:important: .important}
+
 # Types
 
 Types define particular kinds of values. Each field in a model MUST have exactly one type, and
@@ -293,8 +295,14 @@ be returned with greater precision. That is, if a date/time value is stored inte
 second-precision, it MUST NOT be returned in the format `YYYY-MM-DDTHH:mm:ss.sssZ` where `sss` is
 always `000`.
 
-If a date/time value is stored with millisecond-precision, but returned with second-precision, the
-value MUST be truncated to second-precision prior to any client-facing operations, such as sorting.
+If a date/time value is stored with millisecond precision, but returned with second precision, the
+value MUST be truncated to second precision before any client-facing operations, such as sorting.
+
+Rounding a date/time value (instead of truncating the value) could change additional segments up to
+and including the year. For example, `2020-12-31T23:59:59.999` rounds to `2021-01-01T00:00:00`.
+Because higher-order segments could have special significance, reducing the precision of a
+date/time value MUST be done with truncation and not rounding.
+{: important}
 
 ### Request formats
 {: #date-time-accepted-formats}
