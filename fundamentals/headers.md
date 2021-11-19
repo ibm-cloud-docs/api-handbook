@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Headers
+{: #headers}
 
 This section details the header usage, particularly where there are guidelines additional to the
 HTTP specification. Most of the headers detailed below are not required to be supported in most
@@ -16,6 +17,7 @@ scenarios, but when any of the below headers are used, they MUST follow the cons
 HTTP specification and within this section of the handbook.
 
 ## Representation headers
+{: #representation-headers}
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
@@ -25,6 +27,7 @@ HTTP specification and within this section of the handbook.
 | [Content-Type](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) | Request, Response | For all responses with bodies, this header MUST be included and indicate the content type of the body. Requests including this header with a content type not supported by the server MUST be rejected with a `415 Unsupported Media Type` status code and appropriate error response model. |
 
 ### Content encoding
+{: #content-encoding}
 
 By default, responses SHOULD be encoded with `gzip`. If a request specifies a preference for an
 unsupported encoding in the `Accept-Encoding` header, responses MUST NOT be encoded. If the
@@ -36,6 +39,7 @@ Encoded requests MAY be supported in cases where clients need to send large requ
 request encoding is supported at all, `gzip` SHOULD be permitted.
 
 ### Content location
+{: #content-location}
 
 The `Content-Location` response header can provide valuable information to the client, particularly
 for state-changing methods. The advantage to providing a `Content-Location` header is that a client
@@ -59,6 +63,7 @@ the response to a successful `GET` request made to the URI provided in that `Con
 header.
 
 ## Negotiation headers
+{: #negotiation-headers}
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
@@ -73,6 +78,7 @@ header.
 [^only-for-protocol-switching]: That is, services MUST NOT expect or encourage clients to handle protocol switching as a part of operations which may result in normal, successful (`2xx`) HTTP responses.
 
 ## Authentication headers
+{: #authentication-headers}
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
@@ -80,6 +86,7 @@ header.
 | [WWW-Authenticate](https://tools.ietf.org/html/rfc7235#section-4.1) | Response | This header MUST be supplied for responses to requests which need to be authenticated to be successful or requests where credentials are supplied but invalid. It MUST be supplied for all responses with a `401` status. |
 
 ## Validator headers
+{: #validator-headers}
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
@@ -87,12 +94,14 @@ header.
 | [Last-Modified](https://tools.ietf.org/html/rfc7232#section-2.2) | Response | The `Last-Modified` header MAY be supplied with the response to any `GET` or `HEAD` request. The `Last-Modified` MUST be supplied for any resources that support the `If-Modified-Since` or `If-Unmodified-Since` headers for any methods. The `Last-Modified` header MUST contain a valid [HTTP-date](https://tools.ietf.org/html/rfc5322#section-3.3) value in GMT (e.g., `Tue, 15 Nov 1994 12:45:26 GMT`) and MUST NOT be a date/time that occurs in the future. |
 
 ### `ETag` support
+{: #etag-support}
 
 The `ETag` header MUST be returned for `GET` and `HEAD` operations on a resource that supports
 `If-Match` or `If-None-Match` headers for any operation. If the `ETag` header is returned for
 any resource within a service, it SHOULD be returned for all resources in the service.
 
 ### `Last-Modified` support
+{: #last-modified-support}
 
 The `Last-Modified` header MUST be returned for `GET` and `HEAD` operations on a resource that
 supports `If-Unmodified-Since` or `If-Modified-Since` headers for any operation. If the
@@ -100,6 +109,7 @@ supports `If-Unmodified-Since` or `If-Modified-Since` headers for any operation.
 resources in the service.
 
 ## Conditional headers
+{: #conditional-headers}
 
 Conditional headers provide a means for consumers to efficiently ensure a cached resource is
 up-to-date and use optimistic locking in order to mitigate race conditions.
@@ -113,6 +123,7 @@ up-to-date and use optimistic locking in order to mitigate race conditions.
 | [If-Range](https://tools.ietf.org/html/rfc7233#section-3.2) | Request | This header MAY be supported for requests which support the `Range` header. If this condition fails, the server MUST ignore the `Range` header and send the entire resource. |
 
 ### Recommended `If-Match` support
+{: #recommended-if-match-support}
 
 The `If-Match` header SHOULD be supported for all `POST`[^post-on-resource], `PUT`, `PATCH`, and
 `DELETE` operations on a resource for which an `ETag` header is returned. 
@@ -122,6 +133,7 @@ The `If-Match` header SHOULD be supported for all `POST`[^post-on-resource], `PU
   operations](/docs/api-handbook?topic=api-handbook-methods#post-other-uses).
 
 ### Required checks for unsupported conditional headers
+{: #required-checks-for-unsupported-conditional-headers}
 
 An unsupported conditional header in a `POST`, `PUT`, `PATCH`, or `DELETE` request SHOULD cause the
 request to fail with a `400` status code and an appropriate error response model.
@@ -137,6 +149,7 @@ on that resource MUST cause the request to fail with `400 Bad Request` status.
 An unsupported conditional header in a `GET` or `HEAD` request MAY be ignored.
 
 ## CORS headers
+{: #cors-headers}
 
 Support for Cross-Origin Resource Sharing (CORS) MAY be implemented by any service. The following guidelines apply to
 services which opt to implement support for CORS.
@@ -154,6 +167,7 @@ services which opt to implement support for CORS.
 | [Origin](https://www.w3.org/TR/cors/#origin-request-header) | Request | This header MUST be understood and utilized by services implementing support for CORS. |
 
 ## Preference headers
+{: #preference-headers}
 
 | Header             | Type     | Description                              |
 | ------------------ | -------- | ---------------------------------------- |
@@ -161,6 +175,7 @@ services which opt to implement support for CORS.
 | [Preference-Applied](https://tools.ietf.org/html/rfc7240#section-3) | Response | This header MAY be returned with responses to requests which include a `Prefer` header but is usually not necessary as it is only needed when the client does not have any other clear indicators as to whether its preference was applied. |
 
 ## Context headers
+{: #context-headers}
 
 | Header     | Type     | Description |
 | ---------- | -------- | ----------- |
@@ -170,6 +185,7 @@ services which opt to implement support for CORS.
 | [User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3) | Request  | This header allows a client to report information about itself. It SHOULD be logged with a request, but MAY be otherwise ignored. |
 
 ## Control headers
+{: #control-headers}
 
 | Header        | Type              | Description                              |
 | ------------- | ----------------- | ---------------------------------------- |
@@ -189,6 +205,7 @@ services which opt to implement support for CORS.
 | [Warning](https://tools.ietf.org/html/rfc7234#section-5.5) | Response | This header gives additional information that might not be conveyed in the status code and doesn't represent a total failure. It MAY be supported, particularly if the presence of caches is anticipated. |
 
 ## Tracing headers
+{: #tracing-headers}
 
 Tracing headers allow services to log and propagate the context of individual requests and requests
 that are part of a larger context.
@@ -215,6 +232,7 @@ generate a random (version 4) UUID to use in place of a client-supplied value.
 | X-Correlation-ID | Request, Response | The supplied or generated value of this header MUST be logged for a request and repeated in a response header for the corresponding response. The same value MUST be used for downstream requests and retries of those requests. Documentation for a service SHOULD encourage internal client developers to supply this header with a random UUID or (if available) a valid, trusted upstream value. |
 
 ## Rate limiting headers
+{: #rate-limiting-headers}
 
 The standard `Retry-After` header MUST be returned in a response with status code 429
 for any implementation of rate limiting[^rate-limiting-retry-after].
@@ -233,6 +251,7 @@ and MAY be used for any implementation of rate limiting.
 | X-RateLimit-Reset | Response | If rate limiting is active, this header MUST indicate the time at which the current rate limit window resets, as a UNIX timestamp. |
 
 ## Custom headers
+{: #custom-headers}
 
 There are times where service-specific functionality may need to be implemented with custom headers.
 In these cases, support for custom request or response headers MAY be implemented. However, custom
@@ -245,6 +264,7 @@ products and services it SHOULD begin with `IBM-` or `IBM-PRODUCT-` where `PRODU
 However, as with all headers, they MUST be handled in a case-insensitive way.
 
 ## Request headers as query parameters
+{: #request-headers-as-query-parameters}
 
 In cases where a request header may be inconvenient for a client to supply request header
 functionality MAY be duplicated as query parameters. In these cases, the name of the query parameter

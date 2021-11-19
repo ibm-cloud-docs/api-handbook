@@ -9,8 +9,10 @@ subcollection: api-handbook
 ---
 
 # URIs
+{: #uris}
 
 ## Overview
+{: #overview}
 
 URI path design is an important part of every API. Paths SHOULD be easy to read and MAY reflect the
 hierarchy of underlying models. Paths SHOULD NOT end with a trailing `/`; if a client appends a
@@ -18,11 +20,13 @@ trailing `/`, the server SHOULD respond with a `301` status code along with a `L
 containing the correct URI.
 
 ## Version
+{: #version}
 
 The first segment of an API's path MUST be the major version of the API, prefixed with a lowercase
 `v`.
 
 ## Construction
+{: #construction}
 
 Following the version segment, each path segment MUST be either a resource type or a resource
 identifier. If denoting a collection of resources (e.g., `servers` in `/v2/servers`), or serving as
@@ -36,6 +40,7 @@ path SHOULD yield a valid URI. This means that the existence of
 valid.
 
 ## Path hierarchies
+{: #path-hierarchies}
 
 When one resource is a child of another resource, its path MAY reflect this hierarchical
 relationship. However, in many cases, it may be deemed more appropriate for subordinate resources to
@@ -80,6 +85,7 @@ and `=` for each parameter) for a single operation SHOULD be less than 7000 byte
   allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
 
 ### Unrecognized and invalid parameters
+{: #unrecognized-and-invalid-parameters}
 
 To prevent [dangerous client bugs and backward-compatibility hazards][parameter-robustness],
 unrecognized query parameters SHOULD and invalid parameter values MUST result in a `400` status
@@ -88,6 +94,7 @@ code and appropriate error response model.
 [parameter-robustness]: /docs/api-handbook?topic=api-handbook-robustness#sanitation-and-validation
 
 ### Case insensitivity
+{: #case-insensitivity}
 
 Query parameter names SHOULD NOT be case-normalized to support case insensitivity; a parameter that
 does not match the case of a defined parameter but otherwise matches its name SHOULD be treated as
@@ -106,6 +113,7 @@ existing clients.
   use another.
 
 ### Parameter duplication
+{: #parameter-duplication}
 
 Requests that provide a query string with duplicate single-value[^single-value] query parameters of
 the same name and differing values[^duplicate-query-parameters] MUST result in a `400` status and

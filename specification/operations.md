@@ -8,8 +8,10 @@ subcollection: api-handbook
 {:note: .note}
 
 # Operations
+{: #operations}
 
 ## Operation IDs
+{: #operation-ids}
 
 Each operation in an OpenAPI document MUST have a unique `operationId` value. These values provide
 stable, meaningful handles for operations. For example, `operationId` values can be used as anchors
@@ -32,6 +34,7 @@ operations that return `202 Accepted`.
 {: note}
 
 ### Standard operations
+{: #standard-operations}
 
 The following conventions for `operationId` values SHOULD be used for standard operations on
 resources where possible.
@@ -45,6 +48,7 @@ resources where possible.
 | `delete` | `DELETE /albums/{id}`   | `204 No Content`    | `delete_album`           | Delete the _album_ identified by `{id}` |
 
 ### Resource replacement operations
+{: #resource-replacement-operations}
 
 The following conventions for operations to replace one or more resources SHOULD be used where
 applicable.
@@ -55,6 +59,7 @@ applicable.
 | `replace` | `PUT /symptoms`         | `200 OK`            | `replace_symptoms`       | Replace all _symptoms_ in a collection |
 
 ### Resource binding operations
+{: #resource-binding-operations}
 
 The following conventions for operations on bindings between resources SHOULD be used where
 applicable.
@@ -74,6 +79,7 @@ that account, or may be allowed to also be an administrator for other accounts.
 {: note}
 
 #### A resource's required binding to one other resource
+{: #required-binding-to-one-other-resource}
 
 The following convention SHOULD be used where a resource has a required binding to exactly
 one other resource. In the example used, a club must have exactly one treasurer.
@@ -83,6 +89,7 @@ one other resource. In the example used, a club must have exactly one treasurer.
 | `replace` | `PUT /clubs/{id}/treasurer` | `200 OK`            | `replace_club_treasurer` | Replace an existing binding with one between a _treasurer_ identified in the request body and the _club_ identified by `{id}` |
 
 #### A resource's optional binding to one other resource
+{: #optional-binding-to-one-other-resource}
 
 The following convention SHOULD be used where a resource has an optional binding to (at most)
 one other resource. In the example used, a hero might have one sidekick, but no more than one.
@@ -95,6 +102,7 @@ one other resource. In the example used, a hero might have one sidekick, but no 
 The verbs `set` and `unset` SHOULD NOT be used except in a symmetrical pair of operations.
 
 #### A resource's bindings to multiple other resources
+{: #bindings-to-multiple-other-resources}
 
 The following convention SHOULD be used where a resource can have bindings to multiple other
 resources. In the example used, a conference can have many speakers.
@@ -107,6 +115,7 @@ resources. In the example used, a conference can have many speakers.
 The verbs `add` and `remove` SHOULD NOT be used except in a symmetrical pair of operations.
 
 ### Minimally represented resource operations
+{: #minimally-represented-resource-operations}
 
 The following conventions for operations on resources (especially child resources) that can each
 be wholly represented by a unique string SHOULD be used where applicable.
@@ -118,6 +127,7 @@ be wholly represented by a unique string SHOULD be used where applicable.
 | `check`   | `GET /books/{id}/genres/{genre}`    | `204 No Content`                                                | `check_book_genre`       | Check for the existence of the _genre_ described by `{genre}` on the _book_ identified by `{id}` |
 
 ### Custom operations
+{: #custom-operations}
 
 Some operations do not fit one of the defined conventions. Typically these operations are either:
 

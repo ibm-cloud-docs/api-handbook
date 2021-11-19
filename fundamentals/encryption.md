@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Encryption
+{: #encryption}
 
 Services MUST support HTTPS and MUST NOT allow clients to make unencrypted, HTTP-only requests.
 

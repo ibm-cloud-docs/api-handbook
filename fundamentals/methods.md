@@ -9,11 +9,13 @@ subcollection: api-handbook
 ---
 
 # Methods
+{: #methods}
 
 There are seven methods that MAY be supported by a resource URI. A summary table of each method's
 basic attributes is listed below, followed by detailed guidelines for the use of each method.
 
 ## Summary
+{: #summary}
 
 | Method  | Request body | Response body | Safe | Idempotent |
 | ------- | ------------ | ------------- | ---- | ---------- |
@@ -26,6 +28,7 @@ basic attributes is listed below, followed by detailed guidelines for the use of
 | OPTIONS | No           | Yes           | Yes  | Yes        |
 
 ## GET
+{: #get}
 
 The response to a successful `GET` request SHOULD contain the state of a resource or collection of
 resources, based on the request URI. A `GET` request MUST be safe and therefore MUST NOT have side
@@ -33,6 +36,7 @@ effects[^safe-side-effects]. If a `GET` request contains a body, the body MUST b
 therefore MUST NOT cause an error.[^get-request-body]
 
 ## HEAD
+{: #head}
 
 The response to a successful `HEAD` request MUST contain the exact set of headers that the response
 to an otherwise-identical `GET` request would contain, but MUST NOT include a response
@@ -45,8 +49,10 @@ request and subsequently discarding the response body. As with a `GET` request, 
 MUST be safe and its body MUST be ignored.
 
 ## POST
+{: #post}
 
 ### For creation
+{: #post-for-creation}
 
 The `POST` URI used to create a resource SHOULD be the same as the `GET` URI for listing resources
 of the same kind.[^uri-accepting-post] For example, if `GET /users` lists all users, and users can
@@ -77,6 +83,7 @@ Content` status.[^post-not-for-create]
 [^safe-with-body]: Such as a request supporting a complex query in a JSON payload.
 
 ## PUT
+{: #put}
 
 A successful `PUT` request SHOULD replace an existing resource or, in specific cases, create a new
 resource.
@@ -100,6 +107,7 @@ resource in the response body. If doing so is expensive (in terms of bandwidth o
 supported to give the client control over whether the resource is included.
 
 ## PATCH
+{: #patch}
 
 A `PATCH` request SHOULD specify new values for one or more fields on a resource and SHOULD be
 considered successful if each field was updated to, or already contained, the value specified in the request.
@@ -129,6 +137,7 @@ A `PATCH` request referencing fields which are not mutable or not recognized MUS
 the service with a `400` status code and appropriate error response model.
 
 ## DELETE
+{: #delete}
 
 A successful `DELETE` request SHOULD remove a resource. The resource deleted by a `DELETE` request
 MUST be located at the URI used in the request. If a `DELETE` request contains a body, the body MUST

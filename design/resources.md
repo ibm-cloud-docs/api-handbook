@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Resources
+{: #resources}
 
 The design of resources is fundamental to a usable API. That is, APIs should be designed primarily
 around how the state of a service is modeled as resources and secondarily around operations

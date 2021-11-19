@@ -11,6 +11,7 @@ subcollection: api-handbook
 {:important: .important}
 
 # Types
+{: #types}
 
 Types define particular kinds of values. Each field in a model MUST have exactly one type, and
 fields of some types cannot be nullable, optional, or mutable. Types also govern how a value from
@@ -73,6 +74,7 @@ In request bodies and query parameters, identifier values SHOULD be matched case
 
 
 ## Boolean
+{: #boolean}
 
 The boolean type contains either a `true` or `false` value. In a model, fields of the boolean type
 MUST NOT be nullable, but MAY be optional.
@@ -106,6 +108,7 @@ normalization[^boolean-case-normalization].
   into an ASCII character. This MUST NOT be allowed to occur.
 
 ## Integer
+{: #integer}
 
 The integer type provides for numeric values which can be represented as signed 64-bit
 integers[^64-bit-integer] and which may require guaranteed precision. In a model, fields of the integer
@@ -158,6 +161,7 @@ included in a request. Failure to match constraints MUST cause the entire reques
 
 
 ## Float
+{: #float}
 
 The float type provides for numeric values which cannot represented as integers and for which
 guaranteed precision is not required. In a model, fields of the float type MAY be nullable and MAY
@@ -210,6 +214,7 @@ code and appropriate error response model.
 
 
 ## String
+{: #string}
 
 The string type provides for arbitrary strings of characters. Note that the string type referred to
 here is not equivalent to a JSON string, as JSON strings are also used to represent dates,
@@ -241,6 +246,7 @@ with a `400` status code and appropriate error response model.
 
 
 ## Date
+{: #date}
 
 The date type specifies a particular year, month, and day.
 
@@ -328,6 +334,7 @@ appropriate error response model.
 
 
 ## CRN
+{: #crn}
 
 The CRN type provides for a Cloud Resource Name. CRN values MUST conform to the CRN specification
 and MUST uniquely identify a resource among all resources.
@@ -363,6 +370,7 @@ In request bodies and query parameters, CRN values SHOULD be matched case-sensit
 
 
 ## Enumeration
+{: #enumeration}
 
 Enumerations are a category of types for specified sets of string values. Each individual
 enumeration type is defined by the set of valid string values. For example, a model might define a
@@ -395,6 +403,7 @@ appropriate error response model.
 
 
 ## Array
+{: #array}
 
 Arrays are a category of types for collections of same-type values. Each individual array type is
 defined as a collection of values of a specific type. For example, a model might specify a field
@@ -419,6 +428,7 @@ included in a request. Failure to match constraints MUST cause the entire reques
 `400` status code and appropriate error response model.
 
 ## Model
+{: #model}
 
 To learn about models, see the [Models](/docs/api-handbook/design/models.html) section. Each
 model—while itself a collection of fields with types—is also a type.

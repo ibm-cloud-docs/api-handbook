@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Pagination
+{: #pagination}
 
 Pagination MAY be implemented by any collection and is often desirable to provide faster responses
 and smaller payloads to clients. Although not all collections are required to provide pagination, it
@@ -18,6 +19,7 @@ If a collection supports pagination, a request to that collection's URL without 
 MUST return the first page of resources.[^pagination-unspecified]
 
 ## Pagination and stable order
+{: #pagination-and-stable-order}
 
 In order to ensure paginated collections have a stable order, the server MUST sort collections on a
 unique value by default and, if necessary, supplement any requested sorting with a sort on a unique
@@ -27,6 +29,7 @@ For example, if the client wishes to sort on `last_name`, and the last name is n
 unique, the system could implicitly sort on `last_name` and then `id` (where `id` is unique).
 
 ## Pagination links
+{: #pagination-links}
 
 In the scenarios specified below, paginated collections MUST return the fields `first`, `previous`,
 `next`, and `last` in the collection object. When present, each of these fields MUST contain an
@@ -49,6 +52,7 @@ included with `null` values. A request made to a `next` or `previous` URL MUST N
 response of a subsequent request to the same URL.
 
 ## Token-based pagination
+{: #token-based-pagination}
 
 Collections SHOULD implement token-based pagination wherever practical, but MAY implement
 offset and limit pagination when deemed necessary for collection use-cases.
@@ -75,6 +79,7 @@ ensure that resources are not duplicated or omitted[^duplication-or-omission] if
 collection are requested in sequence.
 
 ### Page token query parameter
+{: #page-token-query-parameter}
 
 The page token query parameter, which SHOULD be named `start` but MAY be named `token`,
 MUST be used to determine what resource to start the page on or after.
@@ -126,6 +131,7 @@ filtering, but not for paging). If it is expensive or impractical to provide a `
 the `total_count` field SHOULD be omitted.
 
 ### Accuracy and consistency
+{: #accuracy-and-consistency}
 
 If it is deemed critical that a client be able to retrieve all pages without any duplicated or
 omitted resources, one of two approaches MAY be implemented:
@@ -139,6 +145,7 @@ omitted resources, one of two approaches MAY be implemented:
    a collection are requested in sequence.
 
 ### Example token-based pagination response
+{: #example-token-based-pagination-response}
 
 ```json
 {
@@ -158,10 +165,12 @@ omitted resources, one of two approaches MAY be implemented:
 ```
 
 ## Offset and limit pagination
+{: #offset-and-limit-pagination}
 
 Offset and limit pagination MUST support two query parameters: `offset` and `limit`.
 
 ### Offset
+{: #offset}
 
 The `offset` parameter MUST be used to determine how many resources to skip over, given the order of
 the collection. If `offset` is unspecified, the response MUST be identical to the response where
@@ -207,6 +216,7 @@ filtering, but not for paging). If it is expensive or impractical to provide a `
 the `total_count` field MAY be omitted.
 
 ### Example offset and limit pagination response
+{: #example-offset-and-limit-pagination-response}
 
 ```json
 {

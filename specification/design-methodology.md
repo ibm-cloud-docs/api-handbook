@@ -9,8 +9,10 @@ subcollection: api-handbook
 ---
 
 # Design methodology
+{: #design-methodology}
 
 ## Design-first API definitions
+{: #design-first-api-definitions}
 
 Service teams SHOULD employ a design-first approach to authoring API definitions. In particular, an
 API definition SHOULD be authored deliberately as source of truth for the API contract, and not as a
@@ -37,6 +39,7 @@ managers, architects, back-end engineers, front-end engineers, quality engineers
 technical writers.
 
 ## API definition management
+{: #api-definition-management}
 
 An API definition MUST be managed under source control. An API definition MAY be source controlled
 in the exact form of its publication or MAY use a multi-file arrangement or other preprocessing for

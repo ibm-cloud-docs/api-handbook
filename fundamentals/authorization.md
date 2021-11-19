@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Authorization
+{: #authorization}
 
 This section covers authorization, or access control, best practices for IBM Cloud APIs.  Other areas of interest include [authentication](/docs/api-handbook?topic=api-handbook-authentication) and managing authorization using IBM Cloud [Identity and Access Management (IAM)](https://cloud.ibm.com/iam/overview).
 
@@ -26,6 +27,7 @@ Per the [resource-oriented design](https://cloud.ibm.com/docs/api-handbook?topic
 Users can [manage their permissions](https://cloud.ibm.com/docs/account?topic=account-access-getstarted) using IAM, which regulates the scope and access allocated to each API key.
 
 ## Additional resources
+{: #additional-resources}
 
 * [Authorization paradigms](/docs/api-handbook?topic=api-handbook-authorization)
 * [IBM Cloud Identity and Accesss Management](/docs/account?topic=account-iamoverview)

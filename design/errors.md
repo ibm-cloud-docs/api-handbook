@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Errors
+{: #errors}
 
 In the event that a request cannot be fulfilled, the server MUST return an appropriate `400`-series
 or `500`-series status code. More information on when specific status codes should be used can be
@@ -20,6 +21,7 @@ requiring an emergency fix. There MUST NOT be long-running known causes for `500
 errors.
 
 ## Error container model
+{: #error-container-model}
 
 An error response (any response with `400`- or `500`-series status code) MUST return an error
 container model. This model MUST contain an `errors` field, SHOULD contain a `trace` field, and MAY
@@ -32,6 +34,7 @@ contain a `status_code` field, as outlined below:
 | `status_code` | Integer | This field MAY contain the HTTP status code used for the response. Otherwise, it MUST be omitted. |
 
 ## Error model
+{: #error-model}
 
 An error model MUST contain a `code` and a `message` field, SHOULD contain a `more_info` field, and
 MAY contain a `target` field, as outlined below:
@@ -47,6 +50,7 @@ The error model MAY be extended with additional fields to better specify the err
 field can be considered a standardized example of such an extension.
 
 ## Error target model
+{: #error-target-model}
 
 An error target model MUST contain the fields outlined below:
 
@@ -56,6 +60,7 @@ An error target model MUST contain the fields outlined below:
 | `name` | String | This field MUST contain the name of the problematic field (with dot-syntax if necessary), query parameter, or header. |
 
 ### Example error response
+{: #example-error-response}
 
 ```
 {
@@ -84,11 +89,13 @@ An error target model MUST contain the fields outlined below:
 ```
 
 ## Codes and messages
+{: #codes-and-messages}
 
 Error `code` values SHOULD specify the problem that caused an error; `message` values SHOULD
 describe the problem and MAY also provide suggestions or solutions.
 
 ### Codes
+{: #codes}
 
 Error `code` values MUST be snake case strings, descriptive of the problem encountered, as succinct
 as possible, and absent of any non-standard or proprietary terms, brands, codenames, abbreviations,
@@ -108,6 +115,7 @@ possible error `code` for a request SHOULD be considered a breaking change. For 
 documentation MAY include possible error `code` values which are not yet used.
 
 ### Messages
+{: #messages}
 
 Error `message` values SHOULD describe the problems identified by `code` values in complete,
 well-formed sentences and MAY provide suggestions or solutions. It is expected for `message` values
@@ -134,6 +142,7 @@ As demonstrated in the above examples, `message` values SHOULD use the back-tick
 enclose field names, parameter names, header names, and specific values.
 
 ## Robustness tradeoffs
+{: #robustness-tradeoffs}
 
 The robustness principle section has been moved to a [new page](/docs/api-handbook?topic=api-handbook-robustness), and
 the previous guidance has been substantially repudiated.

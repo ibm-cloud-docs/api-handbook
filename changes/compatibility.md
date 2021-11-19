@@ -11,6 +11,7 @@ subcollection: api-handbook
 {:important: .important}
 
 # Change compatibility
+{: #change-compatibility}
 
 API changes must be assessed and designed to consider compatibility. The backward-compatibility of
 each change MUST be determined by using the directives in the [determining
@@ -20,7 +21,11 @@ Backward-compatible changes SHOULD be made as **evolutionary** updates and backw
 changes SHOULD be made as **versioned** updates. Rarely, backward-incompatible changes MAY be made
 as **breaking** updates.
 
-#### Evolutionary updates
+## Kinds of updates
+{: #kinds-of-updates}
+
+### Evolutionary updates
+{: #evolutionary-updates}
 
 Evolutionary updates incorporate backward-compatible changes into an existing major version of an
 API and (if applicable) across all version dates. Client applications need not use a new major
@@ -29,7 +34,8 @@ version or new version date to employ features made available in such updates.
 If feasible without significant compromise to the usability, consistency, or robustness of the API,
 a change SHOULD be designed for backward-compatibility and made as an evolutionary update.
 
-#### Versioned updates
+### Versioned updates
+{: #versioned-updates}
 
 Versioned updates incorporate backward-incompatible changes into a new major version or a new
 version date. Versioned updates require client applications to specify the new version to use
@@ -40,7 +46,8 @@ If a change cannot be made backward-compatible, or if backward-incompatibility i
 maintain the usability, security, or robustness of the API, the change SHOULD be made as a versioned
 update.
 
-#### Breaking updates
+### Breaking updates
+{: #breaking-updates}
 
 In rare cases, it might be necessary to make a backward-incompatible change retroactive for a major
 version and (if applicable) across all version dates. Such changes are considered "breaking," because
@@ -61,6 +68,7 @@ Breaking changes MUST be justified by a security issue, legal or regulatory obli
 economic burden.
 
 ## Determining compatibility
+{: #determining-compatibility}
 
 No universal criterion exists for what kind of changes could disrupt client applications. Whether a
 change could disrupt a specific client application depends on what assumptions the individual client
@@ -72,6 +80,7 @@ The following directives MUST be used as the basis for classifying changes but S
 supplemented with analysis of real-world API usage.
 
 ### Backward-compatible changes
+{: #backward-compatible-changes}
 
 The following kinds of changes SHOULD be considered backward-compatible and supported in
 evolutionary updates:
@@ -85,6 +94,7 @@ evolutionary updates:
 - Reducing possible values for a property in a response schema
 
 #### Special cases for backward-compatibility
+{: #special-cases-for-backward-compatibility}
 
 The following is provisional guidance and will be updated in an upcoming revision of the API
 Handbook.
@@ -127,6 +137,7 @@ preceding client robustness approaches can be respected:
   schema within the context of another resource.
 
 #### Changing default values
+{: #changing-default-values}
 
 Additionally, a default value for a property in a request MAY be changed if the new default has no
 increase in price or regressions in performance or supported features at the time of the change.
@@ -137,12 +148,14 @@ profile that was previously default may be made less expensive at the same time,
 before the change.)
 
 #### Resolving API definition errata
+{: #resolving-api-definition-errata}
 
 If the implementation for an API is well-designed and functional, but the API definition differs
 from the implementation in an incompatible way, the definition SHOULD be updated to match the
 implementation, despite the resultant appearance of an incompatible change.
 
 ### Backward-incompatible changes
+{: #backward-incompatible-changes}
 
 A change that meaningfully alters the outcome or response format of any currently valid request MUST
 be considered backward-incompatible. Backward-incompatible changes SHOULD be supported in versioned

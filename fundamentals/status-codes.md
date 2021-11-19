@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Status codes
+{: #status-codes}
 
 HTTP has a set of standard status codes. These fall into five categories:
 
@@ -19,6 +20,7 @@ HTTP has a set of standard status codes. These fall into five categories:
 * Server Errors: `5xx`
 
 ## Informational: 1xx
+{: #informational-1xx}
 
 Code | Meaning  | Description
 -----|----------|------------
@@ -28,6 +30,7 @@ Code | Meaning  | Description
 [^only-for-protocol-switching]: That is, services MUST NOT expect or encourage clients to handle protocol switching as a part of operations which may result in normal, successful (`2xx`) HTTP responses.
 
 ## Success: 2xx
+{: #success-2xx}
 
 Code | Meaning  | Description
 -----|----------|------------
@@ -38,6 +41,7 @@ Code | Meaning  | Description
 206  | [Partial Content](http://tools.ietf.org/html/rfc7233#section-4.1) | This code indicates that the server is delivering only part of the resource. Servers MUST use this when enabling the client to resume interrupted downloads, or to split a download into multiple simultaneous streams.[^content-range]
 
 ### Requests requiring no action
+{: #requests-requiring-no-action}
 
 If a request attempts to put a resource into a state which it is already in, the status code SHOULD
 be in the `2xx` range. In other words, the status code SHOULD match what would be given if a change
@@ -48,6 +52,7 @@ has already been deleted, the server is not required to maintain a record of the
 and MAY respond with `404`.[^already-deleted-resource]
 
 ## Redirection: 3xx
+{: #redirection-3xx}
 
 Code | Meaning  | Description
 -----|----------|------------
@@ -59,6 +64,7 @@ Code | Meaning  | Description
 307  | [Temporary Redirect](http://tools.ietf.org/html/rfc7231#section-6.4.7) | This code MAY be returned to indicate that the request should be resubmitted to the URI provided in the `Location` header, which MUST be included when this code is returned, and that future requests should use the original URI. This code indicates that the request method should not change when using the temporary URI.
 
 ### URI ambiguity
+{: #uri-ambiguity}
 
 URI ambiguity requiring the use of a `300` status code SHOULD be avoided by following the below
 principles:
@@ -74,6 +80,7 @@ where a file extension is considered significant), a `300` status code MAY be re
 particular URI is ambiguous.
 
 ### 303 and 307 temporary redirects
+{: #303-and-307-temporary-redirects}
 
 A `303` in response to a `POST`, `PUT`, or `DELETE` indicates that the operation has succeeded but
 that the response entity-body is not being sent along with this request. If the client wants the
@@ -84,6 +91,7 @@ perform the operation and the client needs to resubmit the entire request, with 
 to the URI in the `Location` header.
 
 ## Client errors: 4xx
+{: #client-errors-4xx}
 
 Code | Meaning  | Description
 -----|----------|------------
@@ -116,6 +124,7 @@ server MUST respond with a `404 Not Found`. Or, for the creation of a binding to
 the server MUST respond with a `400 Bad Request`, exactly as if the resource did not exist.
 
 ### Conflicts
+{: #conflicts}
 
 Though [RFC 7231][rfc-7231-409] suggests `409 Conflict` be limited to conflicts between a request
 and the "target resource," this handbook recommends a broader view of what constitutes a
@@ -171,6 +180,7 @@ The following scenarios SHOULD NOT result in a `409 Conflict`:
 [post-other-uses]: /docs/api-handbook?topic=api-handbook-methods#other-uses
 
 ## Server errors: 5xx
+{: #server-errors-5xx}
 
 Code | Meaning  | Description
 -----|----------|------------
@@ -180,6 +190,7 @@ Code | Meaning  | Description
 505  | [HTTP Version Not Supported](http://tools.ietf.org/html/rfc7231#section-6.6.6) | This code SHOULD be returned when the server does not support the HTTP protocol version used in a request. The response SHOULD contain a document describing which protocols the server does support.
 
 ### 500 and 503 errors
+{: #500-and-503-errors}
 
 Because the client can do nothing to fix a `500` or `503` status code (and can only try again
 later), it MUST be considered a critical application failure whenever one of those status codes is

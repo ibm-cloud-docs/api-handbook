@@ -8,9 +8,11 @@ subcollection: api-handbook
 
 ---
 
-# Long-Running Operations
+# Long-running operations
+{: #long-running-operations}
 
 ## Overview
+{: #overview}
 
 A long-running operation is an operation that returns a response with HTTP status code `202` to indicate that
 the processing for the request will be [performed asynchronously (RFC 7231)][rfc-7231].
@@ -39,6 +41,7 @@ subject resource including the resource status field.
 The normal `GET` operation for the resource can then be used to poll for the completion of the operation.
 
 ## Operation-based long-running operations
+{: #operation-based-long-running-operations}
 
 The operation resource MUST contain a status field and this field SHOULD be named `status`.
 The status field SHOULD be defined as an enumeration that includes the following values:
@@ -61,7 +64,8 @@ in the status upon operation completion.
 
 Services MAY add additional, API specific, fields into the operation resource.
 
-### Operation Resources
+### Operation resources
+{: #operation-resources}
 
 Services MAY provide an `/operations` collection.
 
@@ -74,6 +78,7 @@ However, the service must preserve the operation result for a reasonable amount 
 to allow the client time to consume it.
 
 ### Cancellation
+{: #cancellation}
 
 Services MAY support operation cancellation by exposing `DELETE` on the operation.
 If supported, `DELETE` operations MUST be idempotent.
@@ -81,12 +86,14 @@ Operations that support cancellation MUST sufficiently describe their cancellati
 the state of the system can be accurately determined, and any compensating actions may be run.
 
 ## Resource-based long-running operations
+{: #resource-based-long-running-operations}
 
 Any resource that could be the subject of a long-running operation MUST have a status field and this field SHOULD be named `status`.
 The status field SHOULD be defined as an enumeration and all potentially long-running operations MUST
 clearly describe how the completion of the operation is signaled with the value stored in the status field.
 
 ## Retry-After
+{: #retry-after}
 
 Long-running operations SHOULD return a `Retry-After` header in the original response that contains the number of seconds that
 the client should wait before trying to get the status of the operation, to avoid excessive polling.

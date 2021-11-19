@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Models
+{: #models}
 
 A model represents a [type](/docs/api-handbook/design/types.html) of resource and defines the
 structure and behavior of objects that represent resources of that type. Such objects are called
@@ -26,6 +27,7 @@ documentation and in the service that provides the API. Where possible, automate
 testing should be used to ensure this consistency.
 
 ## Fields
+{: #fields}
 
 A model specifies the following about each field:
 
@@ -38,6 +40,7 @@ A model specifies the following about each field:
 * Rules: Any constraints on the field's values in addition to ones imposed by its type
 
 ### Field types
+{: #field-types}
 
 Types constrain the kinds of values a field can contain. Each field must support only one of the
 below types. Note that most field types are stricter than their base JSON type. Each type below is

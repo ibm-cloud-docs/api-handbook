@@ -9,11 +9,13 @@ subcollection: api-handbook
 ---
 
 # Filtering
+{: #filtering}
 
 Filtering MAY be implemented for collections where clients need to limit the resources returned by
 specific criteria.
 
 ## Basic filtering
+{: #basic-filtering}
 
 Basic filtering provides the ability for the client to specify one or more filters where each
 supported field is required to match a specific value. Any primitive field returned by a collection
@@ -29,11 +31,13 @@ users whose first name is "John" _and_ last name is "Smith":
 `GET /v2/users?first_name=John&last_name=Smith`
 
 ### Matching logic
+{: #matching-logic}
 
 Guidance for matching logic varies by field type, and is provided under the accepted formats heading
 for each type in the [Types](/docs/api-handbook/design/types.html) section.
 
 ### Primitive arrays
+{: #primitive-arrays}
 
 Primitive arrays (such as `tags`) MAY support a singular form of the field (such as `tag`) as a
 filter that matches the resource if the array contains the supplied value. For example, the below
@@ -55,10 +59,12 @@ filter could return the result following:
 ```
 
 ## Extended filtering
+{: #extended-filtering}
 
 The following types MAY support the below extended filters:
 
 ### Numeric fields
+{: #numeric-fields}
 
 Numeric fields MAY support the following comparisons:
 
@@ -74,6 +80,7 @@ If any integer or float field supports any of the above comparisons, all integer
 which the collection can be filtered on MUST support all of the above comparisons.
 
 ### Date and date/time fields
+{: #date-and-date-time-fields}
 
 Date and date/time fields MAY support the following comparisons:
 
@@ -89,6 +96,7 @@ If any date or date/time field supports any of the above comparisons, all date a
 which the collection can be filtered on MUST support all of the above comparisons.
 
 ### Identifier and enumeration fields
+{: #identifier-and-enumeration-fields}
 
 Identifier and enumeration fields MAY support the following comparisons:
 
@@ -101,12 +109,14 @@ identifier fields which the collection can be filtered on MUST support all of th
 Identifier and enumeration values MUST be matched case-insensitively.
 
 ### String fields
+{: #string-fields}
 
 String fields MAY implicitly match fields which _contain_ the provided value instead of requiring an
 exact match. String field matching also MAY be case-insensitive. Additionally, string fields MAY
 support prefixing a value with `not:` in order to invert the default matching logic.
 
 ## Advanced querying
+{: #advanced-querying}
 
 Careful consideration should be given to providing any advanced query syntax. It is preferred that
 any syntax exposed not constrain future technology choices to a specific backend technology. For

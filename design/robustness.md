@@ -8,8 +8,10 @@ subcollection: api-handbook
 
 ---
 # Robustness
+{: #robustness}
 
 ## Tradeoffs of the robustness principle
+{: #tradeoffs-of-the-robustness-principle}
 
 Jon Postel's [robustness principle](https://en.wikipedia.org/wiki/Robustness_principle) is a
 fixture of software design and implementation advice. It states:
@@ -24,6 +26,7 @@ reasons, this handbook discourages broad application of the principle. This is a
 [mea-culpa]: https://github.com/ibm-cloud-docs/api-handbook/blob/086d28c9357b39612ceb816130d0f6ad92f82859/design/errors.md#robustness-tradeoffs
 
 ### Historical meaning
+{: #historical-meaning}
 
 There are many possible applications of the robustness principle, and its original context (as
 [highlighted][fallibility-of-specifications] by Martin Thomson's dissent) is not applicable to
@@ -43,7 +46,7 @@ react to ambiguity (which is a _defect_ of the specification) with:
 [fallibility-of-specifications]: https://datatracker.ietf.org/doc/html/draft-thomson-postel-was-wrong-03#section-2
 
 ## Best practices
-{: #best-practices }
+{: #best-practices}
 
 When a service team is responsible for developing an API definition and its canonical
 implementation (the _service_) in concert, Postel's robustness principle SHOULD NOT be
@@ -51,6 +54,7 @@ implementation (the _service_) in concert, Postel's robustness principle SHOULD 
 robustness principle as it is colloquially understood.
 
 ### Specificity of validity
+{: #specificity-of-validity}
 
 The formal definition and documentation for a service API SHOULD be as explicit as possible about
 what constitutes valid input.
@@ -104,6 +108,7 @@ But the downsides of accepting noncanonical input can be significant:
 [infrastructure-as-code]: https://en.wikipedia.org/wiki/Infrastructure_as_code
 
 #### Exceptions
+{: #exceptions}
 
 If an industry-standard format used has noncanonical forms that a client developer would reasonably
 expect to be able to send, and canonicalization is well-documented and widely understood, eager
@@ -136,6 +141,7 @@ hazards of a service that ignores invalid input:
   could result in attack vectors.
 
 ### Extraneous input
+{: #extraneous-input}
 
 Except where required by an industry standard or convention[^ignore-unknown-headers], extraneous
 input, such as unrecognized properties in JSON request bodies and unrecognized query parameters,
@@ -182,6 +188,7 @@ API features with respect to canonicalization.
 [date-based-versioning]: /docs/api-handbook?topic=api-handbook-changes-overview
 
 ## Optimistic locking
+{: #optimistic-locking}
 
 In cases where races between clients could result in unintended resource configurations, optimistic
 locking through [validator][validator-headers] and [conditional][conditional-headers] headers SHOULD be

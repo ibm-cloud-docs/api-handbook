@@ -8,12 +8,14 @@ subcollection: api-handbook
 
 ---
 
-# Collections Overview
+# Collections overview
+{: #collections-overview}
 
 This section details how collections should behave. Collections SHOULD have a URL ending in a plural
 resource name, such as `/v2/accounts`.
 
 ## Response format
+{: #response-format}
 
 The representation of a collection MUST be an object containing a field with the same plural
 resource name appearing in the collection's URL. This field MUST contain an array of resources in
@@ -21,6 +23,7 @@ the collection. This response object MAY also include collection metadata, such 
 [pagination](/docs/api-handbook?topic=api-handbook-pagination).[^collection-response]
 
 ### Example collection response
+{: #example-collection-response}
 
 ```json
 {
@@ -40,6 +43,7 @@ the collection. This response object MAY also include collection metadata, such 
 ```
 
 ## Individual resource URLs
+{: #individual-resource-urls}
 
 Resources belonging to a collection MAY be individually addressable, and if so, their URLs SHOULD
 start with the URL of the collection.[^hierarchical-url]  For example, an account in the

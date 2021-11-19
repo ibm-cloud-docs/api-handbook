@@ -8,9 +8,11 @@ subcollection: api-handbook
 
 ---
 
-# Specification Overview
+# Specification overview
+{: #specification-overview}
 
 ## OpenAPI
+{: #openapi}
 
 The primary format for representing the API for a service MUST be an API document that conforms to
 [the OpenAPI

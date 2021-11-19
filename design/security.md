@@ -9,8 +9,10 @@ subcollection: api-handbook
 ---
 
 # Security
+{: #security}
 
 ## Security by design
+{: #security-by-design}
 
 Security considerations are a critical part of the design of any API. The following principles
 SHOULD be applied during an service API's design and development:
@@ -31,6 +33,7 @@ These approaches contain the attack surface of an API, and allow for more compre
 testing.
 
 ## Attack vector analysis
+{: #attack-vector-analysis}
 
 When designing and developing a service API, industry resources on common attacks and attack
 mitigation SHOULD be considered. Recommended resources include:

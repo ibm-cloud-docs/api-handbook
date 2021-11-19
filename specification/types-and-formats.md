@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Types and formats
+{: #types-and-formats}
 
 Property and parameter schema MUST only use combinations of `type` and `format` defined in OpenAPI
 Specification
@@ -21,28 +22,33 @@ the following additions:
 `string` | `crn` | the Cloud Resource Name for a resource (see [CRN in Types](/docs/api-handbook/design/types#crn))
 
 ## Specifying additional constraints
+{: #specifying-additional-constraints}
 
 Some constraints needed for input validation or output guarantees are not naturally expressed in
 OpenAPI. The following are recommendations for documenting such constraints.
 
 ## Date-time precision
+{: #date-time-precision}
 
 To document the precision of `date-time` properties in responses, use the following additional
 constraints:
 
 ### For second precision:
+{: #for-second-precision}
 ```
 minLength: 20
 maxLength: 20
 ```
 
 ### For millisecond precision:
+{: #for-millisecond-precision}
 ```
 minLength: 24
 maxLength: 24
 ```
 
 ## String character sets
+{: #string-character-sets}
 
 Where practical, constrain the character set for string properties by using the schema's `pattern`.
 Regardless, describe the character set constraints in plain language in the schema's description.

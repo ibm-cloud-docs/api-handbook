@@ -11,17 +11,20 @@ subcollection: api-handbook
 {:important: .important}
 
 # Format
+{: #format}
 
 APIs MUST support JSON by default for sending and receiving data in request and response
 bodies. Other formats SHOULD NOT be supported except to meet a compelling
 industry-specific need.
 
 ## Object encapsulation
+{: #object-encapsulation}
 
 All JSON data MUST be structured in an object at the top level; arrays MUST NOT be returned as the
 top-level structure in a response body.[^never-use-root-arrays]
 
 ## Request body constraints
+{: #request-body-constraints}
 
 Services MUST have a documented and enforced maximum payload size for request bodies. Requests with
 bodies larger than the limit MUST be rejected with a `413 Payload Too Large` status code and
@@ -36,14 +39,17 @@ determined to exceed the limit.
   checking and enforcing the size limit.
 
 ## Content-Type behavior
+{: #content-type-behavior}
 
 If a request `Accept` header is either not provided or matches[^matching-accept-content-type]
 `application/json`, the response MUST be JSON and its `Content-Type` header MUST be
 `application/json`.
 
 ## JSON processing
+{: #json-processing}
 
 ### Case insensitivity
+{: #case-insensitivity}
 
 Field names in JSON objects in a request payload SHOULD NOT be case-normalized to support case
 insensitivity; a field that does not match the case of a defined field but otherwise matches its
@@ -62,6 +68,7 @@ clients.
   use another.
   
 ### Ambiguous JSON data
+{: #ambiguous-json-data}
 
 Duplicate field names MUST NOT exist in any one JSON object[^one-json-object] contained in a JSON
 response. If duplicate field names exist in an object within a request payload, the request MUST be
@@ -82,6 +89,7 @@ normalized prior to validating uniqueness.
   authorization or validation checks.
 
 ## Cross-origin support
+{: #cross-origin-support}
 
 If a service has a need to support cross-origin requests, CORS headers SHOULD be supported to enable
 this. The JSONP format SHOULD NOT be supported.
