@@ -1,0 +1,56 @@
+toc:
+  properties:
+    subcollection: api-handbook
+    category: dev_ops
+    audience: platform
+    href: /docs/api-handbook
+    path: api-handbook
+    label: IBM Cloud API Handbook
+
+  entries: 
+  - navgroup: 
+      id: reference
+      topics:
+          - index.md
+          - topicgroup:
+              label: Fundamentals
+              topics:
+                  - fundamentals/format.md
+                  - fundamentals/methods.md
+                  - fundamentals/headers.md
+                  - fundamentals/status-codes.md
+                  - fundamentals/authentication.md
+                  - fundamentals/authorization.md
+                  - fundamentals/encryption.md
+          - topicgroup:
+              label: Design
+              topics:
+                  - design/resources.md
+                  - design/terminology.md
+                  - design/models.md
+                  - design/types.md
+                  - design/uris.md
+                  - design/long-running-operations.md
+                  - design/errors.md
+                  - design/security.md
+                  - design/robustness.md
+          - topicgroup:
+              label: Collections
+              topics:
+                  - collections/overview.md
+                  - collections/pagination.md
+                  - collections/sorting.md
+                  - collections/filtering.md
+          - topicgroup:
+              label: Changes
+              topics:
+                  - changes/overview.md
+                  - changes/compatibility.md
+          - topicgroup:
+              label: Specification
+              topics:
+                  - specification/overview.md
+                  - specification/design-methodology.md
+                  - specification/schemas.md
+                  - specification/types-and-formats.md
+          - meta/contributing.md
