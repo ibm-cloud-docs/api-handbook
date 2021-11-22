@@ -55,10 +55,10 @@ property. This URL SHOULD be complete and begin with the protocol (e.g.,
 `https://api.example.com/v2/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195`).
 
 [^collection-response]: Encapsulation of arrays is always required for reasons outlined under the
-  [Object
-  Encapsulation](/docs/api-handbook/collections?topic=api-handbook-format#object-encapsulation)
-  section of [Format](/docs/api-handbook/collections?topic=api-handbook-format).
+   [Object
+   Encapsulation](/docs/api-handbook/collections?topic=api-handbook-format#object-encapsulation)
+   section of [Format](/docs/api-handbook/collections?topic=api-handbook-format).
 
 [^hierarchical-url]: RFC 3986 [defines URLs as
-  hierarchical](https://tools.ietf.org/html/rfc3986#section-1.2.3) and the `/` character is used to
-  delineate segments of the hierarchy.
+   hierarchical](https://tools.ietf.org/html/rfc3986#section-1.2.3) and the `/` character is used
+   to delineate segments of the hierarchy.

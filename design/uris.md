@@ -66,11 +66,12 @@ rejected prior to any processing of the payload with a `414 URI Too Long` status
 appropriate error response model.
 
 [^uri-limit-rationale]: [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.1.1) recommends
-  supporting a _minimum_ URI length of 8000 octets. Given that various tools written to this
-  standard may support _no more_ than this recommended minimum, this handbook recommends a limit of
-  _exactly_ 8000 bytes.
+   supporting a _minimum_ URI length of 8000 octets. Given that various tools written to this
+   standard may support _no more_ than this recommended minimum, this handbook recommends a limit of
+   _exactly_ 8000 bytes.
 
 ## Query parameters
+{: #query-parameters}
 
 ### Contraints
 {: #query-parameter-constraints}
@@ -80,9 +81,9 @@ and the sum of all query parameter maximum lengths (along with the names and con
 and `=` for each parameter) for a single operation SHOULD be less than 7000 bytes[^7000-you-say].
 
 [^7000-you-say]: The recommended maximum URI length is 8000 bytes; leaving 1000 bytes for
-  imaginatively long fully qualified domain name and path segments, it should be impossible to craft
-  a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
-  allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
+   imaginatively long fully qualified domain name and path segments, it should be impossible to craft
+   a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
+   allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
 
 ### Unrecognized and invalid parameters
 {: #unrecognized-and-invalid-parameters}
@@ -104,13 +105,13 @@ However, parameter name case normalization MAY be supported for backward compati
 existing clients.
 
 [^parameter-case-normalization]: Case normalization is often an error-prone process, however simple
-  it may seem. One problem is that different standard libraries may not agree on the
-  lowercase-equivalent value for a particular string. For example, `"İstanbul".ToLowerCase()` in
-  JavaScript yields `i̇stanbul` (note the two dots over the first character), but
-  `strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
-  If the code that validates and the code that actually uses a particular parameter disagree on the
-  normalization of its name, it could lead to a bug that could be exploited to validate one value and
-  use another.
+   it may seem. One problem is that different standard libraries may not agree on the
+   lowercase-equivalent value for a particular string. For example, `"İstanbul".ToLowerCase()` in
+   JavaScript yields `i̇stanbul` (note the two dots over the first character), but
+   `strings.ToLower("İstanbul")` in Go is more aware of locale-specific rules and yields `istanbul`.
+   If the code that validates and the code that actually uses a particular parameter disagree on the
+   normalization of its name, it could lead to a bug that could be exploited to validate one value
+   and use another.
 
 ### Parameter duplication
 {: #parameter-duplication}
@@ -131,11 +132,11 @@ parameter (for example, `foo=1,2,3`) instead of duplicated[^array-parameter-dupl
 [^single-value]: That is, query parameters that do not support array input.
 
 [^duplicate-query-parameters]: Silent support for ambiguously duplicated query parameters increases
-  the risk that a malicious client could craft a request that bypasses critical authorization or
-  validation checks.
+   the risk that a malicious client could craft a request that bypasses critical authorization or
+   validation checks.
 
 [^exact-duplicate-parameters]: That is, exactly duplicated parameters can be treated as if only one
-  parameter with the duplicated name and value was provided.
+   parameter with the duplicated name and value was provided.
   
 [^array-parameter-duplication]: While this kind of parameter duplication is not ambiguous per se,
-  tooling support for constructing and parsing such query strings is uneven.
+   tooling support for constructing and parsing such query strings is uneven.

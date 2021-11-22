@@ -91,4 +91,4 @@ Client developers SHOULD be encouraged to use the current date as a version date
 and MUST be encouraged to use a fixed value for testing and production release.
 
 [^resource-scope]: Where a "resource scope" is the enclosing environment for resources, where
-  resources coexist and relate to each other.
+   resources coexist and relate to each other.

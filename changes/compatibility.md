@@ -50,15 +50,15 @@ update.
 {: #breaking-updates}
 
 In rare cases, it might be necessary to make a backward-incompatible change retroactive for a major
-version and (if applicable) across all version dates. Such changes are considered "breaking," because
-they could affect existing clients that are using existing API versions.
+version and (if applicable) across all version dates. Such changes are considered "breaking,"
+because they could affect existing clients that are using existing API versions.
 
-Breaking API changes that are needed to mitigate a vulnerability that poses an imminent threat to the
-security of a service or its users MUST NOT be delayed to accommodate a deprecation period and MUST
-be coordinated with the organization's broader security incident response team[^psirt].
+Breaking API changes that are needed to mitigate a vulnerability that poses an imminent threat to
+the security of a service or its users MUST NOT be delayed to accommodate a deprecation period and
+MUST be coordinated with the organization's broader security incident response team[^psirt].
 
 [^psirt]: Such as IBM's own [Product Security Incident Response Team
-  (PSIRT)](https://www.ibm.com/trust/security-psirt).
+   (PSIRT)](https://www.ibm.com/trust/security-psirt).
 
 Breaking API changes that are needed to adhere to updated security best practices (but not needed to
 mitigate an imminent threat) MAY be made with an abbreviated deprecation period and SHOULD be
@@ -85,13 +85,13 @@ supplemented with analysis of real-world API usage.
 The following kinds of changes SHOULD be considered backward-compatible and supported in
 evolutionary updates:
 
-- Adding a new path
-- Adding a new method to an existing path
-- Adding a new property to a response schema
-- Supporting a new optional query parameter, header, or property in a request schema
-- Expanding acceptable values for an existing query parameter, header, or property in a request
-  schema
-- Reducing possible values for a property in a response schema
+*  Adding a new path
+*  Adding a new method to an existing path
+*  Adding a new property to a response schema
+*  Supporting a new optional query parameter, header, or property in a request schema
+*  Expanding acceptable values for an existing query parameter, header, or property in a request
+   schema
+*  Reducing possible values for a property in a response schema
 
 #### Special cases for backward-compatibility
 {: #special-cases-for-backward-compatibility}
@@ -127,14 +127,14 @@ robustness approaches across an entire resource scope[^resource-scope]:
 The following types of changes are examples of what MAY be considered backward-compatible if the
 preceding client robustness approaches can be respected:
 
-- Expanding possible values for a property in a response schema; for example, a new value in an
-  enumeration, a lower minimum or higher maximum, or a more permissive string pattern.
-- Adding a new required property to a previously unsupported variant of a request
-  schema[^new-required-property].
-- Reducing acceptable values for a property for a previously unsupported variant of a request
-  schema[^reducing-acceptable-values].
-- Expanding the types of resources that could be referenced by an `href` or embedded reference
-  schema within the context of another resource.
+*  Expanding possible values for a property in a response schema; for example, a new value in an
+   enumeration, a lower minimum or higher maximum, or a more permissive string pattern.
+*  Adding a new required property to a previously unsupported variant of a request
+   schema[^new-required-property].
+*  Reducing acceptable values for a property for a previously unsupported variant of a request
+   schema[^reducing-acceptable-values].
+*  Expanding the types of resources that could be referenced by an `href` or embedded reference
+   schema within the context of another resource.
 
 #### Changing default values
 {: #changing-default-values}
@@ -164,18 +164,19 @@ updates.
 The following kinds of changes SHOULD be considered backward-incompatible unless [a special
 case](#special-cases-for-backward-compatibility) applies:
 
-- Removing or renaming an existing path
-- Removing support for an existing method on an existing path
-- Removing or renaming an existing query parameter
-- Removing or renaming an existing property in a request or response schema
-- Adding a new required query parameter, header, or property in a request schema
-- Changing the status code for a particular scenario (except when the existing status code is `404`)
-- Reducing acceptable values for an existing query parameter, header, or property in a request
-  schema
-- Changing the semantics of a value for an existing query parameter, header, or property in a
-  response schema
-- Changing a default value or behavior for an already-valid request
-- Redefining the nature of any relationship between resources
+*  Removing or renaming an existing path
+*  Removing support for an existing method on an existing path
+*  Removing or renaming an existing query parameter
+*  Removing or renaming an existing property in a request or response schema
+*  Adding a new required query parameter, header, or property in a request schema
+*  Changing the status code for a particular scenario (except when the existing status code is
+   `404`)
+*  Reducing acceptable values for an existing query parameter, header, or property in a request
+   schema
+*  Changing the semantics of a value for an existing query parameter, header, or property in a
+   response schema
+*  Changing a default value or behavior for an already-valid request
+*  Redefining the nature of any relationship between resources
 
 #### Migrating to updated robustness best practices
 {: #robustness-changes }
@@ -183,11 +184,11 @@ case](#special-cases-for-backward-compatibility) applies:
 When migrating an API from previous guidance to this handbook's updated [robustness best
 practices][robustness], the following changes SHOULD be considered backward incompatible:
 
-- Rejecting an invalid or noncanonical value that was previously ignored, or coerced, or
-  canonicalized
-- Rejecting a duplicated or unrecognized query parameter or property in a request schema
-  that was previously ignored
-  
+*  Rejecting an invalid or noncanonical value that was previously ignored, or coerced, or
+   canonicalized
+*  Rejecting a duplicated or unrecognized query parameter or property in a request schema
+   that was previously ignored
+    
 One of [several strategies][robustness-migration-strategies] MAY be employed to complete this
 transition.
 
@@ -200,9 +201,9 @@ specific account on a specific service deployment.
 [^new-features]: New features made available by the API changes.
 
 [^new-required-property]: That is, an existing request schema may only have a newly required
-  property in combination with values for the rest of the schema's properties that would have
-  previously been invalid.
+   property in combination with values for the rest of the schema's properties that would have
+   previously been invalid.
 
 [^reducing-acceptable-values]: In other words, acceptable values for an existing property must only
-  be eliminated in combination with values for the rest of the schema's properties that would have
-  previously been invalid.
+   be eliminated in combination with values for the rest of the schema's properties that would have
+   previously been invalid.

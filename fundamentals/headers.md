@@ -25,6 +25,7 @@ HTTP specification and within this section of the handbook.
 | [Content-Language](https://tools.ietf.org/html/rfc7231#section-3.1.3.2) | Request, Response | If a response body is intended for an audience who speak a particular language (or languages), this header SHOULD be used to indicate that language (or those languages). If this header is included in a request it MAY be used by the server to classify the language of the incoming content appropriately. |
 | [Content-Location](https://tools.ietf.org/html/rfc7231#section-3.1.4.2) | Request, Response | When applicable, the `Content-Location` response header SHOULD be used to indicate the permanent location of the returned resource. See [below](#content-location) for more details. For requests, the `Content-Location` MUST be ignored by the server except for the purpose of logging or otherwise recording request metadata. |
 | [Content-Type](https://tools.ietf.org/html/rfc7231#section-3.1.1.5) | Request, Response | For all responses with bodies, this header MUST be included and indicate the content type of the body. Requests including this header with a content type not supported by the server MUST be rejected with a `415 Unsupported Media Type` status code and appropriate error response model. |
+{: caption="Representation headers" caption-side="bottom"}
 
 ### Content encoding
 {: #content-encoding}
@@ -46,17 +47,17 @@ for state-changing methods. The advantage to providing a `Content-Location` head
 can _always_ depend on this header to provide the permanent location of the content returned in a
 response body.
 
-* For responses to `POST` requests which return a `201` status along with the created resource,
-  `Content-Location` SHOULD be included and match `Location`.
-* For responses to `PUT` or `PATCH` requests which modify the resource at the request URI and return
-  a `200` status along with the modified resource, `Content-Location` SHOULD be included and match
-  the request URI.
-* For responses to `POST`, `PUT`, `PATCH`, or `DELETE` requests which return a `202` status and
-  include a resource representing the status of the request, `Content-Location` SHOULD be included
-  and contain a URI where this request status may be obtained.
-* For responses to any other `POST`, `PUT`, `PATCH`, or `DELETE` requests which include a resource
-  in the response body which may be found at a permanent URI, `Content-Location` SHOULD be included
-  and contain this URI.
+*  For responses to `POST` requests which return a `201` status along with the created resource,
+   `Content-Location` SHOULD be included and match `Location`.
+*  For responses to `PUT` or `PATCH` requests which modify the resource at the request URI and
+   return a `200` status along with the modified resource, `Content-Location` SHOULD be included and
+   match the request URI.
+*  For responses to `POST`, `PUT`, `PATCH`, or `DELETE` requests which return a `202` status and
+   include a resource representing the status of the request, `Content-Location` SHOULD be included
+   and contain a URI where this request status may be obtained.
+*  For responses to any other `POST`, `PUT`, `PATCH`, or `DELETE` requests which include a resource
+   in the response body which may be found at a permanent URI, `Content-Location` SHOULD be included
+   and contain this URI.
 
 The body of a response which includes a `Content-Location` header MUST be identical to the body of
 the response to a successful `GET` request made to the URI provided in that `Content-Location`
@@ -74,8 +75,11 @@ header.
 | [Accept-Ranges](https://tools.ietf.org/html/rfc7233#section-2.3) | Response | If a resource supports range requests, this header SHOULD be used to indicate what ranges are supported. |
 | [Allow](https://tools.ietf.org/html/rfc7231#section-7.4.1) | Response | This header MUST be used to indicate allowable request methods in a `405` response. If deemed useful, it MAY be included in any other response. |
 | [Upgrade](https://tools.ietf.org/html/rfc7230#section-6.7) | Request, Response | This header MAY be supported for requests and included in responses, in keeping with HTTP standards, to negotiate the use of a new protocol on the same connection. This header MUST NOT be supported except for operations which exist specifically to switch protocols[^only-for-protocol-switching]. The successful outcome of an operation that supports this header (either for requests or responses) MUST be a `101 Switching Protocols` status. |
+{: caption="Negotiation headers" caption-side="bottom"}
 
-[^only-for-protocol-switching]: That is, services MUST NOT expect or encourage clients to handle protocol switching as a part of operations which may result in normal, successful (`2xx`) HTTP responses.
+[^only-for-protocol-switching]: That is, services MUST NOT expect or encourage clients to handle
+   protocol switching as a part of operations which may result in normal, successful (`2xx`) HTTP
+   responses.
 
 ## Authentication headers
 {: #authentication-headers}
@@ -84,6 +88,7 @@ header.
 | ------ | ---- | ----------- |
 | [Authorization](https://tools.ietf.org/html/rfc7235#section-4.2) | Request  | The server MUST support this header for any form of authentication. |
 | [WWW-Authenticate](https://tools.ietf.org/html/rfc7235#section-4.1) | Response | This header MUST be supplied for responses to requests which need to be authenticated to be successful or requests where credentials are supplied but invalid. It MUST be supplied for all responses with a `401` status. |
+{: caption="Authentication headers" caption-side="bottom"}
 
 ## Validator headers
 {: #validator-headers}
@@ -92,6 +97,7 @@ header.
 | ------ | ---- | ----------- |
 | [ETag](https://tools.ietf.org/html/rfc7232#section-2.3) | Response | The `ETag` header MAY be supplied with the response to any `GET` or `HEAD` request. If supported, the `ETag` SHOULD be a quoted lowercase base-36 string, at least 16 characters in length (e.g., `"md9weho39cn2302n"`) and MUST be based on a checksum or hash of the resource that guarantees it will change if the resource changes. The value MUST have a `W/` prefix if strong ETag semantics are not supported. Even if `W/`-prefixed, an `ETag` MUST be guaranteed to change if any properties are changed that are directly mutable by a client. |
 | [Last-Modified](https://tools.ietf.org/html/rfc7232#section-2.2) | Response | The `Last-Modified` header MAY be supplied with the response to any `GET` or `HEAD` request. The `Last-Modified` MUST be supplied for any resources that support the `If-Modified-Since` or `If-Unmodified-Since` headers for any methods. The `Last-Modified` header MUST contain a valid [HTTP-date](https://tools.ietf.org/html/rfc5322#section-3.3) value in GMT (e.g., `Tue, 15 Nov 1994 12:45:26 GMT`) and MUST NOT be a date/time that occurs in the future. |
+{: caption="Validator headers" caption-side="bottom"}
 
 ### `ETag` support
 {: #etag-support}
@@ -121,6 +127,7 @@ up-to-date and use optimistic locking in order to mitigate race conditions.
 | [If-Unmodified-Since](https://tools.ietf.org/html/rfc7232#section-3.4) | Request | This header SHOULD NOT be supported for any request. It addresses similar needs to the `If-Match` header, but because of its increased precision, documentation SHOULD encourage clients to use `If-Match`. If supported, and this condition fails, the server MUST send a `412` status and an appropriate error response model. If a client supplies any value other than an [HTTP-date](https://tools.ietf.org/html/rfc5322#section-3.3) in this header, the server MUST send a `400` status and an appropriate error response model. |
 | [If-Modified-Since](https://tools.ietf.org/html/rfc7232#section-3.3) | Request | This header SHOULD NOT be supported for any request. It addresses similar needs to the `If-None-Match` header, but because of its increased precision, documentation SHOULD encourage clients to use `If-None-Match`. If supported, and this condition fails for a `GET` or `HEAD` request, the server MUST send a response with a `304` status and no body. If it fails for a request of any other method, the server MUST send a `412` status and an appropriate error response model. If a client supplies any value other than an [HTTP-date](https://tools.ietf.org/html/rfc5322#section-3.3) in this header, the server MUST send a `400` status and an appropriate error response model. |
 | [If-Range](https://tools.ietf.org/html/rfc7233#section-3.2) | Request | This header MAY be supported for requests which support the `Range` header. If this condition fails, the server MUST ignore the `Range` header and send the entire resource. |
+{: caption="Conditional headers" caption-side="bottom"}
 
 ### Recommended `If-Match` support
 {: #recommended-if-match-support}
@@ -129,8 +136,8 @@ The `If-Match` header SHOULD be supported for all `POST`[^post-on-resource], `PU
 `DELETE` operations on a resource for which an `ETag` header is returned. 
 
 [^post-on-resource]: `If-Match` is only applicable to `POST` requests which mutate or operate on an
-  existing resource, such as those used for [exceptional
-  operations](/docs/api-handbook?topic=api-handbook-methods#post-other-uses).
+   existing resource, such as those used for [exceptional
+   operations](/docs/api-handbook?topic=api-handbook-methods#post-other-uses).
 
 ### Required checks for unsupported conditional headers
 {: #required-checks-for-unsupported-conditional-headers}
@@ -165,6 +172,7 @@ services which opt to implement support for CORS.
 | [Access-Control-Request-Method](https://www.w3.org/TR/cors/#access-control-request-method-request-header) | Request | This header SHOULD be understood and utilized in order to formulated responses to preflight requests. |
 | [Access-Control-Request-Headers](https://www.w3.org/TR/cors/#access-control-request-headers-request-header) | Request | This header SHOULD be understood and utilized in order to formulate responses to preflight requests. |
 | [Origin](https://www.w3.org/TR/cors/#origin-request-header) | Request | This header MUST be understood and utilized by services implementing support for CORS. |
+{: caption="CORS headers" caption-side="bottom"}
 
 ## Preference headers
 {: #preference-headers}
@@ -173,6 +181,7 @@ services which opt to implement support for CORS.
 | ------------------ | -------- | ---------------------------------------- |
 | [Prefer](https://tools.ietf.org/html/rfc7240#section-2) | Request  | This header SHOULD be supported for `POST`, `PUT`, and `PATCH` requests where it may be expensive (in terms of bandwidth or computation) to return the created or modified resource. If the client supplies `return=minimal`, a successful response MUST have a `201 Created` or `204 No Content` status and include no body. If `return=representation` is supplied, a successful response MUST include the acted-upon resource. Whether the resource is included in the response by default is up to the implementors of the service. |
 | [Preference-Applied](https://tools.ietf.org/html/rfc7240#section-3) | Response | This header MAY be returned with responses to requests which include a `Prefer` header but is usually not necessary as it is only needed when the client does not have any other clear indicators as to whether its preference was applied. |
+{: caption="Preference headers" caption-side="bottom"}
 
 ## Context headers
 {: #context-headers}
@@ -183,6 +192,7 @@ services which opt to implement support for CORS.
 | [Referer](https://tools.ietf.org/html/rfc7231#section-5.5.2) | Request  | This header allow a client to reference where the request URI was obtained. Its value MUST NOT affect the outcome of any request. |
 | [Server](https://tools.ietf.org/html/rfc7231#section-7.4.2) | Response | This header SHOULD be provided in all responses and SHOULD contain the public-facing name and version number (including any minor and patch version) of the service responsible for handling the request. |
 | [User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3) | Request  | This header allows a client to report information about itself. It SHOULD be logged with a request, but MAY be otherwise ignored. |
+{: caption="Context headers" caption-side="bottom"}
 
 ## Control headers
 {: #control-headers}
@@ -203,6 +213,7 @@ services which opt to implement support for CORS.
 | [TE](https://tools.ietf.org/html/rfc7230#section-4.3) | Request | This header is used to specify what transfer codings (besides chunked) a client is willing to accept and MAY be ignored. |
 | [Vary](https://tools.ietf.org/html/rfc7231#section-7.1.4) | Response | This header specifies what request fields may affect the outcome of a request. It MAY be supported if the presence of caches is anticipated or to proactively signal support for different content format, encodings, languages, etc.  |
 | [Warning](https://tools.ietf.org/html/rfc7234#section-5.5) | Response | This header gives additional information that might not be conveyed in the status code and doesn't represent a total failure. It MAY be supported, particularly if the presence of caches is anticipated. |
+{: caption="Control headers" caption-side="bottom"}
 
 ## Tracing headers
 {: #tracing-headers}
@@ -230,6 +241,7 @@ generate a random (version 4) UUID to use in place of a client-supplied value.
 | --------------------- | -------- | ---------------------------------------- |
 | X-Request-ID | Request, Response | The supplied or generated value of this header MUST be logged for a request and repeated in a response header for the corresponding response. The same value MUST NOT be used for downstream requests or between retries of those requests. Documentation for a service SHOULD encourage all client developers to supply this header with a random UUID. |
 | X-Correlation-ID | Request, Response | The supplied or generated value of this header MUST be logged for a request and repeated in a response header for the corresponding response. The same value MUST be used for downstream requests and retries of those requests. Documentation for a service SHOULD encourage internal client developers to supply this header with a random UUID or (if available) a valid, trusted upstream value. |
+{: caption="Tracing headers" caption-side="bottom"}
 
 ## Rate limiting headers
 {: #rate-limiting-headers}
@@ -239,7 +251,8 @@ for any implementation of rate limiting[^rate-limiting-retry-after].
 
 | Header                | Type     | Description                              |
 | --------------------- | -------- | ---------------------------------------- |
-| Retry-After | Response | If rate limiting is active, this header MUST indicate how long the user agent should wait before making a follow-up request. The value of this field can be either an HTTP-date or a number of seconds to delay after the response is received.|
+| Retry-After | Response | If rate limiting is active, this header MUST indicate how long the user agent should wait before making a follow-up request. The value of this field can be either an HTTP-date or a number of seconds to delay after the response is received. |
+{: caption="Retry-After header" caption-side="bottom"}
 
 The following headers, while not a part of the HTTP specification, are common practice[^rate-limiting-common-practice]
 and MAY be used for any implementation of rate limiting.
@@ -249,6 +262,7 @@ and MAY be used for any implementation of rate limiting.
 | X-RateLimit-Limit | Response | If rate limiting is active, this header MUST indicate the number of requests permitted per hour. |
 | X-RateLimit-Remaining | Response | If rate limiting is active, this header MUST indicate the number of requests remaining in the current rate limit window. |
 | X-RateLimit-Reset | Response | If rate limiting is active, this header MUST indicate the time at which the current rate limit window resets, as a UNIX timestamp. |
+{: caption="Rate limiting headers" caption-side="bottom"}
 
 ## Custom headers
 {: #custom-headers}
@@ -272,6 +286,12 @@ should be as close to the name as the header as possible while still complying w
 for query parameter names. For example, the request header `If-Match` would be exposed as the query
 parameter `if_match`.
 
-[^rate-limiting-retry-after]: The Retry-After header is defined in [IETF RFC 7231](https://tools.ietf.org/html/rfc7231#section-7.1.3). The rate-limiting implementation in CloudFlare does provide the Retry-After header in 429 responses.
+[^rate-limiting-retry-after]: The Retry-After header is defined in [IETF RFC
+   7231](https://tools.ietf.org/html/rfc7231#section-7.1.3). The rate-limiting implementation in
+   CloudFlare does provide the Retry-After header in 429 responses.
 
-[^rate-limiting-common-practice]: These headers are used by [Twitter](https://dev.twitter.com/rest/public/rate-limiting), [GitHub](https://developer.github.com/v3/rate_limit/), [Atlassian](https://developer.atlassian.com/hipchat/guide/hipchat-rest-api/api-rate-limits), and others.
+[^rate-limiting-common-practice]: These headers are used by
+   [Twitter](https://dev.twitter.com/rest/public/rate-limiting),
+   [GitHub](https://developer.github.com/v3/rate_limit/),
+   [Atlassian](https://developer.atlassian.com/hipchat/guide/hipchat-rest-api/api-rate-limits),
+   and others.

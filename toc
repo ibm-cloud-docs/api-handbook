@@ -45,6 +45,7 @@ IBM Cloud API Handbook
     Specification
         specification/overview.md
         specification/design-methodology.md
+        specification/operations.md
         specification/schemas.md
         specification/types-and-formats.md
 

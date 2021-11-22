@@ -32,6 +32,7 @@ contain a `status_code` field, as outlined below:
 | `errors` | Error Model Array | This field MUST contain an array with at least one error model. |
 | `trace` | String | This field SHOULD contain a lowercase UUID uniquely identifying the request. |
 | `status_code` | Integer | This field MAY contain the HTTP status code used for the response. Otherwise, it MUST be omitted. |
+{: caption="Error container model" caption-side="bottom"}
 
 ## Error model
 {: #error-model}
@@ -44,7 +45,8 @@ MAY contain a `target` field, as outlined below:
 | `code` | Enumeration | This field MUST contain a snake case string succinctly identifying the problem. This field SHOULD NOT indicate which field, parameter, or header caused the error, as this is better done with an error target model. |
 | `message` | String | This field MUST contain a plainly-written, developer-oriented explanation of the solution to the problem in complete, well-formed sentences. |
 | `more_info` | URL | This field SHOULD contain a publicly-accessible URL where information about the error can be read in a web browser. |
-| `target` | Error Target Model | This field MAY contain an error target model. Otherwise, it MUST be omitted.     |
+| `target` | Error Target Model | This field MAY contain an error target model. Otherwise, it MUST be omitted. |
+{: caption="Error model" caption-side="bottom"}
 
 The error model MAY be extended with additional fields to better specify the error. The `target`
 field can be considered a standardized example of such an extension.
@@ -58,11 +60,12 @@ An error target model MUST contain the fields outlined below:
 | ----- | ---- | ----------- |
 | `type` | Enumeration | This field MUST contain `field`, `parameter`, or `header`. |
 | `name` | String | This field MUST contain the name of the problematic field (with dot-syntax if necessary), query parameter, or header. |
+{: caption="Error target model" caption-side="bottom"}
 
 ### Example error response
 {: #example-error-response}
 
-```
+```json
 {
   "trace": "9daee671-916a-4678-850b-10b911f0236d",
   "errors": [

@@ -1,7 +1,7 @@
 ---
 
 copyright:
-  years: 2019, 2021
+    years: 2019, 2021
 lastupdated: "2021-06-30"
 
 subcollection: api-handbook
@@ -137,12 +137,13 @@ If it is deemed critical that a client be able to retrieve all pages without any
 omitted resources, one of two approaches MAY be implemented:
 
 1. Pagination MAY be performed across an ephemeral snapshot of the collection made with the first
-   request and referenced by the token.[^snapshot-reference] This approach guarantees that all pages
-   in a paginated set represent the resources in the collection at the time of the initial request.
-2. A paginated collection MAY require that sorting be performed only on immutable fields, while each
-   request is still made against live data. This approach guarantees that all resources that existed
-   for the entire duration of paginated requests are neither omitted nor duplicated if all pages in
-   a collection are requested in sequence.
+   request and referenced by the token.[^snapshot-reference] This approach guarantees that all
+   pages in a paginated set represent the resources in the collection at the time of the initial
+   request.
+2. A paginated collection MAY require that sorting be performed only on immutable fields, while
+   each request is still made against live data. This approach guarantees that all resources that
+   existed for the entire duration of paginated requests are neither omitted nor duplicated if all
+   pages in a collection are requested in sequence.
 
 ### Example token-based pagination response
 {: #example-token-based-pagination-response}
@@ -242,27 +243,27 @@ the `total_count` field MAY be omitted.
 ```
 
 [^pagination-unspecified]: That is, a paged collection should never return all resources if paging
-  parameters are unspecified.
+   parameters are unspecified.
 
 [^pagination-and-sorting]: If the records returned in a paginated request have arbitrary ordering,
-  the client has no assurance that a particular page corresponds to specific records.
+   the client has no assurance that a particular page corresponds to specific records.
 
 [^last-page]: The "last page" is defined as the scenario where the sum of the supplied offset and
-  limit is greater than the total number of resources in the collection.
+   limit is greater than the total number of resources in the collection.
 
 [^maximum-limit-consistency]: That is, the maximum limit must not change based on any other request
-  parameters; it may vary for different collections, but not for different request parameters on one
-  collection.
+   parameters; it may vary for different collections, but not for different request parameters on
+   one collection.
 
 [^maximum-limit]: Without a maximum limit, it may be possible for clients to (intentionally or not)
-  inundate a system with prohibitively expensive requests.
+   inundate a system with prohibitively expensive requests.
 
 [^duplication-or-omission]: There are two possible exceptions to this rule. First, if the resources
-  are being ordered based on mutable fields, and the value of one or more of those fields changes
-  for a particular resource in between page requests, it is acceptable for that resource to be
-  duplicated or omitted as an artifact of that change. Second, if a resource is added to the
-  collection after the initial request or removed prior to the final request, it is acceptable for
-  it to be omitted from the complete set of pages.
+   are being ordered based on mutable fields, and the value of one or more of those fields changes
+   for a particular resource in between page requests, it is acceptable for that resource to be
+   duplicated or omitted as an artifact of that change. Second, if a resource is added to the
+   collection after the initial request or removed prior to the final request, it is acceptable for
+   it to be omitted from the complete set of pages.
 
 [^snapshot-reference]: Note that the token must still refer to a particular page of the snapshot
-  such that multiple requests made with the same token yield the same results.
+   such that multiple requests made with the same token yield the same results.

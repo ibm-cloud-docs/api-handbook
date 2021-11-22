@@ -26,6 +26,7 @@ basic attributes is listed below, followed by detailed guidelines for the use of
 | PATCH   | Yes          | Yes           | No   | No         |
 | DELETE  | No           | Yes           | No   | Yes        |
 | OPTIONS | No           | Yes           | Yes  | Yes        |
+{: caption="HTTP methods" caption-side="bottom"}
 
 ## GET
 {: #get}
@@ -110,14 +111,15 @@ supported to give the client control over whether the resource is included.
 {: #patch}
 
 A `PATCH` request SHOULD specify new values for one or more fields on a resource and SHOULD be
-considered successful if each field was updated to, or already contained, the value specified in the request.
-The resource updated by a `PATCH` request MUST be located at the URI used in the request.[^patch-uri]
-Unlike with a `PUT` request, services SHOULD NOT require a `PATCH` request to reference all mutable fields.
+considered successful if each field was updated to, or already contained, the value specified in the
+request. The resource updated by a `PATCH` request MUST be located at the URI used in the
+request.[^patch-uri] Unlike with a `PUT` request, services SHOULD NOT require a `PATCH` request to
+reference all mutable fields.
 
 Services MAY support either or both of the below formats for `PATCH` requests:
 
-* [JSON merge patch format (RFC 7396)](https://tools.ietf.org/html/rfc7396)
-* [JSON patch format (RFC 6902)](https://tools.ietf.org/html/rfc6902)
+*  [JSON merge patch format (RFC 7396)](https://tools.ietf.org/html/rfc7396)
+*  [JSON patch format (RFC 6902)](https://tools.ietf.org/html/rfc6902)
 
 The JSON merge patch format (RFC 7396) MAY be supported for requests with a content type of
 `application/json` or without an explicit content type. However, if this format is supported at all,
@@ -145,42 +147,42 @@ be ignored and therefore MUST NOT cause an error.[^delete-request-body]
 
 
 [^safe-side-effects]: It's worth noting that the side effects referred to here are ones visible to
-  the user and impacting user data. Side effects such as logging and metric collection are
-  permissible for any request.
+   the user and impacting user data. Side effects such as logging and metric collection are
+   permissible for any request.
 
 [^get-request-body]: RFC 2616 says that request bodies
-  [should be ignored](https://tools.ietf.org/html/rfc2616#section-4.3) for methods that do not
-  specify the body as part of the request semantics, and the `GET` method's semantics
-  [only include the request URI](https://tools.ietf.org/html/rfc2616#section-9.3).
+   [should be ignored](https://tools.ietf.org/html/rfc2616#section-4.3) for methods that do not
+   specify the body as part of the request semantics, and the `GET` method's semantics
+   [only include the request URI](https://tools.ietf.org/html/rfc2616#section-9.3).
 
 [^head-behavior]: This behavior is [required by RFC
-  2616](https://tools.ietf.org/html/rfc2616#section-9.4).
+   2616](https://tools.ietf.org/html/rfc2616#section-9.4).
 
 [^uri-accepting-post]: RFC 2616 [requires that](https://tools.ietf.org/html/rfc2616#section-9.5) the
-  "posted entity is subordinate to that URI in the same way that a file is subordinate to a
-  directory containing it."
+   "posted entity is subordinate to that URI in the same way that a file is subordinate to a
+   directory containing it."
 
 [^post-create-result]: These two requirements [are
-  explicit](https://tools.ietf.org/html/rfc2616#section-9.5) in RFC 2616 for `POST` requests which
-  create new resources.
+   explicit](https://tools.ietf.org/html/rfc2616#section-9.5) in RFC 2616 for `POST` requests which
+   create new resources.
 
 [^post-not-for-create]: This use case and the success statuses permitted in it
-    [are outlined](https://tools.ietf.org/html/rfc2616#section-9.5) in RFC 2616.
+   [are outlined](https://tools.ietf.org/html/rfc2616#section-9.5) in RFC 2616.
 
 [^put-uri]: RFC 2616 requires [says that](http://tools.ietf.org/html/rfc2616#section-9.6) the "PUT
-  method requests that the enclosed entity be stored under the supplied Request-URI."
+   method requests that the enclosed entity be stored under the supplied Request-URI."
 
 [^put-update-success]: RFC 2616 [requires that](https://tools.ietf.org/html/rfc2616#section-9.6) a
-  successful resource update by a `PUT` request return either a `200 OK` status or a `204 No
-  Content` status. Since this handbook requires that a successful `PUT` request of any kind return
-  the resource as represented by a `GET` request to the same URI, only a `200 OK` status is
-  appropriate in this case.
+   successful resource update by a `PUT` request return either a `200 OK` status or a `204 No
+   Content` status. Since this handbook requires that a successful `PUT` request of any kind return
+   the resource as represented by a `GET` request to the same URI, only a `200 OK` status is
+   appropriate in this case.
 
 [^put-create-success]: [As required](https://tools.ietf.org/html/rfc2616#section-9.6) by RFC 2616.
 
 [^patch-uri]: RFC 5789 [states](https://tools.ietf.org/html/rfc5789#section-2), "The PATCH method
-  requests that a set of changes described in the request entity be applied to the resource
-  identified by the Request-URI."
+   requests that a set of changes described in the request entity be applied to the resource
+   identified by the Request-URI."
 
 [^delete-request-body]: Like `GET` requests, `DELETE` requests do not include the request body in
-  the [semantics of the reqest](https://tools.ietf.org/html/rfc2616#section-9.7).
+   the [semantics of the reqest](https://tools.ietf.org/html/rfc2616#section-9.7).

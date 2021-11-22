@@ -33,4 +33,4 @@ All object schemas MUST be defined separately in the `components / schemas` sect
 document, and MUST NOT be nested within the definition of another schema.[^no-nested-schemas]
 
 [^no-nested-schemas]: A nested schema definition creates an "anonymous" schema which may have
-  an arbitrary name assigned to it in implementations.
+   an arbitrary name assigned to it in implementations.

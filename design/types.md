@@ -19,19 +19,20 @@ fields of some types cannot be nullable, optional, or mutable. Types also govern
 
 The following types are described below:
 
-* [Identifier](#identifier)
-* [Boolean](#boolean)
-* [Integer](#integer)
-* [Float](#float)
-* [String](#string)
-* [Date](#date)
-* [Date/Time](#datetime)
-* [CRN](#crn)
-* [Enumeration](#enumeration)
-* [Model](#model)
-* [Array](#array)
+*  [Identifier](#identifier)
+*  [Boolean](#boolean)
+*  [Integer](#integer)
+*  [Float](#float)
+*  [String](#string)
+*  [Date](#date)
+*  [Date/Time](#datetime)
+*  [CRN](#crn)
+*  [Enumeration](#enumeration)
+*  [Model](#model)
+*  [Array](#array)
 
 ## Identifier
+{: #identifier}
 
 The identifier type contains a value which identifies a resource. It MUST uniquely identify a
 resource among all resources of the same type, and SHOULD uniquely identify a resource among all
@@ -68,7 +69,7 @@ match constraints MUST cause the entire request to fail with a `400` status code
 error response model.
 
 [^identifier-case-normalization]: Occasionally, case normalization may coerce a non-ASCII character
-  into an ASCII character. This MUST NOT be allowed to occur.
+   into an ASCII character. This MUST NOT be allowed to occur.
 
 In request bodies and query parameters, identifier values SHOULD be matched case-insensitively.
 
@@ -91,21 +92,21 @@ A boolean value MUST be returned as the JSON keyword `true` or the JSON keyword
 #### Request bodies
 {: #boolean-request-bodies}
 
-* The JSON keyword `true` or the JSON keyword `false` MUST be considered a valid boolean.
-* Any other value MUST be rejected with a `400` status code and appropriate error response model.
+*  The JSON keyword `true` or the JSON keyword `false` MUST be considered a valid boolean.
+*  Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
 {: #boolean-query-parameters}
 
-* The strings `true` and `false` MUST be case-insensitively matched as valid booleans.
-* Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
-  appropriate error response model.
+*  The strings `true` and `false` MUST be case-insensitively matched as valid booleans.
+*  Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
+   appropriate error response model.
 
 The character set of a boolean query parameter value within a request MUST be verified prior to case
 normalization[^boolean-case-normalization].
 
 [^boolean-case-normalization]: Occasionally, case normalization may coerce a non-ASCII character
-  into an ASCII character. This MUST NOT be allowed to occur.
+   into an ASCII character. This MUST NOT be allowed to occur.
 
 ## Integer
 {: #integer}
@@ -115,9 +116,9 @@ integers[^64-bit-integer] and which may require guaranteed precision. In a model
 type MAY be nullable and MAY be optional.
 
 [^64-bit-integer]: The JSON specification itself [defers to implementing
-  software](https://tools.ietf.org/html/rfc7159#section-6) on maximum sizes for numbers. For
-  interoperability, this handbook requires that no API consider a number outside of the range of
-  64-bit integers an integer.
+   software](https://tools.ietf.org/html/rfc7159#section-6) on maximum sizes for numbers. For
+   interoperability, this handbook requires that no API consider a number outside of the range of
+   64-bit integers an integer.
 
 ### Response format
 {: #integer-return-format}
@@ -141,23 +142,23 @@ included in a request. Failure to match constraints MUST cause the entire reques
 #### Request bodies
 {: #integer-request-bodies}
 
-* Any JSON number value which evaluates to an integer within the service providing an API MUST be
-  considered a valid integer, but MAY be rejected by other validation rules.
-* The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
-  otherwise.
-* Any other value MUST be rejected with a `400` status code and appropriate error response model.
+*  Any JSON number value which evaluates to an integer within the service providing an API MUST be
+   considered a valid integer, but MAY be rejected by other validation rules.
+*  The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
+   otherwise.
+*  Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
 {: #integer-query-parameters}
 
-* Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
-  without a fractional or exponential value MUST be considered a valid integer.
-* Any other string containing a valid JSON number (that is, a string with a fractional or
-  exponential value) MAY be used for comparative filtering but MUST NOT be considered an exact
-  match.
-* The lowercase string `null` MUST be considered a match for an explicitly null value.
-* Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
-  appropriate error response model.
+*  Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
+   without a fractional or exponential value MUST be considered a valid integer.
+*  Any other string containing a valid JSON number (that is, a string with a fractional or
+   exponential value) MAY be used for comparative filtering but MUST NOT be considered an exact
+   match.
+*  The lowercase string `null` MUST be considered a match for an explicitly null value.
+*  Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
+   appropriate error response model.
 
 
 ## Float
@@ -169,9 +170,9 @@ be optional. A float field MUST NOT purport to support values or precision beyon
 `double`[^64-bit-double]
 
 [^64-bit-double]: The JSON specification itself [defers to implementing
-  software](https://tools.ietf.org/html/rfc7159#section-6) on maximum sizes and precision guarantees
-  for numbers. For interoperability, this handbook requires that no service expect or return
-  floating-point values outside of what can be stored as a 64-bit `double`.
+   software](https://tools.ietf.org/html/rfc7159#section-6) on maximum sizes and precision
+   guarantees for numbers. For interoperability, this handbook requires that no service expect or
+   return floating-point values outside of what can be stored as a 64-bit `double`.
 
 ### Response format
 {: #float-return-format}
@@ -197,20 +198,20 @@ code and appropriate error response model.
 #### Request bodies
 {: #float-request-bodies}
 
-* Any JSON number value MUST be considered a valid float, but MAY be rejected by other validation
-  rules.
-* The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
-  otherwise.
-* Any other value MUST be rejected with a `400` status code and appropriate error response model.
+*  Any JSON number value MUST be considered a valid float, but MAY be rejected by other validation
+   rules.
+*  The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
+   otherwise.
+*  Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
 {: #float-query-parameters}
 
-* Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
-  MUST be considered a valid float.
-* The lowercase string `null` MUST be considered a match for an explicitly null value.
-* Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
-  appropriate error response model.
+*  Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
+   MUST be considered a valid float.
+*  The lowercase string `null` MUST be considered a match for an explicitly null value.
+*  Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
+   appropriate error response model.
 
 
 ## String
@@ -259,9 +260,9 @@ matching the `full-date` format as [specified by RFC
 
 In this format:
 
-* `YYYY` is a four-digit year value
-* `MM` is a two-digit month value (`01`-`12`)
-* `DD` is a two-digit day-of-the-month value (`01`-`31`)
+*  `YYYY` is a four-digit year value
+*  `MM` is a two-digit month value (`01`-`12`)
+*  `DD` is a two-digit day-of-the-month value (`01`-`31`)
 
 ### Request formats
 {: #date-accepted-formats}
@@ -288,13 +289,13 @@ by RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
 
 In these formats:
 
-* `YYYY`, `MM`, and `DD` are as [described above](#date)
-* `T` is a literal, uppercase "T"
-* `HH` is the number of hours since midnight (`00`-`23`)
-* `mm` is the number of minutes since the start of the hour (`00`-`59`)
-* `ss` is the number of seconds since the start of the minute (`00`-`59`)
-* `sss` is the number of milliseconds since the start of the second (`000`-`999`)
-* `Z` is a literal, uppercase "Z", indicating no timezone offset (`±00:00` or UTC)
+*  `YYYY`, `MM`, and `DD` are as [described above](#date)
+*  `T` is a literal, uppercase "T"
+*  `HH` is the number of hours since midnight (`00`-`23`)
+*  `mm` is the number of minutes since the start of the hour (`00`-`59`)
+*  `ss` is the number of seconds since the start of the minute (`00`-`59`)
+*  `sss` is the number of milliseconds since the start of the second (`000`-`999`)
+*  `Z` is a literal, uppercase "Z", indicating no timezone offset (`±00:00` or UTC)
 
 Date/time values SHOULD be returned with the same precision with which they are stored and MUST NOT
 be returned with greater precision. That is, if a date/time value is stored internally with
@@ -320,8 +321,8 @@ required to have the same precision—either second or millisecond—as the fiel
 Additionally, a date/time value provided as input SHOULD be permitted to supply an explicit timezone
 offset in place of a literal `Z`. This offset MUST be formatted as `+HH:mm` or `-HH:mm` where:
 
-* `HH` is the number of whole hours by which the timezone differs from UTC
-* `mm` is the number of additional minutes by which the timezone differs from UTC
+*  `HH` is the number of whole hours by which the timezone differs from UTC
+*  `mm` is the number of additional minutes by which the timezone differs from UTC
 
 In particularly delicate situations where input must be guaranteed to be correct, input with no
 timezone offset (that is, input in UTC as indicated by a literal `Z`) MAY be required.
@@ -393,7 +394,7 @@ Character set constraints (only ASCII alphanumeric characters and the underscore
 enforced prior to any case normalization[^case-normalization].
 
 [^case-normalization]: Occasionally, case normalization may coerce a non-ASCII character into an
-  ASCII character. This MUST NOT be allowed to occur.
+   ASCII character. This MUST NOT be allowed to occur.
 
 All other values MUST NOT be considered valid. An invalid enumeration value in the request body MUST
 be rejected with a `400` status code and appropriate error response model.

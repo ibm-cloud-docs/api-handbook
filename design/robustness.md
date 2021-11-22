@@ -40,8 +40,9 @@ Paraphrased, the narrower, original definition of the robustness principle state
 protocol's specification exists apart from sundry implementations, a defensive implementor should
 react to ambiguity (which is a _defect_ of the specification) with:
 
- * A broad interpretation of what constitutes valid input (but still only within the confines of what the specification leaves open to interpretation) 
- * A narrow interpretation of what constitutes valid output
+*  A broad interpretation of what constitutes valid input (but still only within the confines of
+   what the specification leaves open to interpretation) 
+*  A narrow interpretation of what constitutes valid output
 
 [fallibility-of-specifications]: https://datatracker.ietf.org/doc/html/draft-thomson-postel-was-wrong-03#section-2
 
@@ -81,28 +82,28 @@ canonicalize input before sending it.
 
 But the downsides of accepting noncanonical input can be significant:
 
-* Canonicalization can be a complicated procedure with many corner cases and ambiguities that
-  significantly increase the complexity of an API. The additional complexity of transforming
-  noncanonical input makes the service harder to develop and maintain. It also expands the testing
-  and attack surfaces.
-* If canonicalization decisions are tied to specific libraries used by the service, it could be
-  significantly harder to transition a service implementation to a new technology.
-* If canonicalization is done lazily[^lazy-canonicalization], the burden falls on clients to
-  compute equivalency of values. Also, collection sorting behavior might [surprise][astonishment]
-  some client developers regardless of how order is computed for noncanonical values.
-* If canonicalization is done eagerly[^eager-canonicalization], some clients — [declarative
-  orchestration engines][infrastructure-as-code] in particular — could experience undesired behavior  
-  if a value the client sets is silently transformed. The client might erroneously assume that a
-  canonicalizing transformation it observes is a conflicting update (from another client in a race)
-  and repeatedly attempt to reset the value.
-* Besides increasing overall attack surface, certain classes of attacks specifically depend on
-  bugs where different code paths disagree on canonicalization logic.
+*  Canonicalization can be a complicated procedure with many corner cases and ambiguities that
+   significantly increase the complexity of an API. The additional complexity of transforming
+   noncanonical input makes the service harder to develop and maintain. It also expands the testing
+   and attack surfaces.
+*  If canonicalization decisions are tied to specific libraries used by the service, it could be
+   significantly harder to transition a service implementation to a new technology.
+*  If canonicalization is done lazily[^lazy-canonicalization], the burden falls on clients to
+   compute equivalency of values. Also, collection sorting behavior might [surprise][astonishment]
+   some client developers regardless of how order is computed for noncanonical values.
+*  If canonicalization is done eagerly[^eager-canonicalization], some clients — [declarative
+   orchestration engines][infrastructure-as-code] in particular — could experience undesired
+   behavior if a value the client sets is silently transformed. The client might erroneously assume
+   that a canonicalizing transformation it observes is a conflicting update (from another client in
+   a race) and repeatedly attempt to reset the value.
+*  Besides increasing overall attack surface, certain classes of attacks specifically depend on bugs
+   where different code paths disagree on canonicalization logic.
 
 [^lazy-canonicalization]: That is, noncanonical values are accepted, stored, and returned,
-  and only canonicalized (opaquely to the user) when necessary.
+   and only canonicalized (opaquely to the user) when necessary.
 
 [^eager-canonicalization]: That is, noncanonical values are canonicalized before being stored
-  and returned only in canonical form.
+   and returned only in canonical form.
 
 [astonishment]: https://en.wikipedia.org/wiki/Principle_of_least_astonishment
 [infrastructure-as-code]: https://en.wikipedia.org/wiki/Infrastructure_as_code
@@ -130,15 +131,15 @@ _Validation_ is better than _sanitation_.
 There are several reasons ignoring invalid input is dangerous and ill-advised. The following are
 hazards of a service that ignores invalid input:
 
-* Client developers could be confused as to why a feature is not working as expected, when in reality
-  their request is inadvertently malformed in a way that's hard to spot.
-* Subtle bugs in client applications could result in dangerous unintentional consequences. For
-  example, if a filter parameter on a list operation is ignored because a malformed value is
-  unintentionally provided, a client might misconfigure or delete the wrong set of resources. In
-  extreme cases such bugs could result in outages of dependent services, loss of data, or accidental
-  access grants to resources.
-* Subtle bugs in service code that fail to fully discard invalid input in all contexts
-  could result in attack vectors.
+*  Client developers could be confused as to why a feature is not working as expected, when in
+   reality their request is inadvertently malformed in a way that's hard to spot.
+*  Subtle bugs in client applications could result in dangerous unintentional consequences. For
+   example, if a filter parameter on a list operation is ignored because a malformed value is
+   unintentionally provided, a client might misconfigure or delete the wrong set of resources. In
+   extreme cases such bugs could result in outages of dependent services, loss of data, or
+   accidental access grants to resources.
+*  Subtle bugs in service code that fail to fully discard invalid input in all contexts could result
+   in attack vectors.
 
 ### Extraneous input
 {: #extraneous-input}
@@ -148,8 +149,8 @@ input, such as unrecognized properties in JSON request bodies and unrecognized q
 SHOULD NOT be ignored and SHOULD result in an error.
 
 [^ignore-unknown-headers]: Such as RFC 7230's 
-  [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1) that unknown HTTP
-  headers be ignored.
+   [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1) that unknown HTTP
+   headers be ignored.
   
 All of the downsides listed for [silently ignoring invalid input](#sanitation-and-validation) also
 apply to ignoring extraneous input.
@@ -169,15 +170,15 @@ changes][robustness-changes].
 When feasible, existing, noncompliant service APIs SHOULD be updated to adhere to best practices
 by using one of the following approaches:
 
-* If a service API has a small, known set of consumers, and log analysis can be used to identify
-  client behavior that would run afoul of stricter validation, white-glove assistance to client
-  developers MAY be offered ahead of changes that would otherwise be considered breaking.
-* If a service API employs [date-based versioning][date-based-versioning], stricter enforcement MAY
-  be added for a new version date. If feasible, updated enforcement SHOULD happen in a single
-  version date across the whole service. For large services, an iterative approach where cohesive
-  sections of the API are updated in a series of versioned changes MAY be used.
-* If a new major version for a service API is developed, updated robustness best practices MUST be
-  enforced across the new version.
+*  If a service API has a small, known set of consumers, and log analysis can be used to identify
+   client behavior that would run afoul of stricter validation, white-glove assistance to client
+   developers MAY be offered ahead of changes that would otherwise be considered breaking.
+*  If a service API employs [date-based versioning][date-based-versioning], stricter enforcement MAY
+   be added for a new version date. If feasible, updated enforcement SHOULD happen in a single
+   version date across the whole service. For large services, an iterative approach where cohesive
+   sections of the API are updated in a series of versioned changes MAY be used.
+*  If a new major version for a service API is developed, updated robustness best practices MUST be
+   enforced across the new version.
   
 When existing service APIs are extended, new operations and new request headers, request schema
 properties, and query parameters on existing operations SHOULD adhere to updated robustness best
@@ -196,8 +197,8 @@ supported.
 
 In particular, the following operations SHOULD support optimistic locking:
 
-* A `PUT` operation that wholly replaces an existing resource
-* A `PATCH` operation that supports JSON merge-patch and the mutation of an array field
+*  A `PUT` operation that wholly replaces an existing resource
+*  A `PATCH` operation that supports JSON merge-patch and the mutation of an array field
 
 If specific kinds of requests are deemed particularly dangerous in race conditions, a service MAY
 require that the client provide an `If-Match` header.

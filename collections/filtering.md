@@ -45,7 +45,7 @@ filter could return the result following:
 
 `GET /v2/users?tag=swift`
 
-```
+```json
 {
   "resources": [
     {
@@ -68,13 +68,13 @@ The following types MAY support the below extended filters:
 
 Numeric fields MAY support the following comparisons:
 
-* Not equal, by prefixing a value with `not:`
-* Greater than, by prefixing a value with `gt:`
-* Greater than or equal, by prefixing a value with `gte:`
-* Less than, by prefixing a value with `lt:`
-* Less than or equal, by prefixing a value with `lte:`
-* In a set, by providing a comma-separated list of values
-* Not in a set, by prefixing a comma-separated list of values with `not:`
+*  Not equal, by prefixing a value with `not:`
+*  Greater than, by prefixing a value with `gt:`
+*  Greater than or equal, by prefixing a value with `gte:`
+*  Less than, by prefixing a value with `lt:`
+*  Less than or equal, by prefixing a value with `lte:`
+*  In a set, by providing a comma-separated list of values
+*  Not in a set, by prefixing a comma-separated list of values with `not:`
 
 If any integer or float field supports any of the above comparisons, all integer and float fields
 which the collection can be filtered on MUST support all of the above comparisons.
@@ -84,13 +84,13 @@ which the collection can be filtered on MUST support all of the above comparison
 
 Date and date/time fields MAY support the following comparisons:
 
-* Not equal, by prefixing a value with `not:`
-* Greater than, by prefixing a value with `gt:`
-* Greater than or equal, by prefixing a value with `gte:`
-* Less than, by prefixing a value with `lt:`
-* Less than or equal, by prefixing a value with `lte:`
-* In a set, by providing a comma-separated list of values
-* Not in a set, by prefixing a comma-separated list of values with `not:`
+*  Not equal, by prefixing a value with `not:`
+*  Greater than, by prefixing a value with `gt:`
+*  Greater than or equal, by prefixing a value with `gte:`
+*  Less than, by prefixing a value with `lt:`
+*  Less than or equal, by prefixing a value with `lte:`
+*  In a set, by providing a comma-separated list of values
+*  Not in a set, by prefixing a comma-separated list of values with `not:`
 
 If any date or date/time field supports any of the above comparisons, all date and date/time fields
 which the collection can be filtered on MUST support all of the above comparisons.
@@ -100,9 +100,9 @@ which the collection can be filtered on MUST support all of the above comparison
 
 Identifier and enumeration fields MAY support the following comparisons:
 
-* Not equal, by prefixing a value with `not:`
-* In a set, by providing a comma-separated list of values
-* Not in a set, by prefixing a comma-separated list of values with `not:`
+*  Not equal, by prefixing a value with `not:`
+*  In a set, by providing a comma-separated list of values
+*  Not in a set, by prefixing a comma-separated list of values with `not:`
 
 If any enumeration or identifier field supports any of the above comparisons, all enumeration and
 identifier fields which the collection can be filtered on MUST support all of the above comparisons.

@@ -16,10 +16,11 @@ Specification
 [ref](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types), with
 the following additions:
 
-`type` | `format` | Comments
------- | -------- | --------
-`string` | `identifier` | identifier for a resource (see [Identifier in Types](/docs/api-handbook/design/types#identifier))
-`string` | `crn` | the Cloud Resource Name for a resource (see [CRN in Types](/docs/api-handbook/design/types#crn))
+| `type`   | `format`     | Comments |
+| -------- | ------------ | -------- |
+| `string` | `identifier` | identifier for a resource (see [Identifier in Types](/docs/api-handbook/design/types#identifier)) |
+| `string` | `crn`        | the Cloud Resource Name for a resource (see [CRN in Types](/docs/api-handbook/design/types#crn)) |
+{: caption="Types and formats" caption-side="bottom"}
 
 ## Specifying additional constraints
 {: #specifying-additional-constraints}
@@ -35,14 +36,16 @@ constraints:
 
 ### For second precision:
 {: #for-second-precision}
-```
+
+```yaml
 minLength: 20
 maxLength: 20
 ```
 
 ### For millisecond precision:
 {: #for-millisecond-precision}
-```
+
+```yaml
 minLength: 24
 maxLength: 24
 ```
