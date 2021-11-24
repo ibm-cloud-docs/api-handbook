@@ -173,8 +173,8 @@ be ignored and therefore MUST NOT cause an error.[^delete-request-body]
    outlined](https://datatracker.ietf.org/doc/html/rfc2616#section-9.5){: external} in RFC 2616.
 
 [^put-uri]: RFC 2616 requires [says
-   that](http://tools.ietf.org/html/rfc2616#section-9.6){: external} the "PUT method requests that
-   the enclosed entity be stored under the supplied Request-URI."
+   that](https://datatracker.ietf.org/doc/html/rfc2616#section-9.6){: external} the "PUT method
+   requests that the enclosed entity be stored under the supplied Request-URI."
 
 [^put-update-success]: RFC 2616 [requires
    that](https://datatracker.ietf.org/doc/html/rfc2616#section-9.6){: external} a successful
@@ -193,4 +193,4 @@ be ignored and therefore MUST NOT cause an error.[^delete-request-body]
 
 [^delete-request-body]: Like `GET` requests, `DELETE` requests do not include the request body in
    the [semantics of the
-   reqest](https://datatracker.ietf.org/doc/html/rfc2616#section-9.7){: external}.
+   request](https://datatracker.ietf.org/doc/html/rfc2616#section-9.7){: external}.
