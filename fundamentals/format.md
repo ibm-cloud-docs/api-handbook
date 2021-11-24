@@ -8,6 +8,7 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
 {:important: .important}
 
 # Format
@@ -96,10 +97,10 @@ this. The JSONP format SHOULD NOT be supported.
 
 [^never-use-root-arrays]: This design allows for top-level metadata to be added later and prevents a
    [cross-site scripting
-   vulnerability](http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx/).
+   vulnerability](http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx/){: external}.
 
 [^matching-accept-content-type]: It's very important to note that API implementations should _not_
    parse `Accept` headers with a simple string search for `application/json`, as wildcards are often
    used. It's also important for matching to be
-   [case-insensitve](https://tools.ietf.org/html/rfc2045#section-5.1), as MIME types are lowercase by
-   convention only.
+   [case-insensitve](https://datatracker.ietf.org/doc/html/rfc2045#section-5.1){: external}, as MIME
+   types are lowercase by convention only.

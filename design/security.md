@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Security
 {: #security}
 
@@ -38,10 +40,12 @@ testing.
 When designing and developing a service API, industry resources on common attacks and attack
 mitigation SHOULD be considered. Recommended resources include:
 
-*  [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
-*  [NIST Guide to Secure Web Services](https://csrc.nist.gov/publications/detail/sp/800-95/final)
-*  MITRE attack matrices for [SaaS](https://attack.mitre.org/matrices/enterprise/cloud/saas/) and
-   [IaaS](https://attack.mitre.org/matrices/enterprise/cloud/iaas/)
+*  [OWASP API Security Top 10](https://owasp.org/www-project-api-security/){: external}
+*  [NIST Guide to Secure Web
+   Services](https://csrc.nist.gov/publications/detail/sp/800-95/final){: external}
+*  MITRE attack matrices for
+   [SaaS](https://attack.mitre.org/matrices/enterprise/cloud/saas/){: external}
+   and [IaaS](https://attack.mitre.org/matrices/enterprise/cloud/iaas/){: external}
 
 ## See also
 {: #see-also}
@@ -53,5 +57,5 @@ Important best practices with security implications are addressed across this ha
 *  [Encryption](/docs/api-handbook?topic=api-handbook-encryption)
 *  [Robustness](/docs/api-handbook?topic=api-handbook-robustness)
 *  Validation for [formats](/docs/api-handbook?topic=api-handbook-format),
-   [parameters](/api-handbook?topic=api-handbook-uris#query-parameters),
+   [parameters](/docs/api-handbook?topic=api-handbook-uris#query-parameters),
    and [types](/docs/api-handbook?topic=api-handbook-types)

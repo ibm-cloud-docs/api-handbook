@@ -11,7 +11,7 @@ subcollection: api-handbook
 # Models
 {: #models}
 
-A model represents a [type](/docs/api-handbook/design/types.html) of resource and defines the
+A model represents a [type](/docs/api-handbook?topic=api-handbook-types) of resource and defines the
 structure and behavior of objects that represent resources of that type. Such objects are called
 _instances_ of the model. Every object returned or accepted by a service MUST be an instance of a
 model.
@@ -46,23 +46,23 @@ Types constrain the kinds of values a field can contain. Each field must support
 below types. Note that most field types are stricter than their base JSON type. Each type below is
 linked to more information.
 
-*  An [Identifier](/docs/api-handbook/design/types.html#identifier) field contains a string value
-   uniquely identifying a resource.
-*  A [Boolean](/docs/api-handbook/design/types.html#boolean) field contains a `true` or `false`
-   value.
-*  An [Integer](/docs/api-handbook/design/types.html#integer) field contains a whole number.
-*  A [Float](/docs/api-handbook/design/types.html#float) field contains a number that could have a
-   decimal point or scientific notation.
-*  A [String](/docs/api-handbook/design/types.html#string) field contains a free-form string.
-*  A [Date](/docs/api-handbook/design/types.html#date) field contains a specifically-formatted date
-   string.
-*  A [Date/Time](/docs/api-handbook/design/types.html#datetime) field contains a
+*  An [Identifier](/docs/api-handbook?topic=api-handbook-types#identifier) field contains a string
+   value uniquely identifying a resource.
+*  A [Boolean](/docs/api-handbook?topic=api-handbook-types#boolean) field contains a `true` or
+   `false` value.
+*  An [Integer](/docs/api-handbook?topic=api-handbook-types#integer) field contains a whole number.
+*  A [Float](/docs/api-handbook?topic=api-handbook-types#float) field contains a number that could
+   have a decimal point or scientific notation.
+*  A [String](/docs/api-handbook?topic=api-handbook-types#string) field contains a free-form string.
+*  A [Date](/docs/api-handbook?topic=api-handbook-types#date) field contains a
+   specifically-formatted date string.
+*  A [Date/Time](/docs/api-handbook?topic=api-handbook-types#datetime) field contains a
    specifically-formatted date and time string.
-*  A [CRN](/docs/api-handbook/design/types.html#crn) field contains a Cloud Resource Name.
-*  An [Enumeration](/docs/api-handbook/design/types.html#enumeration) field contains one of a
+*  A [CRN](/docs/api-handbook?topic=api-handbook-types#crn) field contains a Cloud Resource Name.
+*  An [Enumeration](/docs/api-handbook?topic=api-handbook-types#enumeration) field contains one of a
    predefined set of lower snake case strings.
-*  A [Model](/docs/api-handbook/design/types.html#model) field contains a nested object. This object
-   must be an instance of a specific model; the field's definition must specify this model.
-*  An [Array](/docs/api-handbook/design/types.html#array) field contains an array which itself
-   contains zero or more values. Each value must conform to a specific type (excluding the Array
-   type itself); the field's definition must specify this type.
+*  A [Model](/docs/api-handbook?topic=api-handbook-types#model) field contains a nested object. This
+   object must be an instance of a specific model; the field's definition must specify this model.
+*  An [Array](/docs/api-handbook?topic=api-handbook-types#array) field contains an array which
+   itself contains zero or more values. Each value must conform to a specific type (excluding the
+   Array type itself); the field's definition must specify this type.

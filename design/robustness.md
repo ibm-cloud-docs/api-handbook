@@ -7,14 +7,17 @@ lastupdated: "2021-06-30"
 subcollection: api-handbook
 
 ---
+
+{:external: .external}
+
 # Robustness
 {: #robustness}
 
 ## Tradeoffs of the robustness principle
 {: #tradeoffs-of-the-robustness-principle}
 
-Jon Postel's [robustness principle](https://en.wikipedia.org/wiki/Robustness_principle) is a
-fixture of software design and implementation advice. It states:
+Jon Postel's [robustness principle](https://en.wikipedia.org/wiki/Robustness_principle){: external}
+is a fixture of software design and implementation advice. It states:
 
 > Be liberal in what you accept, and conservative in what you send.
 
@@ -148,9 +151,9 @@ Except where required by an industry standard or convention[^ignore-unknown-head
 input, such as unrecognized properties in JSON request bodies and unrecognized query parameters,
 SHOULD NOT be ignored and SHOULD result in an error.
 
-[^ignore-unknown-headers]: Such as RFC 7230's 
-   [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1) that unknown HTTP
-   headers be ignored.
+[^ignore-unknown-headers]: Such as RFC 7230's
+   [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1){: external} that
+   unknown HTTP headers be ignored.
   
 All of the downsides listed for [silently ignoring invalid input](#sanitation-and-validation) also
 apply to ignoring extraneous input.

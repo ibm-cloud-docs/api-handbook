@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Authentication
 {: #authentication}
 
@@ -15,9 +17,10 @@ This section covers authentication best practices for IBM Cloud APIs. Other area
 include [authorization](/docs/api-handbook?topic=api-handbook-authorization) and IBM Cloud's
 [Identity and Access Management (IAM)](/docs/account?topic=account-iamoverview) service.
 
-IBM Cloud APIs MUST comply with [OAuth 2.0](https://oauth.net/2/) authentication standards and
-accept Bearer tokens provided by IBM Cloud's [IAM](https://cloud.ibm.com/iam/overview) service.
-Service APIs MUST accept authentication information exclusively in the HTTP `Authorization` header.
+IBM Cloud APIs MUST comply with [OAuth 2.0](https://oauth.net/2/){: external} authentication
+standards and accept Bearer tokens provided by IBM Cloud's
+[IAM](https://cloud.ibm.com/iam/overview){: external} service. Service APIs MUST accept
+authentication information exclusively in the HTTP `Authorization` header.
 
 ## Best practices
 {: #best-practices}
@@ -37,6 +40,7 @@ environments.
 ## Additional resources
 {: #additional-resources}
 
-* [API Authorization](/docs/api-handbook?topic=api-handbook-authorization)
-* [IBM Cloud Identity and Accesss Management](/docs/account?topic=account-iamoverview)
-* [SDK Authentication Guidelines](https://github.com/IBM/ibm-cloud-sdk-common#authentication)
+*  [API Authorization](/docs/api-handbook?topic=api-handbook-authorization)
+*  [IBM Cloud Identity and Accesss Management](/docs/account?topic=account-iamoverview)
+*  [SDK Authentication
+   Guidelines](https://github.com/IBM/ibm-cloud-sdk-common#authentication){: external}

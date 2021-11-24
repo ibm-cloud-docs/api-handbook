@@ -34,7 +34,7 @@ users whose first name is "John" _and_ last name is "Smith":
 {: #matching-logic}
 
 Guidance for matching logic varies by field type, and is provided under the accepted formats heading
-for each type in the [Types](/docs/api-handbook/design/types.html) section.
+for each type in the [Types](/docs/api-handbook?topic=api-handbook-types) section.
 
 ### Primitive arrays
 {: #primitive-arrays}

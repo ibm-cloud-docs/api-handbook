@@ -8,6 +8,7 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
 {:important: .important}
 
 # Types
@@ -36,8 +37,9 @@ The following types are described below:
 
 The identifier type contains a value which identifies a resource. It MUST uniquely identify a
 resource among all resources of the same type, and SHOULD uniquely identify a resource among all
-resources in a system. Identifier values MAY be [RFC 4122](https://tools.ietf.org/html/rfc4122)
-UUIDs and SHOULD be selected by the system to ensure uniqueness.
+resources in a system. Identifier values MAY be [RFC
+4122](https://datatracker.ietf.org/doc/html/rfc4122){: external} UUIDs and SHOULD be selected by the
+system to ensure uniqueness.
 
 It is not required that all models have identifier values. However, a model which has an identifier
 value MUST include it in a field named `id`. Fields other than the `id` field MAY have the
@@ -116,9 +118,9 @@ integers[^64-bit-integer] and which may require guaranteed precision. In a model
 type MAY be nullable and MAY be optional.
 
 [^64-bit-integer]: The JSON specification itself [defers to implementing
-   software](https://tools.ietf.org/html/rfc7159#section-6) on maximum sizes for numbers. For
-   interoperability, this handbook requires that no API consider a number outside of the range of
-   64-bit integers an integer.
+   software](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} on maximum sizes for numbers.
+   For interoperability, this handbook requires that no API consider a number outside of the range
+   of 64-bit integers an integer.
 
 ### Response format
 {: #integer-return-format}
@@ -151,8 +153,9 @@ included in a request. Failure to match constraints MUST cause the entire reques
 #### Query parameters
 {: #integer-query-parameters}
 
-*  Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
-   without a fractional or exponential value MUST be considered a valid integer.
+*  Any string containing a [valid JSON
+   number](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} value without a fractional or
+   exponential value MUST be considered a valid integer.
 *  Any other string containing a valid JSON number (that is, a string with a fractional or
    exponential value) MAY be used for comparative filtering but MUST NOT be considered an exact
    match.
@@ -170,9 +173,10 @@ be optional. A float field MUST NOT purport to support values or precision beyon
 `double`[^64-bit-double]
 
 [^64-bit-double]: The JSON specification itself [defers to implementing
-   software](https://tools.ietf.org/html/rfc7159#section-6) on maximum sizes and precision
-   guarantees for numbers. For interoperability, this handbook requires that no service expect or
-   return floating-point values outside of what can be stored as a 64-bit `double`.
+   software](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} on maximum sizes
+   and precision guarantees for numbers. For interoperability, this handbook requires that no
+   service expect or return floating-point values outside of what can be stored as a 64-bit
+   `double`.
 
 ### Response format
 {: #float-return-format}
@@ -207,8 +211,9 @@ code and appropriate error response model.
 #### Query parameters
 {: #float-query-parameters}
 
-*  Any string containing a [valid JSON number](https://tools.ietf.org/html/rfc7159#section-6) value
-   MUST be considered a valid float.
+*  Any string containing a [valid JSON
+   number](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} value MUST be considered a
+   valid float.
 *  The lowercase string `null` MUST be considered a match for an explicitly null value.
 *  Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
    appropriate error response model.
@@ -256,7 +261,7 @@ The date type specifies a particular year, month, and day.
 
 A date value MUST be returned as a JSON string containing a date in the format `YYYY-MM-DD`,
 matching the `full-date` format as [specified by RFC
-3339](https://tools.ietf.org/html/rfc3339#section-5.6).
+3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6){: external}.
 
 In this format:
 
@@ -285,7 +290,7 @@ The date/time type specifies a particular date, time, and timezone.
 
 A date/time value MUST be returned as a JSON string containing a date/time value in the format
 `YYYY-MM-DDTHH:mm:ssZ` or `YYYY-MM-DDTHH:mm:ss.sssZ`, matching the `date-time` format as [specified
-by RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
+by RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6){: external}.
 
 In these formats:
 
@@ -431,7 +436,7 @@ included in a request. Failure to match constraints MUST cause the entire reques
 ## Model
 {: #model}
 
-To learn about models, see the [Models](/docs/api-handbook/design/models.html) section. Each
+To learn about models, see the [Models](/docs/api-handbook?topic=api-handbook-models) section. Each
 model—while itself a collection of fields with types—is also a type.
 
 Because of this, one model can contain a field whose type is another model. For example, consider a
@@ -439,5 +444,7 @@ Server Model with a `processor` field. This field's type could be the Processor 
 an instance of the Server Model would contain an instance of the Processor Model in its `processor`
 field.
 
-[^json-keywords]: [In RFC 7159](https://tools.ietf.org/html/rfc7159#section-3), `true`, `false`, and
-`null` values are called "literal names," but in this document we refer to them as "JSON keywords."
+[^json-keywords]: [In RFC
+   7159](https://datatracker.ietf.org/doc/html/rfc7159#section-3){: external}, `true`, `false`, and
+   `null` values are called "literal names," but in this document we refer to them as "JSON
+   keywords."

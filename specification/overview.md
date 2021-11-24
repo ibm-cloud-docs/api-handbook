@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Specification overview
 {: #specification-overview}
 
@@ -16,9 +18,9 @@ subcollection: api-handbook
 
 The primary format for representing the API for a service MUST be an API document that conforms to
 [the OpenAPI
-specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md). API
-documents using version 2 of OpenAPI (aka Swagger) SHOULD be updated to version 3.x as soon as
-practical.
+specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md){: external}.
+API documents using version 2 of OpenAPI (aka Swagger) SHOULD be updated to version 3.x
+as soon as practical.
 
 The API document for a service MUST be a complete and accurate description of the operations and
 resource models exposed by service.

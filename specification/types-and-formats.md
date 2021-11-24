@@ -8,13 +8,15 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Types and formats
 {: #types-and-formats}
 
 Property and parameter schema MUST only use combinations of `type` and `format` defined in OpenAPI
 Specification
-[ref](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types), with
-the following additions:
+[ref](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types){: external},
+with the following additions:
 
 | `type`   | `format`     | Comments |
 | -------- | ------------ | -------- |

@@ -105,4 +105,4 @@ the number of seconds that the client should wait before trying to get the statu
 to avoid excessive polling. A `Retry-After` header MAY also be included in the response to `GET`
 requests on an operation resource.
 
-[rfc-7231]: https://tools.ietf.org/html/rfc7231#section-6.3.3
+[rfc-7231]: https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.3

@@ -12,6 +12,7 @@ keywords: "API,API best practices,API Handbook"
 
 {:beta: .beta}
 {:deprecated: .deprecated}
+{:external: .external}
 {:important: .important}
 {:note: .note}
 {:preview: .preview}
@@ -44,14 +45,14 @@ source project, such as Kubernetes, following that project's API standards and c
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
 "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC
-2119](https://tools.ietf.org/html/rfc2119).
+2119](https://datatracker.ietf.org/doc/html/rfc2119){: external}.
 
 ## Verifying compliance
 {: #verifying-compliance}
 
-The [OpenAPI Validator tool](https://github.com/IBM/openapi-validator) validates OpenAPI documents
-against a subset of the standards defined in this handbook and identifies areas of non-compliance
-with the OpenAPI specification or the guidelines in this handbook.
+The [OpenAPI Validator tool](https://github.com/IBM/openapi-validator){: external} validates OpenAPI
+documents against a subset of the standards defined in this handbook and identifies areas of
+non-compliance with the OpenAPI specification or the guidelines in this handbook.
 
 The output of the OpenAPI Validator is a report that identifies specific elements of the API
 definition that fail to comply with the OpenAPI specification or the IBM API Handbook. All errors

@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Collections overview
 {: #collections-overview}
 
@@ -60,5 +62,5 @@ property. This URL SHOULD be complete and begin with the protocol (e.g.,
    section of [Format](/docs/api-handbook/collections?topic=api-handbook-format).
 
 [^hierarchical-url]: RFC 3986 [defines URLs as
-   hierarchical](https://tools.ietf.org/html/rfc3986#section-1.2.3) and the `/` character is used
-   to delineate segments of the hierarchy.
+   hierarchical](https://datatracker.ietf.org/doc/html/rfc3986#section-1.2.3){: external} and the
+   `/` character is used to delineate segments of the hierarchy.

@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # URIs
 {: #uris}
 
@@ -65,7 +67,8 @@ SHOULD be 8000 bytes[^uri-limit-rationale]. Requests with URIs longer than the l
 rejected prior to any processing of the payload with a `414 URI Too Long` status code and
 appropriate error response model.
 
-[^uri-limit-rationale]: [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.1.1) recommends
+[^uri-limit-rationale]: [RFC
+   7230](https://datatracker.ietf.org/doc/html/rfc7230#section-3.1.1){: external} recommends
    supporting a _minimum_ URI length of 8000 octets. Given that various tools written to this
    standard may support _no more_ than this recommended minimum, this handbook recommends a limit of
    _exactly_ 8000 bytes.

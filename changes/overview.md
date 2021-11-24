@@ -8,6 +8,8 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Changes overview
 {: #changes-overview}
 
@@ -17,7 +19,7 @@ Services MUST have semantic **service versioning** and MAY support date-based **
 {: #semantic-service-versioning}
 
 Services MAY have a major, minor, and patch version, following the industry conventions on
-[semantic versioning](https://semver.org/):
+[semantic versioning](https://semver.org/){: external}:
 
 > Given a version number MAJOR.MINOR.PATCH, increment the:
 >
@@ -30,9 +32,9 @@ If surfaced, this version SHOULD be exposed in the `Server` response header.
 ### Major version
 {: #major-version}
 
-The major version of a service MUST be represented in its URL path,
-[as detailed](/docs/api-handbook/design/uris.html#version) in the URI section. A service MAY support
-multiple major versions concurrently.
+The major version of a service MUST be represented in its URL path, [as
+detailed](/docs/api-handbook?topic=api-handbook-uris#version) in the URI section. A service MAY
+support multiple major versions concurrently.
 
 Incrementing of the major version MUST NOT occur frequently, and SHOULD occur only as a part of a
 significant reconception of a service. A new major version of a service MAY support an entirely
@@ -78,11 +80,11 @@ its deprecation is announced.
 ### Version dates
 {: #version-dates}
 
-An update to a service MAY support new API behavior specific to a new API version date, or
-across version dates, depending on the
-[compatibility](/docs/api-handbook/changes/compatibility.html) of the change. The service
-implementation supporting a change specific to a new _API version date_ (e.g., `2019-11-19`) MUST be
-released prior to that date.
+An update to a service MAY support new API behavior specific to a new API version date, or across
+version dates, depending on the
+[compatibility](/docs/api-handbook?topic=api-handbook-change-compatibility) of the change. The
+service implementation supporting a change specific to a new _API version date_ (e.g.,
+`2019-11-19`) MUST be released prior to that date.
 
 ### Client developer directives
 {: #client-developer-directives}
