@@ -73,6 +73,148 @@ appropriate error response model.
    standard may support _no more_ than this recommended minimum, this handbook recommends a limit of
    _exactly_ 8000 bytes.
 
+## Path parameters
+
+While not a part of HTTP per se, path parameters are the way OpenAPI represents segments in an
+operation's path that contain arguments to be provided by a client at request time.
+
+A path parameter SHOULD only be used for a resource
+[identifier](/docs/api-handbook?topic=api-handbook-types#identifier), another form of
+guaranteed-unique handle[^no-crn] (such as an immutable name) or a "minimally represented" resource
+that can be entirely encoded as a single string (such as a tag).
+
+[^no-crn]: But [not a CRN](https://cloud.ibm.com/docs/api-handbook?topic=api-handbook-types#crn).
+
+A path parameter MUST NOT be used to provide a collection filter, pagination control, argument for
+a [custom operation](/docs/api-handbook?topic=api-handbook-operations#custom-operations), access
+token, or supplementary directive for the creation or mutation of a resource.
+
+### Path parameter names
+
+If a property in the response schema for an operation reflects the same value provided in the final
+path parameter containing an identifier (or other unique resource handle), that property and that
+parameter MUST use the same name.
+
+For example, if the operation to retrieve a farm resource from its identifier returns:
+
+```json
+{
+  "id": "0d45edaa-456f-48f2-abff-c01fd6b7530f",
+  "name": "Moo-Cow Milk Farm"
+}
+```
+
+Then the OpenAPI path parameter for the farm's identifier MUST be named "id":
+
+`GET /farms/{id}`
+
+Conversely, a path parameter MUST NOT have the same name as a top-level property in the
+operation's response body that represents a different value. Additionally, a path parameter MUST
+NOT have the same name as any top-level property in the operation's request body.
+
+The path parameters used to identify a resource and any of its parent resources MUST use
+consistent names across the resource type's standard operations for creating, retrieving, mutating,
+deleting, and listing resources of that type.
+
+For example, if `/farms/{farm_id}/barns/{id}` is used to retrieve, mutate, or delete a barn, the
+path used to list or create barns MUST be `/farms/{farm_id}/barns` and not `/farms/{id}/barns`.
+
+As in the example above, and where otherwise sufficient, the singular form of the prior path
+segment SHOULD be used to disambiguate a parent resource's identifier from its child's identifier.
+For example, `/farms/{farm_id}/barns/{barn_id}/cows/{id}` SHOULD be used instead of
+`/farms/{farm_id}/barns/{farm_barn_id}/cows/{id}`.
+
+#### Children without identifiers and custom operations
+
+Where there is no ambiguity, path parameters SHOULD NOT be qualified. For example, if a book
+resource type allows genres wholly represented by strings to be added with the path 
+`PUT /books/{id}/genres/{genre}` where `{genre}` is a string such as "sci-fi," and there is no
+request- or response-body representation of a genre and no genre identifier, the book identifier
+path parameter SHOULD remain unqualified as `{id}`.
+
+Similarly, if a resource supports a custom operation modeled as an appended verb in a path segment,
+such as `POST /servers/{id}/reboot`, the server identifier path parameter SHOULD remain unqualified
+as `{id}`.
+
+## Defining path parameters
+
+In an OpenAPI definition, path parameters SHOULD be defined in such a way as to maximize reuse
+and minimize duplication and potential inconsistency. To this end, path parameters MUST be
+enumerated in the [Path Item][path-item] object and not the [Operation][operation] object. Further,
+path parameters SHOULD be defined as [Components][components] and referenced in Path Item objects.
+Finally, schemas used by parameters SHOULD also be defined as separate [Components][components]
+and referenced in [Parameter](parameter) objects.
+
+[path-item]: https://spec.openapis.org/oas/v3.0.3#path-item-object
+[operation]: https://spec.openapis.org/oas/v3.0.3#operation-object
+[components]: https://spec.openapis.org/oas/v3.0.3#components-object
+[parameter]: https://spec.openapis.org/oas/v3.0.3#parameter-object
+
+### Example
+
+The following example demonstrates how parameters can be defined in an OpenAPI definition to
+maximize reuse.
+
+```yaml
+paths:
+  '/farms/{id}':
+    parameters:
+    - $ref: '#/components/parameters/FarmId'
+    get:
+      operationId: get_farm
+      ...
+    patch:
+      operationId: update_farm
+      ...
+  '/farms/{farm_id}/barns':
+    parameters:
+    - $ref: '#/components/parameters/FarmIdQualified'
+    get:
+      operationId: list_farm_barns
+      ...
+    post:
+      operationId: create_farm_barn
+      ...
+  '/farms/{farm_id}/barns/{id}':
+    parameters:
+    - $ref: '#/components/parameters/FarmIdQualified'
+    - $ref: '#/components/parameters/FarmBarnId'
+    get:
+      operationId: get_farm_barn
+      ...
+    patch:
+      operationId: update_farm_barn
+      ...
+components:
+  parameters:
+    FarmId:
+      name: id
+      in: path
+      required: true
+      description: The identifier for a farm
+      schema:
+        $ref: '#/components/schemas/Identifier'
+    FarmIdQualified:
+      name: farm_id
+      in: path
+      required: true
+      description: The identifier for a farm
+      schema:
+        $ref: '#/components/schemas/Identifier'
+    FarmBarnId:
+      name: id
+      in: path
+      required: true
+      description: The identifier for a barn on a farm
+      schema:
+        $ref: '#/components/schemas/Identifier'
+  schemas:
+    Identifier:
+      type: string
+      format: identifier
+      pattern: '^[-0-9a-z]+$'
+```
+
 ## Query parameters
 {: #query-parameters}
 
