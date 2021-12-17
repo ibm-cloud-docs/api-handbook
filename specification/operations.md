@@ -144,3 +144,18 @@ Some operations do not fit one of the defined conventions. Typically these opera
 
 A custom operation SHOULD use a `POST` or a `GET` method, following [the requirements for those
 methods](/docs/api-handbook?topic=api-handbook-methods).
+
+## Examples
+
+Each media type definition within an operation's request body and a successful response body
+definitions MUST include at least one example. A single example can be provided within the
+media type's `example` property. Multiple, named examples can be provided in the (mutually
+exclusive) `examples` property.
+
+If multiple examples are provided in a media type's `examples` object, one of the examples MUST be
+provided in a property named `primary`. Other properties in the `examples` object SHOULD have lower
+snake case names.
+
+The single example in a media type's `example` property or the primary example in a media type's
+`examples` object SHOULD represent only common-case properties and values. All examples provided
+MUST be realistic and representative of possible real-world values.

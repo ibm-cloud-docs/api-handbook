@@ -66,3 +66,26 @@ linked to more information.
 *  An [Array](/docs/api-handbook?topic=api-handbook-types#array) field contains an array which
    itself contains zero or more values. Each value must conform to a specific type (excluding the
    Array type itself); the field's definition must specify this type.
+
+### Examples
+{: #property-examples}
+
+Every primitive property in a schema MUST have a valid realistic `example` value. Example values
+SHOULD be consistent with values that could appear in the system under normal usage conditions and
+SHOULD NOT contain any obvious redactions or contrived abbreviations. Sensitive values (such as real
+identifiers or employee usernames) from test accounts used to generate examples MUST be replaced
+with dummy values that appear no less real.
+
+For example, an example encryption key SHOULD be a real key, albeit one generated for no other
+purpose than to be an example.
+
+The example for each property SHOULD be compatible with `example` values for other properties in
+the schema such that a schema example constructed from individual property examples is itself
+valid. However, if two properties are themselves mutually exclusive in a schema, each of the
+properties MUST still have an `example` value.
+
+#### Object and array examples
+{: #object-and-array-examples}
+
+An example for an object or array MUST be embedded as a native JSON or YAML structure in an
+OpenAPI definition and MUST NOT be represented as JSON wrapped in a string.
