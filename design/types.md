@@ -10,13 +10,15 @@ subcollection: api-handbook
 
 {:external: .external}
 {:important: .important}
+{:note: .note}
 
 # Types
 {: #types}
 
 Types define particular kinds of values. Each field in a model MUST have exactly one type, and
-fields of some types cannot be nullable, optional, or mutable. Types also govern how a value from
-(or for) a particular field can be represented in JSON and in query parameters.
+fields of some types cannot be optional, mutable, or (even in JSON merge patch requests) nullable.
+Types also govern how a value from (or for) a particular field can be represented in JSON and in
+query parameters.
 
 The following types are described below:
 
@@ -42,10 +44,8 @@ resources in a system. Identifier values MAY be [RFC
 system to ensure uniqueness.
 
 It is not required that all models have identifier values. However, a model which has an identifier
-value MUST include it in a field named `id`. Fields other than the `id` field MAY have the
+value MUST include it in a self-referential field named `id`. Fields other than `id` MAY have the
 identifier type, but such fields MUST refer to other resources.
-
-Fields of the identifier type MUST NOT be nullable, optional, or mutable.
 
 ### Response format
 {: #identifier-return-format}
@@ -53,9 +53,21 @@ Fields of the identifier type MUST NOT be nullable, optional, or mutable.
 An identifier value MUST be returned as a JSON string. Case-insensitive identifiers MUST be returned
 in consistent case and SHOULD be returned in lowercase.
 
-For responses, an identifier field SHOULD have a documented maximum length and character set. For the
-sake of backward-compatible future expansions, documented constraints MAY be more permissive
+For responses, an identifier field SHOULD have a documented maximum length and character set. For
+the sake of backward-compatible future expansions, documented constraints MAY be more permissive
 (allowing for a longer value or larger character set) for responses than for requests.
+
+A resource's self-referential `id` field MUST be required in any object schema used in a response
+and representing the resource. An identifier field that expresses an optional binding to a related
+resource MAY be optional.
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `identifier`      | `format` MUST be `identifier`. |
+| `maxLength` | `128`             | `maxLength` SHOULD be present. |
+| `pattern`   | `^[-0-9a-z]+$`    | `pattern` SHOULD be present. |
+{: caption="Schema guidance for identifiers in responses" caption-side="bottom"}
 
 ### Request formats
 {: #identifier-accepted-formats}
@@ -66,27 +78,50 @@ printable ASCII and SHOULD have a permissible character set further constrained 
 characters and the hyphen (`-`).
 
 Length and character set constraints MUST be checked prior to any other processing (including case
-normalization[^identifier-case-normalization]) of an identifier included in a request. Failure to
-match constraints MUST cause the entire request to fail with a `400` status code and appropriate
-error response model.
+normalization[^identifier-case-normalization]) of an identifier included in a request. For fields
+containing system-generated identifiers, documented constraints MAY be more permissive (allowing
+for a longer value or larger character set) than the implementation permits. Failure to match
+constraints MUST cause the entire request to fail with a `400` status code and appropriate error
+response model.
 
 [^identifier-case-normalization]: Occasionally, case normalization may coerce a non-ASCII character
    into an ASCII character. This MUST NOT be allowed to occur.
 
 In request bodies and query parameters, identifier values SHOULD be matched case-insensitively.
 
+A resource's self-referential `id` field MUST be excluded[^exclude-id-from-request] from any object
+schema used in a request to mutate that resource.
+
+[^exclude-id-from-request]: By omission or by marking it as read-only.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `string`             | `type` MUST be `string`. |
+| `format`    | `identifier`         | `format` MUST be `identifier`. |
+| `maxLength` | `128`                | `maxLength` MUST be present. |
+| `pattern`   | `^[-0-9A-Za-z]+$`    | `pattern` MUST be present. |
+{: caption="Schema guidance for identifiers in requests" caption-side="bottom"}
+
 
 ## Boolean
 {: #boolean}
 
-The boolean type contains either a `true` or `false` value. In a model, fields of the boolean type
-MUST NOT be nullable, but MAY be optional.
+The boolean type contains either a `true` or `false` value.
 
 ### Response format
 {: #boolean-return-format}
 
 A boolean value MUST be returned as the JSON keyword `true` or the JSON keyword
 `false`.[^json-keywords]
+
+In a response body, a boolean field MUST be required. If the property is inapplicable to certain
+states of the resource, this ternary capability MUST be represented explicitly with a enumeration
+containing values such as `on`, `off`, and `inapplicable`.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `boolean`            | `type` MUST be `boolean`. |
+{: caption="Schema guidance for booleans in responses" caption-side="bottom"}
 
 ### Request formats
 {: #boolean-accepted-formats}
@@ -96,6 +131,10 @@ A boolean value MUST be returned as the JSON keyword `true` or the JSON keyword
 
 *  The JSON keyword `true` or the JSON keyword `false` MUST be considered a valid boolean.
 *  Any other value MUST be rejected with a `400` status code and appropriate error response model.
+
+In a request body, a boolean field MAY be optional. An optional boolean field MUST have either an
+explicit default value or an explanation of the strategy used to compute a value in the property
+schema `description`.
 
 #### Query parameters
 {: #boolean-query-parameters}
@@ -107,35 +146,53 @@ A boolean value MUST be returned as the JSON keyword `true` or the JSON keyword
 The character set of a boolean query parameter value within a request MUST be verified prior to case
 normalization[^boolean-case-normalization].
 
+Despite all values being encoded as strings within the request URL, a boolean query parameter MUST
+be defined with a `boolean` schema. OpenAPI does not itself specify valid encoding for query
+parameters with `boolean` schemas, which makes the preceding guidance crucial.
+{: note}
+
 [^boolean-case-normalization]: Occasionally, case normalization may coerce a non-ASCII character
    into an ASCII character. This MUST NOT be allowed to occur.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `boolean`            | `type` MUST be `boolean`. |
+{: caption="Schema guidance for booleans in requests" caption-side="bottom"}
+
 
 ## Integer
 {: #integer}
 
-The integer type provides for numeric values which can be represented as signed 64-bit
-integers[^64-bit-integer] and which may require guaranteed precision. In a model, fields of the integer
-type MAY be nullable and MAY be optional.
+The integer type provides for whole number values between `-2^53 + 1` (-9,007,199,254,740,991) and
+`2^53 - 1` (9,007,199,254,740,991)[^min-max-int].
 
-[^64-bit-integer]: The JSON specification itself [defers to implementing
-   software](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} on maximum sizes for numbers.
-   For interoperability, this handbook requires that no API consider a number outside of the range
-   of 64-bit integers an integer.
+[^min-max-int]: The JSON specification itself [defers to implementing
+   software](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} on maximum safe
+   sizes for integers but suggests that guaranteed precision cannot be assumed to be interoperable
+   for values outside of the safe integer range for IEEE 754 double-precision values.
 
 ### Response format
 {: #integer-return-format}
 
-For responses, an integer field SHOULD have documented minimum and maximum values. For the sake of
-backward-compatible future expansions, documented constraints MAY be more permissive (allowing for
-a greater range of values) for responses than for requests.
+In a response body, an integer field SHOULD have documented minimum and maximum values. For the
+sake of backward-compatible future expansions, documented constraints MAY be more permissive
+(allowing for a greater range of values) for responses than for requests.
 
 An integer value MUST be returned as a JSON number and MUST NOT have a decimal point or use
 scientific notation.
 
+| Constraint  | Recommended value                                              | Description |
+| ----------- | -------------------------------------------------------------- | ----------- |
+| `type`      | `integer`                                                      | `type` MUST be `string`. |
+| `format`    | `int32` or `int64`                                             | `format` MUST be `int32` or `int64`. |
+| `minimum`   | ≥`-2147483648` for `int32` or ≥`-9007199254740991` for `int64` | `minimum` value SHOULD be present. |
+| `maximum`   | ≤`2147483647` for `int32` or ≤`9007199254740991` for `int64`   | `maximum` value SHOULD be present. |
+{: caption="Schema guidance for integers in responses" caption-side="bottom"}
+
 ### Request formats
 {: #integer-accepted-formats}
 
-For requests, an integer field MUST have documented minimum and maximum values.
+In a request body, an integer field MUST have documented minimum and maximum values.
 
 Minimum and maximum constraints MUST be checked prior to any other processing of an integer
 included in a request. Failure to match constraints MUST cause the entire request to fail with a
@@ -146,8 +203,8 @@ included in a request. Failure to match constraints MUST cause the entire reques
 
 *  Any JSON number value which evaluates to an integer within the service providing an API MUST be
    considered a valid integer, but MAY be rejected by other validation rules.
-*  The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
-   otherwise.
+*  The `null` JSON keyword MAY be accepted in a JSON merge patch request body if the field is
+   optional in the resource state and MUST NOT be accepted otherwise.
 *  Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
@@ -159,18 +216,26 @@ included in a request. Failure to match constraints MUST cause the entire reques
 *  Any other string containing a valid JSON number (that is, a string with a fractional or
    exponential value) MAY be used for comparative filtering but MUST NOT be considered an exact
    match.
-*  The lowercase string `null` MUST be considered a match for an explicitly null value.
+*  The lowercase string `null` MUST be considered a match for a value absent from the observable
+   resource state.
 *  Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
    appropriate error response model.
+
+| Constraint  | Recommended value                                              | Description |
+| ----------- | -------------------------------------------------------------- | ----------- |
+| `type`      | `integer`                                                      | `type` MUST be `string`. |
+| `format`    | `int32` or `int64`                                             | `format` MUST be `int32` or `int64`. |
+| `minimum`   | ≥`-2147483648` for `int32` or ≥`-9007199254740991` for `int64` | `minimum` value MUST be present. |
+| `maximum`   | ≤`2147483647` for `int32` or ≤`9007199254740991` for `int64`   | `maximum` value MUST be present. |
+{: caption="Schema guidance for integers in requests" caption-side="bottom"}
 
 
 ## Float
 {: #float}
 
-The float type provides for numeric values which cannot represented as integers and for which
-guaranteed precision is not required. In a model, fields of the float type MAY be nullable and MAY
-be optional. A float field MUST NOT purport to support values or precision beyond a 64-bit
-`double`[^64-bit-double]
+The float type provides for numeric values which cannot be represented as integers and for which
+guaranteed precision is not required. A float field MUST NOT purport to support values or precision
+beyond a 64-bit `double`[^64-bit-double]
 
 [^64-bit-double]: The JSON specification itself [defers to implementing
    software](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} on maximum sizes
@@ -189,6 +254,14 @@ for responses than for requests.
 A float value MUST be returned as a JSON number and MAY have a decimal point or use scientific
 notation.
 
+| Constraint  | Recommended value   | Description |
+| ----------- | ------------------- | ----------- |
+| `type`      | `number`            | `type` MUST be `number`. |
+| `format`    | `float` or `double` | `format` MUST be `float` or `double`. |
+| `minimum`   |                     | `minimum` value MAY be present. |
+| `maximum`   |                     | `maximum` value MAY be present. |
+{: caption="Schema guidance for floats in responses" caption-side="bottom"}
+
 ### Request formats
 {: #float-accepted-formats}
 
@@ -204,8 +277,8 @@ code and appropriate error response model.
 
 *  Any JSON number value MUST be considered a valid float, but MAY be rejected by other validation
    rules.
-*  The `null` JSON keyword MAY be accepted if the field is nullable and MUST NOT be accepted
-   otherwise.
+*  The `null` JSON keyword MAY be accepted in a JSON merge patch request body if the field is
+   optional in the resource state and MUST NOT be accepted otherwise.
 *  Any other value MUST be rejected with a `400` status code and appropriate error response model.
 
 #### Query parameters
@@ -214,9 +287,18 @@ code and appropriate error response model.
 *  Any string containing a [valid JSON
    number](https://datatracker.ietf.org/doc/html/rfc7159#section-6){: external} value MUST be considered a
    valid float.
-*  The lowercase string `null` MUST be considered a match for an explicitly null value.
+*  The lowercase string `null` MUST be considered a match for a value absent from the observable
+   resource state.
 *  Any other string MUST be considered invalid and SHOULD be rejected with a `400` status code and
    appropriate error response model.
+
+| Constraint  | Recommended value   | Description |
+| ----------- | ------------------- | ----------- |
+| `type`      | `number`            | `type` MUST be `number`. |
+| `format`    | `float` or `double` | `format` MUST be `float` or `double`. |
+| `minimum`   |                     | `minimum` value MAY be present. |
+| `maximum`   |                     | `maximum` value MAY be present. |
+{: caption="Schema guidance for floats in requests" caption-side="bottom"}
 
 
 ## String
@@ -236,19 +318,46 @@ responses than for requests.
 
 A string value MUST be returned as a JSON string.
 
+A free-form string field (such as a `description` or `notes` field) that allows a zero-length value
+MUST NOT be optional in a response body. A string field set to an empty string MUST be represented
+as a literal empty string (`""`).
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `minLength` |                   | `minLength` SHOULD be present. |
+| `maxLength` |                   | `maxLength` SHOULD be present. |
+| `pattern`   |                   | `pattern` SHOULD be present unless character constraints cannot be expressed in a regular expression. |
+{: caption="Schema guidance for strings in responses" caption-side="bottom"}
+
 ### Request formats
 {: #string-accepted-formats}
 
-For requests, a string field MUST have a documented maximum length and MUST have a documented
-permissible character set. A string field that does not contain completely free-form
-values[^free-form] SHOULD have a documented regular expression pattern which values are required to
-match.
-
-[^free-form]: For example, a "notes" field might be truly free-form.
+For requests, a string field MUST have documented minimum and maximum lengths and MUST have a
+documented permissible character set. A string field that does not contain completely free-form
+values SHOULD have a documented regular expression pattern which values are required to match.
 
 Length, character set, and pattern constraints MUST be checked prior to any other processing of
 strings included in requests. Failure to match constraints MUST cause the entire request to fail
 with a `400` status code and appropriate error response model.
+
+A free-form string field (such as a `description` or `notes` field) that allows a zero-length value
+SHOULD be optional in a request body, and if it is optional, its default value MUST be a literal
+empty string (`""`).
+
+A zero-length string value MUST NOT be accepted to use a default or computed value or to omit a
+field entirely from observable resource state. For example, if a request has an optional
+`public_ip_address` field and omitting or providing a `null` value (in a JSON merge patch request)
+for the field results in a resource without a public IP address, providing a zero-length value MUST
+NOT do the same.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `string`             | `type` MUST be `string`. |
+| `minLength` |                      | `minLength` MUST be present. |
+| `maxLength` |                      | `maxLength` MUST be present. |
+| `pattern`   |                      | `pattern` SHOULD be present unless character constraints cannot be expressed in a regular expression. |
+{: caption="Schema guidance for strings in requests" caption-side="bottom"}
 
 
 ## Date
@@ -269,6 +378,12 @@ In this format:
 *  `MM` is a two-digit month value (`01`-`12`)
 *  `DD` is a two-digit day-of-the-month value (`01`-`31`)
 
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `date`            | `format` MUST be `date`. |
+{: caption="Schema guidance for dates in responses" caption-side="bottom"}
+
 ### Request formats
 {: #date-accepted-formats}
 
@@ -278,6 +393,12 @@ and appropriate error response model.
 
 An invalid date in a query parameter SHOULD be rejected with a `400` status code and appropriate
 error response model.
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `date`            | `format` MUST be `date`. |
+{: caption="Schema guidance for dates in requests" caption-side="bottom"}
 
 
 ## Date/Time
@@ -316,6 +437,14 @@ Because higher-order segments could have special significance, reducing the prec
 date/time value MUST be done with truncation and not rounding.
 {: important}
 
+| Constraint  | Recommended value                                         | Description |
+| ----------- | --------------------------------------------------------- | ----------- |
+| `type`      | `string`                                                  | `type` MUST be `string`. |
+| `format`    | `date-time`                                               | `format` MUST be `date-time`. |
+| `minLength` | `20` for second precision, `24` for millisecond precision | `minLength` MUST be present. |
+| `maxLength` | `20` for second precision, `24` for millisecond precision | `maxLength` MUST be present. |
+{: caption="Schema guidance for date/times in responses" caption-side="bottom"}
+
 ### Request formats
 {: #date-time-accepted-formats}
 
@@ -337,6 +466,14 @@ be rejected with a `400` status code and appropriate error response model.
 
 An invalid date/time value in a query parameter SHOULD be rejected with a `400` status code and
 appropriate error response model.
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `date-time`       | `format` MUST be `date-time`. |
+| `minLength` | `20`              | `minLength` MUST be present. |
+| `maxLength` | `29`              | `maxLength` MUST be present. |
+{: caption="Schema guidance for date/times in requests" caption-side="bottom"}
 
 
 ## CRN
@@ -361,6 +498,15 @@ regular expression pattern which CRNs are guaranteed to match.
 A CRN value MUST be returned as a JSON string and MUST be returned in consistent case. Individual
 segments which might otherwise be case-insensitive (such as UUIDs) SHOULD be returned in lowercase.
 
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `crn`             | `format` MUST be `crn`. |
+| `minLength` | `9`               | `minLength` SHOULD be present. |
+| `maxLength` | `512`             | `maxLength` SHOULD be present. |
+| `pattern`   | `^crn:v[0-9](:([A-Za-z0-9-._~!$&'()*+,;=@\/]|%[0-9A-Z]{2})*){8}$` | `pattern` SHOULD be present. |
+{: caption="Schema guidance for CRNs in responses" caption-side="bottom"}
+
 ### Request formats
 {: #crn-accepted-formats}
 
@@ -373,6 +519,15 @@ CRNs included in requests. Failure to match constraints MUST cause the entire re
 with a `400` status code and appropriate error response model.
 
 In request bodies and query parameters, CRN values SHOULD be matched case-sensitively.
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `crn`             | `format` MUST be `crn`. |
+| `minLength` | `9`               | `minLength` MUST be present. |
+| `maxLength` | `512`             | `maxLength` MUST be present. |
+| `pattern`   | `^crn:v[0-9](:([A-Za-z0-9-._~!$&'()*+,;=@\/]|%[0-9A-Z]{2})*){8}$` | `pattern` MUST be present. |
+{: caption="Schema guidance for CRNs in requests" caption-side="bottom"}
 
 
 ## Enumeration
@@ -388,6 +543,16 @@ color enumeration type could only contain one of those three values.
 
 An enumeration value MUST be a member of the set of values defined for a particular enumeration
 type. These values MUST be lower snake case strings and MUST begin with a letter and not a number.
+
+In a response body, an enumeration field MUST be required. If the property is inapplicable to
+certain states of the resource, this MUST be represented by an explicit value, such as
+`inapplicable`.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `string`             | `type` MUST be `string`. |
+| `enum`      |                      | `enum` MUST be an array of snake-case strings. |
+{: caption="Schema guidance for enumerations in responses" caption-side="bottom"}
 
 ### Request formats
 {: #enumeration-accepted-formats}
@@ -407,6 +572,16 @@ be rejected with a `400` status code and appropriate error response model.
 An invalid enumeration value in a query parameter SHOULD be rejected with a `400` status code and
 appropriate error response model.
 
+In a request body, an enumeration field MAY be optional. An optional enumeration field MUST have
+either an explicit default value or an explanation of the strategy used to compute a value in the
+property schema `description`.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `string`             | `type` MUST be `string`. |
+| `enum`      |                      | `enum` MUST be an array of snake-case strings. |
+{: caption="Schema guidance for enumerations in requests" caption-side="bottom"}
+
 
 ## Array
 {: #array}
@@ -416,7 +591,6 @@ defined as a collection of values of a specific type. For example, a model might
 with an [integer](#integer) array type. Consequently, this field could only contain an array with
 zero or more [integer](#integer) values.
 
-
 ### Response format
 {: #array-return-format}
 
@@ -424,14 +598,36 @@ For responses, an array field SHOULD have a documented minimum number and maximu
 For the sake of backward-compatible future expansions, documented constraints MAY be more
 permissive (allowing for fewer or more items) for responses than for requests.
 
+In a response body, an array field MUST NOT be optional. A logically empty array MUST be
+represented as a literal empty array (`[]`).
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `array`              | `type` MUST be `array`. |
+| `items`     |                      | `items` MUST be present. |
+| `minItems`  |                      | `minItems` SHOULD be present. |
+| `maxItems`  |                      | `maxItems` SHOULD be present. |
+{: caption="Schema guidance for arrays in responses" caption-side="bottom"}
+
 ### Request formats
-{: #enumeration-accepted-formats}
+{: #array-accepted-formats}
 
 For requests, an array field MUST have a documented minimum number and maximum number of items.
 
 An array's item count constraints MUST be checked prior to any other processing of an array
 included in a request. Failure to match constraints MUST cause the entire request to fail with a
 `400` status code and appropriate error response model.
+
+In a request body, an array field MAY be optional.
+
+| Constraint  | Recommended value    | Description |
+| ----------- | -------------------- | ----------- |
+| `type`      | `array`              | `type` MUST be `array`. |
+| `items`     |                      | `items` MUST be present. |
+| `minItems`  |                      | `minItems` MUST be present. |
+| `maxItems`  |                      | `maxItems` MUST be present. |
+{: caption="Schema guidance for arrays in requests" caption-side="bottom"}
+
 
 ## Model
 {: #model}
