@@ -9,8 +9,10 @@ subcollection: api-handbook
 ---
 
 # Design methodology
+{: #design-methodology}
 
 ## Design-first API definitions
+{: #design-first-api-definitions}
 
 Service teams SHOULD employ a design-first approach to authoring API definitions. In particular, an
 API definition SHOULD be authored deliberately as source of truth for the API contract, and not as a
@@ -19,12 +21,12 @@ byproduct of annotated service code.
 Careful and intentional authorship of an API definition is important, because that definition will
 likely be used:
 
-- To generate API reference documentation for client developers
-- To generate native, type-aware client SDKs
-- To develop or generate UIs, CLIs, or adaptors for orchestration engines
-- To develop, generate, or conduct tests
-- To evaluate or probe a service's attack surface
-- To understand how a service can evolve in a backward-compatible way
+*  To generate API reference documentation for client developers
+*  To generate native, type-aware client SDKs
+*  To develop or generate UIs, CLIs, or adaptors for orchestration engines
+*  To develop, generate, or conduct tests
+*  To evaluate or probe a service's attack surface
+*  To understand how a service can evolve in a backward-compatible way
 
 An API definition MAY also be used to generate models (such as structs or classes), validators, or
 handler stubs for service code. Unlike generating an API definition from service code, this practice
@@ -37,6 +39,7 @@ managers, architects, back-end engineers, front-end engineers, quality engineers
 technical writers.
 
 ## API definition management
+{: #api-definition-management}
 
 An API definition MUST be managed under source control. An API definition MAY be source controlled
 in the exact form of its publication or MAY use a multi-file arrangement or other preprocessing for

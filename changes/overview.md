@@ -8,14 +8,18 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Changes overview
+{: #changes-overview}
 
 Services MUST have semantic **service versioning** and MAY support date-based **API versioning**.
 
 ## Semantic service versioning
+{: #semantic-service-versioning}
 
 Services MAY have a major, minor, and patch version, following the industry conventions on
-[semantic versioning](https://semver.org/):
+[semantic versioning](https://semver.org/){: external}:
 
 > Given a version number MAJOR.MINOR.PATCH, increment the:
 >
@@ -26,10 +30,11 @@ Services MAY have a major, minor, and patch version, following the industry conv
 If surfaced, this version SHOULD be exposed in the `Server` response header.
 
 ### Major version
+{: #major-version}
 
-The major version of a service MUST be represented in its URL path,
-[as detailed](/docs/api-handbook/design/uris.html#version) in the URI section. A service MAY support
-multiple major versions concurrently.
+The major version of a service MUST be represented in its URL path, [as
+detailed](/docs/api-handbook?topic=api-handbook-uris#version) in the URI section. A service MAY
+support multiple major versions concurrently.
 
 Incrementing of the major version MUST NOT occur frequently, and SHOULD occur only as a part of a
 significant reconception of a service. A new major version of a service MAY support an entirely
@@ -37,16 +42,19 @@ separate resource scope[^resource-scope] that does not support resources created
 prior versions.
 
 ### Minor and patch versions
+{: #minor-and-patch-versions}
 
 The minor and patch version MUST NOT be client-selectable at runtime for a service deployment.
 
 ## Date-based API versioning
+{: #date-based-api-versioning}
 
 If client-selectable versions of API behavior are needed, services MAY support the `version` query
 parameter, accepting a date-based API version in the format `YYYY-MM-DD`. The `version` query
 parameter MUST NOT have any alternative use.
 
 ### Supported version dates
+{: #supported-version-dates}
 
 Each major version of a service MUST support a single range of contiguous API version dates.
 
@@ -70,17 +78,19 @@ deprecation policies. A deprecated major version SHOULD establish a fixed last s
 its deprecation is announced.
 
 ### Version dates
+{: #version-dates}
 
-An update to a service MAY support new API behavior specific to a new API version date, or
-across version dates, depending on the
-[compatibility](/docs/api-handbook/changes/compatibility.html) of the change. The service
-implementation supporting a change specific to a new _API version date_ (e.g., `2019-11-19`) MUST be
-released prior to that date.
+An update to a service MAY support new API behavior specific to a new API version date, or across
+version dates, depending on the
+[compatibility](/docs/api-handbook?topic=api-handbook-change-compatibility) of the change. The
+service implementation supporting a change specific to a new _API version date_ (e.g.,
+`2019-11-19`) MUST be released prior to that date.
 
 ### Client developer directives
+{: #client-developer-directives}
 
 Client developers SHOULD be encouraged to use the current date as a version date during development
 and MUST be encouraged to use a fixed value for testing and production release.
 
 [^resource-scope]: Where a "resource scope" is the enclosing environment for resources, where
-  resources coexist and relate to each other.
+   resources coexist and relate to each other.

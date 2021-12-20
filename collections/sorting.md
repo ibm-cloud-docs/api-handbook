@@ -8,7 +8,10 @@ subcollection: api-handbook
 
 ---
 
+{:external: .external}
+
 # Sorting
+{: #sorting}
 
 Custom sorting MAY be implemented by any collection, but is likely to be far more useful for
 paginated collections where sort order impacts which resources fall on each page. It is OPTIONAL for
@@ -21,6 +24,7 @@ first-level primitive fields and primitive fields of embedded resources. The `.`
 used to delineate sub-resources and sub-fields.
 
 ## Single-field sorting
+{: #single-field-sorting}
 
 Collections that support single-field sorting MUST allow the `sort` parameter to contain any one of
 the valid sort fields. For example, the following expression would sort accounts on company name
@@ -40,6 +44,7 @@ An unrecognized or unsupported sort field SHOULD result in a `400` status code a
 error response model.
 
 ## Multi-field sorting
+{: #multi-field-sorting}
 
 Collections that support sorting on multiple fields MUST allow the `sort` parameter to contain a
 comma-separated sequence of fields (each, optionally, with a `-` prefix) in the same format as
@@ -53,9 +58,9 @@ An unrecognized or unsupported sort field or a repeated sort field SHOULD result
 code and appropriate error response model.
 
 [^custom-sorting-optional]: It is worth noting, however, that paginated collections [must
-  provide](/docs/api-handbook/collections/pagination.html#pagination-and-sorting) at least a default
-  sort and supplement any custom sorts to ensure a consistent order.
+   provide](/docs/api-handbook?topic=api-handbook-pagination#pagination-and-sorting)
+   at least a default sort and supplement any custom sorts to ensure a consistent order.
 
 [^plus-deprecated]: A previous version of the API Handbook recommended that a `+` prefix also be
-supported to explicitly request ascending order. This is no longer recommended for APIs except to
-maintain backward-compatibility.
+   supported to explicitly request ascending order. This is no longer recommended for APIs except to
+   maintain backward-compatibility.

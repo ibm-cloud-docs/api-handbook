@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Contributing
+{: #contributing}
 
 The IBM Cloud API Handbook is open source and corrections and contributions may be made by clicking
 the **Open Issue** or **Edit Topic** links at the top of each page.

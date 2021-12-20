@@ -9,6 +9,7 @@ subcollection: api-handbook
 ---
 
 # Resources
+{: #resources}
 
 The design of resources is fundamental to a usable API. That is, APIs should be designed primarily
 around how the state of a service is modeled as resources and secondarily around operations
@@ -32,10 +33,11 @@ robust way.
 In IBM Cloud REST-style APIs, each resource type SHOULD have two standard URL path types:
 
 1. A resource collection path, such as `/keys`. A `GET` request on the collection returns a list of
-resources within it. A `POST` request on a collection URL creates a new resource in the collection.
+   resources within it. A `POST` request on a collection URL creates a new resource in the
+   collection.
 2. A resource path, such as `/keys/{id}` where `{id}` is a unique identifier for a specific
-resource. A `GET` request on a resource URL returns the canonical resource representation, `PATCH`
-updates a resource, `PUT` replaces a resource, and `DELETE` deletes a resource.
+   resource. A `GET` request on a resource URL returns the canonical resource representation,
+   `PATCH` updates a resource, `PUT` replaces a resource, and `DELETE` deletes a resource.
 
 The schemas for request payloads to create and mutate resources SHOULD be consistent with the
 canonical representation of the resource returned by a `GET` on the resource URL and MUST NOT differ
@@ -45,7 +47,7 @@ immutable.
 
 For example, consider a resource's canonical representation:
 
-```
+```json
 GET /keys/b34f2d29-25ff-40ac-8762-78bad7e3eea9
 ---
 {
@@ -65,7 +67,7 @@ Properties that are included in such schemas MUST be defined consistently with a
 canonical representation. For example, a `PATCH` request to change the `name` for the key in the
 previous example would look like:
 
-```
+```json
 PATCH /keys/b34f2d29-25ff-40ac-8762-78bad7e3eea9
 {
   "name": "my-renamed-key"
@@ -74,7 +76,7 @@ PATCH /keys/b34f2d29-25ff-40ac-8762-78bad7e3eea9
 
 ... and MUST NOT look like:
 
-```
+```json
 PATCH /keys/b34f2d29-25ff-40ac-8762-78bad7e3eea9
 {
   "label": "my-renamed-key"
