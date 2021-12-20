@@ -74,6 +74,7 @@ appropriate error response model.
    _exactly_ 8000 bytes.
 
 ## Path parameters
+{: #path-parameters}
 
 While not a part of HTTP per se, path parameters are the way OpenAPI represents segments in an
 operation's path that contain arguments to be provided by a client at request time.
@@ -90,6 +91,7 @@ a [custom operation](/docs/api-handbook?topic=api-handbook-operations#custom-ope
 token, or supplementary directive for the creation or mutation of a resource.
 
 ### Path parameter names
+{: #path-parameter-names}
 
 If a property in the response schema for an operation reflects the same value provided in the final
 path parameter containing an identifier (or other unique resource handle), that property and that
@@ -125,6 +127,7 @@ For example, `/farms/{farm_id}/barns/{barn_id}/cows/{id}` SHOULD be used instead
 `/farms/{farm_id}/barns/{farm_barn_id}/cows/{id}`.
 
 #### Children without identifiers and custom operations
+{: #unambiguous-path-parameters}
 
 Where there is no ambiguity, path parameters SHOULD NOT be qualified. For example, if a book
 resource type allows genres wholly represented by strings to be added with the path 
@@ -137,6 +140,7 @@ such as `POST /servers/{id}/reboot`, the server identifier path parameter SHOULD
 as `{id}`.
 
 ## Defining path parameters
+{: #defining-path-parameters}
 
 In an OpenAPI definition, path parameters SHOULD be defined in such a way as to maximize reuse
 and minimize duplication and potential inconsistency. To this end, path parameters MUST be
@@ -151,6 +155,7 @@ and referenced in [Parameter](parameter) objects.
 [parameter]: https://spec.openapis.org/oas/v3.0.3#parameter-object
 
 ### Example
+{: #defining-path-parameters-example}
 
 The following example demonstrates how parameters can be defined in an OpenAPI definition to
 maximize reuse.

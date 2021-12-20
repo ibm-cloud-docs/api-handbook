@@ -146,6 +146,7 @@ A custom operation SHOULD use a `POST` or a `GET` method, following [the require
 methods](/docs/api-handbook?topic=api-handbook-methods).
 
 ## Examples
+{: #operation-examples}
 
 Each media type definition within an operation's request body and a successful response body
 definitions MUST include at least one example. A single example can be provided within the

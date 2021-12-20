@@ -70,8 +70,10 @@ linked to more information.
    Array type itself); the field's definition must specify this type.
 
 ### Required, optional, and nullable fields
+{: #required-optional-and-nullable}
 
 #### In requests
+{: #required-optional-and-nullable-in-requests}
 
 If a field is optional in a request body, the behavior of omitting the field from a request MUST be
 defined as either:
@@ -107,6 +109,7 @@ accept a `null` value.
 {:note: .note}
 
 #### In responses
+{: #required-optional-and-nullable-in-responses}
 
 A field in a response body SHOULD be required except where an aspect of a request or the state of a
 resource might make a value inapplicable or unknown and no industry convention for a sentinel value
