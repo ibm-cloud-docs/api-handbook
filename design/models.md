@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019-2022
+lastupdated: "2022-01-13"
 
 subcollection: api-handbook
 
@@ -85,7 +85,7 @@ defined as either:
    explanation for why (and under what circumstances) a value is not required for the resource, in
    the property schema `description`
    
-[^omit-to-remove]: Removal of an existing value applies only the case of a `PUT`-based resource
+[^omit-to-remove]: Removal of an existing value applies only to the case of a `PUT`-based resource
    replacement operation.
 
 A `null` value for a field MUST NOT be accepted in a request body except in a [JSON merge patch
