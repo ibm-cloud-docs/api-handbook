@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2021
-lastupdated: "2021-06-30"
+  years: 2021-2022
+lastupdated: "2022-01-13"
 
 subcollection: api-handbook
 
@@ -37,7 +37,7 @@ Per the [resource-oriented
 design](https://cloud.ibm.com/docs/api-handbook?topic=api-handbook-resources){: external} best practices, API
 authors should consider implicit actions on non-primary resources that may be caused by the
 relationships between resources. APIs should also communicate this via unambiguous [status
-codes](/docs/api-handbook?topic=api-handbook-status-codes)
+codes](/docs/api-handbook?topic=api-handbook-status-codes).
 
 Users can [manage their
 permissions](https://cloud.ibm.com/docs/account?topic=account-access-getstarted){: external} using IAM, which
