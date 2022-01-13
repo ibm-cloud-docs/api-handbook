@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2021
-lastupdated: "2021-06-30"
+  years: 2021-2022
+lastupdated: "2022-01-13"
 
 subcollection: api-handbook
 
@@ -17,7 +17,7 @@ subcollection: api-handbook
 {: #security-by-design}
 
 Security considerations are a critical part of the design of any API. The following principles
-SHOULD be applied during an service API's design and development:
+SHOULD be applied during a service API's design and development:
 
 *  Operations SHOULD be simple and narrowly scoped such that they that are easy to reason about,
    easy to test, and closely match specific authorizations.
