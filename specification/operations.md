@@ -19,9 +19,11 @@ in API documentation and function names in generated code.
 
 Each `operationId` value SHOULD be a lower snake case string, with the convention of
 `<verb>_<noun>` where `<verb>` relates to the nature of the operation, and `<noun>` matches a
-resource type as it's represented in a path segment. The plurality of the noun MUST agree with the
-number of resources operated on. For example, a `POST /reticulated_splines` operation to create a
-reticulated spline would have an `operationId` of `create_reticulated_spline`.
+resource type as it's represented in the path segment(s) for the operation and corresponds directly
+to the way the resource's [schemas are named](/docs/api-handbook?topic=api-handbook-schemas). The
+plurality of the noun MUST agree with the number of resources operated on. For example, a `POST
+/reticulated_splines` operation to create a reticulated spline would have an `operationId` of
+`create_reticulated_spline`.
 
 Parent resource types in a path SHOULD be included as qualifiers in the noun used for the
 `operationId`. For example, `DELETE /farms/{farm_id}/barns/{id}` would have an `operationId` of
