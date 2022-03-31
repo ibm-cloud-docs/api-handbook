@@ -153,12 +153,6 @@ properties.
 
 [rfc7396]: https://datatracker.ietf.org/doc/html/rfc7396
 
-The request schema used in an operation to update a resource with a
-[JSON patch][rfc6902]{: external} SHOULD be the name of the canonical schema for the resource type,
-suffixed with `PatchOperations`.
-
-[rfc6902]: https://datatracker.ietf.org/doc/html/rfc6902
-
 ## Descriptions
 {: #descriptions}
 
