@@ -146,7 +146,7 @@ service, the `crn` property SHOULD be used.
 {: #patch-schemas}
 
 The request schema used in an operation to update a resource with a [JSON merge
-patch][rfc7396]{:external} SHOULD be the name of the canonical schema for the resource type,
+patch][rfc7396]{: external} SHOULD be the name of the canonical schema for the resource type,
 suffixed with `Patch`. In accordance with the JSON merge patch format, this schema MUST be a [graph
 fragment](#graph-fragment-pattern) of the canonical schema, and MUST NOT have any required
 properties.
