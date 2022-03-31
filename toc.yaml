@@ -54,4 +54,6 @@ toc:
           - specification/operations.md
           - specification/schemas.md
           - specification/types-and-formats.md
+          - specification/standard-behavior.md
+          - specification/writing.md
       - meta/contributing.md
