@@ -59,7 +59,7 @@ Additionally, if a collection of all tickets exists, it may be more practical fo
 tickets belonging to user `123` to exist at `/v2/tickets?user=123` than at `/v2/users/123/tickets`.
 It is not forbidden, however, for a server to implement such collections redundantly.
 
-## Contraints
+## Constraints
 {: #uri-constraints}
 
 Services MUST have a documented and enforced service-wide length limit for URIs and this limit
@@ -223,7 +223,7 @@ components:
 ## Query parameters
 {: #query-parameters}
 
-### Contraints
+### Constraints
 {: #query-parameter-constraints}
 
 Each query parameter supported for an operation MUST have a documented and enforced maximum length
