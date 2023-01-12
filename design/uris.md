@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2021
-lastupdated: "2021-06-30"
+  years: 2019, 2022
+lastupdated: "2022-01-13"
 
 subcollection: api-handbook
 
@@ -59,7 +59,7 @@ Additionally, if a collection of all tickets exists, it may be more practical fo
 tickets belonging to user `123` to exist at `/v2/tickets?user=123` than at `/v2/users/123/tickets`.
 It is not forbidden, however, for a server to implement such collections redundantly.
 
-## Contraints
+## Constraints
 {: #uri-constraints}
 
 Services MUST have a documented and enforced service-wide length limit for URIs and this limit
