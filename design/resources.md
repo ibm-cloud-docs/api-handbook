@@ -55,13 +55,14 @@ GET /keys/b34f2d29-25ff-40ac-8762-78bad7e3eea9
   "href": "https://service.example.com/keys/b34f2d29-25ff-40ac-8762-78bad7e3eea9",
   "name": "my-key",
   "value": "VGhlcmUgd2FzIG5vIHBvc3NpYmlsaXR5IG9mIHRha2luZyBhIHdhbGsgdGhhdCBkYXkuIFdlIGhhZCBiZWVuIHdhbmRlcmluZywgaW5kZWVkLCBpbiB0aGUgbGVhZmxlc3Mgc2hydWJiZXJ5IGFuIGhvdXIgaW4gdGhlIG1vcm5pbmc7IGJ1dCBzaW5jZSBkaW5uZXIgKE1ycy4gUmVlZCwgd2hlbiB0aGVyZSB3YXMgbm8gY29tcGFueSwgZGluZWQgZWFybHkpIHRoZSBjb2xkIHdpbnRlciB3aW5kIGhhZCBicm91Z2h0IHdpdGggaXQgY2xvdWRzIHNvIHNvbWJyZSwgYW5kIGEgcmFpbiBzbyBwZW5ldHJhdGluZywgdGhhdCBmdXJ0aGVyIG91dGRvb3IgZXhlcmNpc2Ugd2FzIG5vdyBvdXQgb2YgdGhlIHF1ZXN0aW9uLg=="
+  "zone": "us-south-1"
 }
 ```
 
 In such a resource type, `id` and `href` might be considered to be system-defined and thus omitted
-from the request schemas for `POST /keys` and `PATCH /keys/{id}`. Further, the key's `value` could
-be considered immutable, and thus be included in the request schema for `POST /keys` but omitted
-from the request schema for `PATCH /keys/{id}`.
+from the request schemas for `POST /keys` and `PATCH /keys/{id}`. Further, the key's `value` and
+`zone` could be considered immutable, and thus be included in the request schema for `POST /keys`
+but omitted from the request schema for `PATCH /keys/{id}`.
 
 Properties that are included in such schemas MUST be defined consistently with a resource's
 canonical representation. For example, a `PATCH` request to change the `name` for the key in the

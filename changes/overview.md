@@ -33,13 +33,35 @@ If surfaced, this version SHOULD be exposed in the `Server` response header.
 {: #major-version}
 
 The major version of a service MUST be represented in its URL path, [as
-detailed](/docs/api-handbook?topic=api-handbook-uris#version) in the URI section. A service MAY
-support multiple major versions concurrently.
+detailed](/docs/api-handbook?topic=api-handbook-uris#version) in the URI section. 
 
-Incrementing of the major version MUST NOT occur frequently, and SHOULD occur only as a part of a
-significant reconception of a service. A new major version of a service MAY support an entirely
-separate resource scope[^resource-scope] that does not support resources created or managed with
-prior versions.
+Incrementing of the major version:
+- MUST NOT occur unless the change results in:
+  - Existing resources no longer being represented in the updated resource modeling
+  - New resources using the change cannot be safely understood by existing clients
+- SHOULD NOT occur more than once a year
+- SHOULD NOT occur except as a part of a significant reconception of a service.
+
+For example, a change that makes the [`key`
+resource](/docs/api-handbook?topic=api-handbook-resources) regional would require a new major
+version, since the new regional keys cannot be safely understood by existing clients, which expected
+all keys to be zonal, tied to their `zone` property. Instead, regional keys would need to be placed
+in a new `/v2/keys` resource scope, with a migration path to migrate zonal keys from the `/v1/keys`
+resource scope into the `/v2/keys` resource scope. (Depending on the broader business and
+technological constraints, that migration might preserve the zonal nature of the migrated key, or
+promote it to a regional resource.)
+
+A new major version of a service MUST use an entirely separate resource scope[^resource-scope] that
+does not support resources created or managed with prior versions. Similarly, while a service MAY
+support multiple major versions concurrently (and MUST do so during a transition window), access to a
+given resource scope is by definition restricted to one major version. Custom operations MAY be
+provided to allow users to perform a one-way migration from a previous version, facilitating a customer
+to upgrade their existing resources to a new version prior to adopting that new version.
+
+Incrementing a major version should be a tool of last resort. Before introducing a new version,
+carefully consider other possibilities such as introducing a new resource type, or providing tooling
+and guidance to allow existing clients to safely manage the transition within the existing major
+version.
 
 ### Minor and patch versions
 {: #minor-and-patch-versions}
@@ -49,9 +71,11 @@ The minor and patch version MUST NOT be client-selectable at runtime for a servi
 ## Date-based API versioning
 {: #date-based-api-versioning}
 
-If client-selectable versions of API behavior are needed, services MAY support the `version` query
-parameter, accepting a date-based API version in the format `YYYY-MM-DD`. The `version` query
-parameter MUST NOT have any alternative use.
+If client-selectable versions of API behavior are needed, services SHOULD support the `IBM-API-Version`
+request header[^version-parameter-deprecated], accepting a date-based API version in the format
+`YYYY-MM-DD`. The `IBM-API-Version` header MUST NOT have any alternative use. Services that
+support the `IBM-API-Version` header MUST return `400 Bad Request` if the header is not provided by
+the client, or if the provided value is not within the range supported by the service.
 
 ### Supported version dates
 {: #supported-version-dates}
@@ -94,3 +118,7 @@ and MUST be encouraged to use a fixed value for testing and production release.
 
 [^resource-scope]: Where a "resource scope" is the enclosing environment for resources, where
    resources coexist and relate to each other.
+
+[^version-parameter-deprecated]: A previous version of the API Handbook recommended that a `version`
+   query parameter be used instead. This is no longer recommended for APIs except to maintain
+   backward-compatibility.

@@ -97,7 +97,7 @@ header.
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
-| [ETag](https://datatracker.ietf.org/doc/html/rfc7232#section-2.3){: external} | Response | The `ETag` header MAY be supplied with the response to any `GET` or `HEAD` request. If supported, the `ETag` SHOULD be a quoted lowercase base-36 string, at least 16 characters in length (e.g., `"md9weho39cn2302n"`) and MUST be based on a checksum or hash of the resource that guarantees it will change if the resource changes. The value MUST have a `W/` prefix if strong ETag semantics are not supported. Even if `W/`-prefixed, an `ETag` MUST be guaranteed to change if any properties are changed that are directly mutable by a client. |
+| [ETag](https://datatracker.ietf.org/doc/html/rfc7232#section-2.3){: external} | Response | The `ETag` header MAY be supplied with the response to any `GET` or `HEAD` request, or with the response to any request that uses a resource's canonical schema. If supported, the `ETag` SHOULD be a quoted lowercase base-36 string, at least 16 characters in length (e.g., `"md9weho39cn2302n"`) and MUST be based on a checksum or hash of the resource that guarantees it will change if the resource changes. The value MUST have a `W/` prefix if strong ETag semantics are not supported. Even if `W/`-prefixed, an `ETag` MUST be guaranteed to change if any properties are changed that are directly mutable by a client. |
 | [Last-Modified](https://datatracker.ietf.org/doc/html/rfc7232#section-2.2){: external} | Response | The `Last-Modified` header MAY be supplied with the response to any `GET` or `HEAD` request. The `Last-Modified` MUST be supplied for any resources that support the `If-Modified-Since` or `If-Unmodified-Since` headers for any methods. The `Last-Modified` header MUST contain a valid [HTTP-date](https://datatracker.ietf.org/doc/html/rfc5322#section-3.3){: external} value in GMT (e.g., `Tue, 15 Nov 1994 12:45:26 GMT`) and MUST NOT be a date/time that occurs in the future. |
 {: caption="Validator headers" caption-side="bottom"}
 
@@ -105,8 +105,13 @@ header.
 {: #etag-support}
 
 The `ETag` header MUST be returned for `GET` and `HEAD` operations on a resource that supports
-`If-Match` or `If-None-Match` headers for any operation. If the `ETag` header is returned for
-any resource within a service, it SHOULD be returned for all resources in the service.
+`If-Match` or `If-None-Match` headers for any operation. If the `ETag` header is returned for any
+resource within a service, it SHOULD be returned for all resources in the service. If the `ETag`
+header is returned for `GET` operations on a resource, it SHOULD be returned on all operations that
+return the resource's canonical schema. The `ETag` header MUST NOT be returned for collection
+operations, but a resource MAY also include an `etag` property (with the same format and value) in
+its canonical schema, facilitating retrieval of `ETag` values when using collection operations. The
+`etag` property MUST NOT be included in non-canonical schemas.
 
 ### `Last-Modified` support
 {: #last-modified-support}
@@ -265,6 +270,12 @@ and MAY be used for any implementation of rate limiting.
 | X-RateLimit-Remaining | Response | If rate limiting is active, this header MUST indicate the number of requests remaining in the current rate limit window. |
 | X-RateLimit-Reset | Response | If rate limiting is active, this header MUST indicate the time at which the current rate limit window resets, as a UNIX timestamp. |
 {: caption="Rate limiting headers" caption-side="bottom"}
+
+## Version headers
+
+| Header | Type | Description |
+| ------ | ---- | ----------- |
+| [IBM-API-Version](/docs/api-handbook?topic=api-handbook-changes-overview#date-based-api-versioning) | Request | This header MUST be supplied to services that support it. The value of this header MUST be the version of the API requested by the client. |
 
 ## Custom headers
 {: #custom-headers}
