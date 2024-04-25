@@ -59,7 +59,7 @@ the security of a service or its users MUST NOT be delayed to accommodate a depr
 MUST be coordinated with the organization's broader security incident response team[^psirt].
 
 [^psirt]: Such as IBM's own [Product Security Incident Response Team
-   (PSIRT)](https://www.ibm.com/trust/security-psirt){: external}.
+   (PSIRT)](https://www.ibm.com/support/pages/ibm-security-vulnerability-management){: external}.
 
 Breaking API changes that are needed to adhere to updated security best practices (but not needed to
 mitigate an imminent threat) MAY be made with an abbreviated deprecation period and SHOULD be

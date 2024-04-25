@@ -42,7 +42,7 @@ mitigation SHOULD be considered. Recommended resources include:
 
 *  [OWASP API Security Top 10](https://owasp.org/www-project-api-security/){: external}
 *  [NIST Guide to Secure Web
-   Services](https://csrc.nist.gov/publications/detail/sp/800-95/final){: external}
+   Services](https://csrc.nist.gov/pubs/sp/800/95/final){: external}
 *  MITRE attack matrices for
    [SaaS](https://attack.mitre.org/matrices/enterprise/cloud/saas/){: external}
    and [IaaS](https://attack.mitre.org/matrices/enterprise/cloud/iaas/){: external}

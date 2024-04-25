@@ -114,7 +114,7 @@ the server SHOULD return a `400` status code and appropriate error response mode
 
 Collections using token-based pagination MUST return a page token field, having the same name
 as the page token query parameter, in any `next`, `previous`, and `last` fields whenever these
-are present according the conditions defined for [Link-based pagination](#link-based-pagination).
+are present according the conditions defined for [Link-based pagination](#pagination-links).
 The value of the page token field can be passed in the page token query parameter
 on a subsequent request to retrieve the next, previous, or last page of results, respectively.
 

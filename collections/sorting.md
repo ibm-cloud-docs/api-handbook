@@ -58,7 +58,7 @@ An unrecognized or unsupported sort field or a repeated sort field SHOULD result
 code and appropriate error response model.
 
 [^custom-sorting-optional]: It is worth noting, however, that paginated collections [must
-   provide](/docs/api-handbook?topic=api-handbook-pagination#pagination-and-sorting)
+   provide](/docs/api-handbook?topic=api-handbook-pagination#pagination-and-stable-order)
    at least a default sort and supplement any custom sorts to ensure a consistent order.
 
 [^plus-deprecated]: A previous version of the API Handbook recommended that a `+` prefix also be

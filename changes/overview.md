@@ -33,7 +33,7 @@ If surfaced, this version SHOULD be exposed in the `Server` response header.
 {: #major-version}
 
 The major version of a service MUST be represented in its URL path, [as
-detailed](/docs/api-handbook?topic=api-handbook-uris#version) in the URI section. 
+detailed](/docs/api-handbook?topic=api-handbook-uris#version) in the URI section.
 
 Incrementing of the major version:
 - MUST NOT occur unless the change results in:
@@ -71,11 +71,13 @@ The minor and patch version MUST NOT be client-selectable at runtime for a servi
 ## Date-based API versioning
 {: #date-based-api-versioning}
 
-If client-selectable versions of API behavior are needed, services SHOULD support the `IBM-API-Version`
-request header[^version-parameter-deprecated], accepting a date-based API version in the format
-`YYYY-MM-DD`. The `IBM-API-Version` header MUST NOT have any alternative use. Services that
-support the `IBM-API-Version` header MUST return `400 Bad Request` if the header is not provided by
-the client, or if the provided value is not within the range supported by the service.
+If client-selectable versions of API behavior are needed, services SHOULD support the
+`IBM-API-Version` request header[^version-parameter-deprecated], accepting a date-based API version
+in the format `YYYY-MM-DD`. The `IBM-API-Version` header MUST NOT have any alternative use. Services
+that support the `IBM-API-Version` header MUST return `400 Bad Request` if the value is not within
+the range supported by the service. Aside from narrow exceptions agreed upon to accommodate
+backward-compatibility, services that support the `IBM-API-Version` header MUST return `400 Bad
+Request` if the header is not provided by the client.
 
 ### Supported version dates
 {: #supported-version-dates}

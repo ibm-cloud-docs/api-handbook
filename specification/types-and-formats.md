@@ -15,13 +15,13 @@ subcollection: api-handbook
 
 Property and parameter schema MUST only use combinations of `type` and `format` defined in OpenAPI
 Specification
-[ref](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#data-types){: external},
+[ref](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#data-types){: external},
 with the following additions:
 
 | `type`   | `format`     | Comments |
 | -------- | ------------ | -------- |
-| `string` | `identifier` | identifier for a resource (see [Identifier in Types](/docs/api-handbook/design/types#identifier)) |
-| `string` | `crn`        | the Cloud Resource Name for a resource (see [CRN in Types](/docs/api-handbook/design/types#crn)) |
+| `string` | `identifier` | identifier for a resource (see [Identifier in Types](/docs/api-handbook?topic=api-handbook-types#identifier)) |
+| `string` | `crn`        | the Cloud Resource Name for a resource (see [CRN in Types](/docs/api-handbook?topic=api-handbook-types#crn)) |
 {: caption="Types and formats" caption-side="bottom"}
 
 ## Specifying additional constraints

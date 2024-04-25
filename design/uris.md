@@ -147,7 +147,7 @@ and minimize duplication and potential inconsistency. To this end, path paramete
 enumerated in the [Path Item][path-item] object and not the [Operation][operation] object. Further,
 path parameters SHOULD be defined as [Components][components] and referenced in Path Item objects.
 Finally, schemas used by parameters SHOULD also be defined as separate [Components][components]
-and referenced in [Parameter](parameter) objects.
+and referenced in [Parameter][parameter] objects.
 
 [path-item]: https://spec.openapis.org/oas/v3.0.3#path-item-object
 [operation]: https://spec.openapis.org/oas/v3.0.3#operation-object

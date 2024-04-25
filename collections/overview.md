@@ -58,8 +58,8 @@ property. This URL SHOULD be complete and begin with the protocol (e.g.,
 
 [^collection-response]: Encapsulation of arrays is always required for reasons outlined under the
    [Object
-   Encapsulation](/docs/api-handbook/collections?topic=api-handbook-format#object-encapsulation)
-   section of [Format](/docs/api-handbook/collections?topic=api-handbook-format).
+   Encapsulation](/docs/api-handbook?topic=api-handbook-format#object-encapsulation)
+   section of [Format](/docs/api-handbook?topic=api-handbook-format).
 
 [^hierarchical-url]: RFC 3986 [defines URLs as
    hierarchical](https://datatracker.ietf.org/doc/html/rfc3986#section-1.2.3){: external} and the
