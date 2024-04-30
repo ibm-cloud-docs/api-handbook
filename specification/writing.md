@@ -50,8 +50,10 @@ programmatic value has the same name as the concept. For example:
 {: #operation-summaries}
 
 The `summary` value for an operation SHOULD be parallel to the [operation ID][operation-ids], in
-sentence case, without punctuation, and with an indefinite article where appropriate. A summary
-SHOULD be as short as possible while remaining unique and unambiguous.
+sentence case, without punctuation, and with an indefinite article where appropriate.
+A summary MUST be 80 characters or less in length and SHOULD be unique and unambiguous.
+Abbreviations MUST NOT be used to make a summary shorter unless they are consistently used elsewhere.
+Rather, summaries SHOULD be made concise to meet the length requirement.
 
 [operation-ids]: /docs/api-handbook?topic=api-handbook-operations#operation-ids
 
