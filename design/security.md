@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2021
-lastupdated: "2021-06-30"
+  years: 2021, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -24,13 +24,13 @@ SHOULD be applied during an service API's design and development:
 *  Convenience features SHOULD be carefully weighed against the additional complexity they require,
    and eschewed where a strong justification is not present.
 *  Features and data that are not solving a well-understood use case SHOULD NOT be included in a
-   service API. 
+   service API.
 *  Sensitive information SHOULD NOT be returned in more operations and resource contexts than
    necessary.
 *  Where feasible, resources SHOULD be designed to be simple, easy to delete and recreate, and with
    immutable qualities. Large, complex, long-lived resources with large numbers of mutable
    properties SHOULD be avoided.
-  
+
 These approaches contain the attack surface of an API, and allow for more comprehensive security
 testing.
 

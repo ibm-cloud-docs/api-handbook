@@ -6,7 +6,6 @@ toc:
     href: /docs/api-handbook
     path: api-handbook
     label: IBM Cloud API Handbook
-
   entries: 
   - navgroup: 
       id: reference

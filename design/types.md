@@ -507,8 +507,7 @@ segments which might otherwise be case-insensitive (such as UUIDs) SHOULD be ret
 | `pattern`   | `^crn:v[0-9](:([A-Za-z0-9-._~!$&'()*+,;=@\/]\|%[0-9A-Z]{2})*){8}$` | `pattern` SHOULD be present. |
 {: caption="Schema guidance for CRNs in responses" caption-side="bottom"}
 
-<!-- WARNING: The way the pipe character is escaped in the regular expression above is not
-              compatible with all Markdown renderers. But it's necessary for marked-it-cli. -->
+
 
 ### Request formats
 {: #crn-accepted-formats}
@@ -532,8 +531,7 @@ In request bodies and query parameters, CRN values SHOULD be matched case-sensit
 | `pattern`   | `^crn:v[0-9](:([A-Za-z0-9-._~!$&'()*+,;=@\/]\|%[0-9A-Z]{2})*){8}$` | `pattern` MUST be present. |
 {: caption="Schema guidance for CRNs in requests" caption-side="bottom"}
 
-<!-- WARNING: The way the pipe character is escaped in the regular expression above is not
-              compatible with all Markdown renderers. But it's necessary for marked-it-cli. -->
+
 
 
 ## Enumeration

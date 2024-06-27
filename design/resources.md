@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2021
-lastupdated: "2021-05-05"
+  years: 2021, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -22,7 +22,7 @@ blocks of memory, to high-level constructs, such as classes) and code that opera
 subroutines in assembly to methods on objects).
 
 By defining the data structures — or _resources_ — first, an API is more approachable. The REST
-architectural style for HTTP APIs is built on this idea. 
+architectural style for HTTP APIs is built on this idea.
 
 Further, HTTP provides a standard way to represent a resource's canonical address in the form of a
 URL, and standard methods to create (with `POST`), list and read (with `GET`), mutate (with `PUT`

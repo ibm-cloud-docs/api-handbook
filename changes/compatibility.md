@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2020, 2021
-lastupdated: "2021-06-30"
+  years: 2020, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -189,7 +189,7 @@ practices][robustness], the following changes SHOULD be considered backward inco
    canonicalized
 *  Rejecting a duplicated or unrecognized query parameter or property in a request schema
    that was previously ignored
-    
+
 One of [several strategies][robustness-migration-strategies] MAY be employed to complete this
 transition.
 

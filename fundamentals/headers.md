@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2021
-lastupdated: "2021-06-30"
+  years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -140,7 +140,7 @@ up-to-date and use optimistic locking in order to mitigate race conditions.
 {: #recommended-if-match-support}
 
 The `If-Match` header SHOULD be supported for all `POST`[^post-on-resource], `PUT`, `PATCH`, and
-`DELETE` operations on a resource for which an `ETag` header is returned. 
+`DELETE` operations on a resource for which an `ETag` header is returned.
 
 [^post-on-resource]: `If-Match` is only applicable to `POST` requests which mutate or operate on an
    existing resource, such as those used for [exceptional

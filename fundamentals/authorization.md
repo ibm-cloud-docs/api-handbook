@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2021
-lastupdated: "2021-06-30"
+  years: 2021, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -29,7 +29,7 @@ APIs MUST document the access requirements for operations and keep this informat
 documentation must include the IAM permissions needed for a request, as well as specific conditions
 that require additional scoped permissions.
 
-For example: 
+For example:
 > `POST /volumes` requires `is.snapshot.snapshot.operate` IAM action if a `source_snapshot` is
 > specified in the request body.
 

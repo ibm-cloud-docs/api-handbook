@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -84,7 +84,7 @@ defined as either:
 *  Omission or removal[^omit-to-remove] from the subsequently observable resource state, with an
    explanation for why (and under what circumstances) a value is not required for the resource, in
    the property schema `description`
-   
+
 [^omit-to-remove]: Removal of an existing value applies only the case of a `PUT`-based resource
    replacement operation.
 

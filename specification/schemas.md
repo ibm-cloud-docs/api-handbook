@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -104,7 +104,7 @@ bulldozer represented with the `BulldozerPrototype` schema.
 A prototype schema MUST be a [graph fragment](#graph-fragment-pattern) variant of the canonical
 schema except where a property is required by a domain-specific constraint to be explicitly
 write-only.
-   
+
 There is an important exception to this guidance if the nature of an API is to provide clients with
 full control over entire resources, with no system-defined or immutable aspects. For such APIs,
 the canonical schema itself SHOULD be used in requests to create or replace a resource.

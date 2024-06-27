@@ -1,7 +1,7 @@
 ---
 copyright:
-  years: 2021
-lastupdated: "2021-11-17"
+  years: 2021, 2024
+lastupdated: "2024-06-27"
 subcollection: api-handbook
 ---
 
@@ -27,7 +27,9 @@ plurality of the noun MUST agree with the number of resources operated on. For e
 
 Parent resource types in a path SHOULD be included as qualifiers in the noun used for the
 `operationId`. For example, `DELETE /farms/{farm_id}/barns/{id}` would have an `operationId` of
-`delete_farm_barn`.
+`delete_farm_barn`, and `GET /farms/{farm_id}/barns` would have an `operationId` of
+`list_farm_barns`, regardless of support for
+[wildcard URLs](/docs/api-handbook?topic=api-handbook-collection-overview#wildcard-collection-urls).
 
 The success status codes in the examples below are defined for synchronous operations only. Refer
 to the section on [long-running
@@ -141,7 +143,7 @@ Some operations do not fit one of the defined conventions. Typically these opera
 
 *  Inherently functional — for example, an operation that converts text in a request payload to
    audio in a response
-*  Result in an unchanged end state — for example, an operation that reboots a virtual server 
+*  Result in an unchanged end state — for example, an operation that reboots a virtual server
    instance
 
 A custom operation SHOULD use a `POST` or a `GET` method, following [the requirements for those

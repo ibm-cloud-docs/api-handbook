@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -34,7 +34,7 @@ appropriate error response model.
 If the request body size can be determined from the request headers, the request MUST be rejected
 prior to any processing of the payload[^processing]. For chunked transfer or other cases where the
 request body size cannot be predetermined, the request SHOULD be rejected as soon as it has been
-determined to exceed the limit. 
+determined to exceed the limit.
 
 [^processing]: Specifically, a service SHOULD NOT attempt to parse the JSON in a payload prior to
    checking and enforcing the size limit.
@@ -67,7 +67,7 @@ clients.
    If the code that validates and the code that actually uses a particular field disagree on the
    normalization of its name, it could lead to a bug that could be exploited to validate one value
    and use another.
-  
+
 ### Ambiguous JSON data
 {: #ambiguous-json-data}
 

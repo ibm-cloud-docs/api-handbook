@@ -14,7 +14,7 @@ subcollection: api-handbook
 {: #collections-overview}
 
 This section details how collections should behave. Collections SHOULD have a URL ending in a plural
-resource name, such as `/v2/accounts`.
+resource name, such as `/v2/accounts` or `/v1/farms/{farm_id}/barns`.
 
 ## Response format
 {: #response-format}
@@ -44,6 +44,19 @@ the collection. This response object MAY also include collection metadata, such 
 }
 ```
 
+## Wildcard collection URLs
+{: #wildcard-collection-urls}
+
+To facilitate reading resources across collections, one or more path parameters in a collection's
+request URL MAY be wildcarded with the `-` (hyphen or dash) character. For example, `GET
+/v1/farms/-/barns` requests all barns, regardless of the farm.
+
+Wildcards MUST be limited to collection `GET` methods, which may only support wildcards for path parameters. Path
+parameters that support wildcards MUST be explicitly documented. Wildcard support MUST NOT affect
+any pagination, filtering, and sorting support otherwise provided by a collection method. The
+sorting requirement means wildcards MUST NOT be used if duplicate resources could be returned, or if
+not all sort options can be supported.
+
 ## Individual resource URLs
 {: #individual-resource-urls}
 
@@ -54,7 +67,8 @@ unique account identifier.
 
 Each individual resource's URL SHOULD be included in the root of its representation as the `href`
 property. This URL SHOULD be complete and begin with the protocol (e.g.,
-`https://api.example.com/v2/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195`).
+`https://api.example.com/v2/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195`). The wildcard character
+(`-`) MUST NOT appear in the URL (i.e., canonical parent identifiers MUST be used).
 
 [^collection-response]: Encapsulation of arrays is always required for reasons outlined under the
    [Object

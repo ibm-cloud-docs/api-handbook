@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2021
-lastupdated: "2021-06-30"
+  years: 2021, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -44,7 +44,7 @@ protocol's specification exists apart from sundry implementations, a defensive i
 react to ambiguity (which is a _defect_ of the specification) with:
 
 *  A broad interpretation of what constitutes valid input (but still only within the confines of
-   what the specification leaves open to interpretation) 
+   what the specification leaves open to interpretation)
 *  A narrow interpretation of what constitutes valid output
 
 [fallibility-of-specifications]: https://datatracker.ietf.org/doc/html/draft-thomson-postel-was-wrong-03#section-2
@@ -154,7 +154,7 @@ SHOULD NOT be ignored and SHOULD result in an error.
 [^ignore-unknown-headers]: Such as RFC 7230's
    [requirement](https://datatracker.ietf.org/doc/html/rfc7230#section-3.2.1){: external} that
    unknown HTTP headers be ignored.
-  
+
 All of the downsides listed for [silently ignoring invalid input](#sanitation-and-validation) also
 apply to ignoring extraneous input.
 
@@ -182,7 +182,7 @@ by using one of the following approaches:
    sections of the API are updated in a series of versioned changes MAY be used.
 *  If a new major version for a service API is developed, updated robustness best practices MUST be
    enforced across the new version.
-  
+
 When existing service APIs are extended, new operations and new request headers, request schema
 properties, and query parameters on existing operations SHOULD adhere to updated robustness best
 practices with respect to invalid and extraneous input but MAY maintain consistency with existing

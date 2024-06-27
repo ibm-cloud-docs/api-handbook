@@ -1,8 +1,8 @@
 ---
 
 copyright:
-    years: 2019, 2021
-lastupdated: "2021-06-30"
+    years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -202,7 +202,7 @@ size.[^maximum-limit] The maximum limit should be highlighted in the collection'
 
 If the value provided for `limit` is not a positive integer, or if the value provided is greater
 than the maximum value for the collection, the server SHOULD return a `400` status code and
-appropriate error response model. 
+appropriate error response model.
 
 ### Additional response fields
 {: #additional-response-fields-with-offset}

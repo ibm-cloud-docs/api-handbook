@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2021
-lastupdated: "2021-06-30"
+  years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -130,7 +130,7 @@ For example, `/farms/{farm_id}/barns/{barn_id}/cows/{id}` SHOULD be used instead
 {: #unambiguous-path-parameters}
 
 Where there is no ambiguity, path parameters SHOULD NOT be qualified. For example, if a book
-resource type allows genres wholly represented by strings to be added with the path 
+resource type allows genres wholly represented by strings to be added with the path
 `PUT /books/{id}/genres/{genre}` where `{genre}` is a string such as "sci-fi," and there is no
 request- or response-body representation of a genre and no genre identifier, the book identifier
 path parameter SHOULD remain unqualified as `{id}`.
@@ -233,7 +233,7 @@ and `=` for each parameter) for a single operation SHOULD be less than 7000 byte
 [^7000-you-say]: The recommended maximum URI length is 8000 bytes; leaving 1000 bytes for
    imaginatively long fully qualified domain name and path segments, it should be impossible to craft
    a URI with entirely valid parameters (and no padding) that exceeds the URI length limit. This
-   allows services to reliably return user-crafted collection URIs with appended pagination tokens. 
+   allows services to reliably return user-crafted collection URIs with appended pagination tokens.
 
 ### Unrecognized and invalid parameters
 {: #unrecognized-and-invalid-parameters}
@@ -270,7 +270,7 @@ Requests that provide a query string with duplicate single-value[^single-value] 
 the same name and differing values[^duplicate-query-parameters] MUST result in a `400` status and
 appropriate error response model. For backward compatibility with existing clients, query strings
 containing duplicate query parameters of the same name and with the same value MAY be
-supported[^exact-duplicate-parameters]. 
+supported[^exact-duplicate-parameters].
 
 If a service supports parameter name [case insensitivity](#case-insensitivity), parameter names MUST
 be normalized prior to validating uniqueness.
@@ -287,6 +287,6 @@ parameter (for example, `foo=1,2,3`) instead of duplicated[^array-parameter-dupl
 
 [^exact-duplicate-parameters]: That is, exactly duplicated parameters can be treated as if only one
    parameter with the duplicated name and value was provided.
-  
+
 [^array-parameter-duplication]: While this kind of parameter duplication is not ambiguous per se,
    tooling support for constructing and parsing such query strings is uneven.

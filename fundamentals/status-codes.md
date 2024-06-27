@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2024
+lastupdated: "2024-06-27"
 
 subcollection: api-handbook
 
@@ -233,8 +233,8 @@ documentation on [Errors](/docs/api-handbook?topic=api-handbook-errors).
 [^content-type-versus-invalid-data]: Note that a `400` should be returned if the content type is
    acceptable but the payload is otherwise invalid.
 
-[^422-use]: The `422` status was at one time favored for requests containing payloads with valid   
-   syntax but invalid semantics because RFC 2616 [required   
+[^422-use]: The `422` status was at one time favored for requests containing payloads with valid
+   syntax but invalid semantics because RFC 2616 [required
    that](https://datatracker.ietf.org/doc/html/rfc2616#section-10.4.1){: external} `400` only be
    used "due to malformed syntax." However, RFC 7231, which obsoletes RFC 2616, [makes no such
    stipulation](https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1){: external}. Because
