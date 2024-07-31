@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2021, 2024
-lastupdated: "2024-06-27"
+lastupdated: "2024-07-31"
 subcollection: api-handbook
 ---
 
@@ -29,7 +29,7 @@ Parent resource types in a path SHOULD be included as qualifiers in the noun use
 `operationId`. For example, `DELETE /farms/{farm_id}/barns/{id}` would have an `operationId` of
 `delete_farm_barn`, and `GET /farms/{farm_id}/barns` would have an `operationId` of
 `list_farm_barns`, regardless of support for
-[wildcard URLs](/docs/api-handbook?topic=api-handbook-collection-overview#wildcard-collection-urls).
+[wildcard URLs](/docs/api-handbook?topic=api-handbook-collections-overview#wildcard-collection-urls).
 
 The success status codes in the examples below are defined for synchronous operations only. Refer
 to the section on [long-running

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020, 2024
-lastupdated: "2024-06-27"
+lastupdated: "2024-07-31"
 
 subcollection: api-handbook
 
@@ -180,7 +180,7 @@ case](#special-cases-for-backward-compatibility) applies:
 *  Redefining the nature of any relationship between resources
 
 #### Migrating to updated robustness best practices
-{: #robustness-changes }
+{: #robustness-changes}
 
 When migrating an API from previous guidance to this handbook's updated [robustness best
 practices][robustness], the following changes SHOULD be considered backward incompatible:

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2024
-lastupdated: "2024-06-27"
+lastupdated: "2024-07-31"
 
 subcollection: api-handbook
 
@@ -170,14 +170,14 @@ services which opt to implement support for CORS.
 
 | Header             | Type     | Description                              |
 | ------------------ | -------- | ---------------------------------------- |
-| [Access-Control-Allow-Origin](https://www.w3.org/TR/cors/#access-control-allow-origin-response-header){: external} | Response | This header MUST be returned when a request is made from a white-listed origin. In this case, its value SHOULD match the value of the request's `Origin` header. |
-| [Access-Control-Allow-Credentials](https://fetch.spec.whatwg.org/#access-control-allow-credentials-response-header){: external} | Response | This header SHOULD be included with a value of `true` if cookies and credentials may be used. Otherwise it SHOULD be omitted. |
-| [Access-Control-Expose-Headers](https://www.w3.org/TR/cors/#access-control-expose-headers-response-header){: external} | Response | This header SHOULD be used to list which response headers should be made accessible to the client apart from `Cache-Control`, `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, and `Pragma`, which are all exposed by default. |
-| [Access-Control-Max-Age](https://www.w3.org/TR/cors/#access-control-max-age-response-header){: external} | Response | This header SHOULD be included with responses to preflight requests to indicate how long a client may cache the results. |
+| [Access-Control-Allow-Origin](https://fetch.spec.whatwg.org/#http-access-control-allow-origin){: external} | Response | This header MUST be returned when a request is made from a white-listed origin. In this case, its value SHOULD match the value of the request's `Origin` header. |
+| [Access-Control-Allow-Credentials](https://fetch.spec.whatwg.org/#http-access-control-allow-credentials){: external} | Response | This header SHOULD be included with a value of `true` if cookies and credentials may be used. Otherwise it SHOULD be omitted. |
+| [Access-Control-Expose-Headers](https://fetch.spec.whatwg.org/#http-access-control-expose-headers){: external} | Response | This header SHOULD be used to list which response headers should be made accessible to the client apart from `Cache-Control`, `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, and `Pragma`, which are all exposed by default. |
+| [Access-Control-Max-Age](https://fetch.spec.whatwg.org/#http-access-control-max-age){: external} | Response | This header SHOULD be included with responses to preflight requests to indicate how long a client may cache the results. |
 | [Access-Control-Allow-Methods](https://fetch.spec.whatwg.org/#access-control-allow-methods-response-header){: external} | Response | This header SHOULD be included with responses to preflight requests to indicate what request methods are permissible. |
-| [Access-Control-Allow-Headers](https://fetch.spec.whatwg.org/#access-control-allow-headers-response-header){: external} | Response | This header MAY be included with any responses to preflight requests to indicate what request headers are permissible. It MUST be included in responses to requests including the `Access-Control-Request-Headers` header. |
-| [Access-Control-Request-Method](https://fetch.spec.whatwg.org/#access-control-request-method-request-header){: external} | Request | This header SHOULD be understood and utilized in order to formulated responses to preflight requests. |
-| [Access-Control-Request-Headers](https://fetch.spec.whatwg.org/#access-control-request-headers-request-header){: external} | Request | This header SHOULD be understood and utilized in order to formulate responses to preflight requests. |
+| [Access-Control-Allow-Headers](https://fetch.spec.whatwg.org/#http-access-control-allow-headers){: external} | Response | This header MAY be included with any responses to preflight requests to indicate what request headers are permissible. It MUST be included in responses to requests including the `Access-Control-Request-Headers` header. |
+| [Access-Control-Request-Method](https://fetch.spec.whatwg.org/#http-access-control-request-method){: external} | Request | This header SHOULD be understood and utilized in order to formulated responses to preflight requests. |
+| [Access-Control-Request-Headers](https://fetch.spec.whatwg.org/#http-access-control-request-headers){: external} | Request | This header SHOULD be understood and utilized in order to formulate responses to preflight requests. |
 | [Origin](https://fetch.spec.whatwg.org/#origin-request-header){: external} | Request | This header MUST be understood and utilized by services implementing support for CORS. |
 {: caption="CORS headers" caption-side="bottom"}
 
@@ -304,7 +304,7 @@ parameter `if_match`.
    implementation in CloudFlare does provide the `Retry-After` header in `429` responses.
 
 [^rate-limiting-common-practice]: These headers are used by
-   [Twitter](https://developer.twitter.com/en/docs/rate-limits){: external},
+   [Twitter](https://developer.x.com/en/docs/rate-limits){: external},
    [GitHub](https://docs.github.com/en/rest/rate-limit)){: external},
    [Atlassian](https://developer.atlassian.com/server/hipchat/hipchat-rest-api-rate-limits/){: external},
    and others.

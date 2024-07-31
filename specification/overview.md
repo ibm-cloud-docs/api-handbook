@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2024
+lastupdated: "2024-07-31"
 
 subcollection: api-handbook
 
@@ -18,7 +18,7 @@ subcollection: api-handbook
 
 The primary format for representing the API for a service MUST be an API document that conforms to
 [the OpenAPI
-specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md){: external}.
+specification](https://spec.openapis.org/oas/v3.0.3){: external}.
 API documents using version 2 of OpenAPI (aka Swagger) SHOULD be updated to version 3.x
 as soon as practical.
 

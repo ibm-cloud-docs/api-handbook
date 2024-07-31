@@ -2,7 +2,7 @@
 
 copyright:
   years: 2021, 2024
-lastupdated: "2024-06-27"
+lastupdated: "2024-07-31"
 
 subcollection: api-handbook
 
@@ -164,7 +164,7 @@ unsupported _and ignored_, then the client application could experience a failur
 when support is added to the service for a property or parameter of the same name.
 
 ## Migrating to best practices for robustness
-{: #migrating-to-best-practices }
+{: #migrating-to-best-practices}
 
 Migrating a service API that is less strict in its handling of requests to comply with the [best
 practices](#best-practices) for robustness inevitably involves making [backward-incompatible
