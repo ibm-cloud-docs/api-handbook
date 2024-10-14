@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2024
-lastupdated: "2024-06-27"
+lastupdated: "2024-10-11"
 
 subcollection: api-handbook
 
@@ -83,6 +83,58 @@ However, in such cases where it is deemed important that an occasionally-ambiguo
 used or where different representations of a resource require differing URIs (e.g., for media files
 where a file extension is considered significant), a `300` status code MAY be returned where a
 particular URI is ambiguous.
+
+### 301, 302, 303, and 307 response bodies
+{: #301-302-303-and-307-response-bodies}
+
+To facilitate programmatic use, a response body SHOULD accompany any `301`, `302`, `303`, or `307`
+response. If a response body is provided, it MUST have the [same
+`Content-Type`](/docs/api-handbook?topic=api-handbook-format#content-type-behavior) as a `2xx`
+response to the same request would have, and MUST contain the following fields:
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `code` | Enumeration | This field MUST contain a snake case string succinctly providing the reason for the redirect. See the following table for allowed codes |
+| `message` | String | This field MUST contain a plainly-written, developer-oriented reason for the redirect in complete, well-formed sentences. |
+| `target` | Reference schema | This field MUST contain a reference to the redirected resource, using the resource's canonical reference schema. |
+{: caption="Redirect model" caption-side="bottom"}
+
+| Redirect Code | Allowed Status Codes | Description | Notes |
+| ------------- | -------------------- | ----------- | ----- |
+| `forwarded` | `302`, `307` | The requested resource is forwarded | |
+| `resolved` | `301` | The requested wildcarded resource was resolved | Applies to requests with wildcards in the path |
+| `moved` | `301` | The requested resource has moved | |
+| `remote_region` | `301` | The requested resource is in a different region | |
+| `remote_account` | `301` | The requested resource is in a different account | Applies to requests with account IDs in the path |
+| `version_mismatch` | `303` | The requested resource is at a different version | Applies to requests with the version in the path[^303-version-mismatch] |
+{: caption="Redirect codes" caption-side="bottom"}
+
+For example, clients using a content type of `application/json` might receive:
+
+```
+{
+   "code": "remote_region",
+   "message": "The requested resource is in a different region",
+   "target": {
+     "crn": "crn:v1:bluemix:public:is:us-south-1:a/aa2432b1fa4d4ace891e9b80fc104e34::share:r134-a0c07083-f411-446c-9316-7b08d6448c86",
+     "href": "https://us-south.iaas.cloud.ibm.com/v1/shares/r134-a0c07083-f411-446c-9316-7b08d6448c86",
+     "id": "r134-a0c07083-f411-446c-9316-7b08d6448c86",
+     "name": "my-share",
+     "remote": {
+        "region": {
+           "href": "https://us-east.iaas.cloud.ibm.com/v1/regions/us-south",
+           "name": "us-south",
+	   "resource_type": "region"
+         }
+      },
+      "resource_type": "share"
+   }
+}
+```
+
+If a client makes a request that includes mismatched identifiers (for example, child and parent
+identifiers that both exist, but do not have a relationship), the request MUST fail with `404`
+rather than be redirected.{: note}
 
 ### 303 and 307 temporary redirects
 {: #303-and-307-temporary-redirects}
@@ -221,6 +273,11 @@ documentation on [Errors](/docs/api-handbook?topic=api-handbook-errors).
 
 [^300-accept]: A `406` status code should be returned for any `Accept` header value that cannot be
    fulfilled.
+
+[^303-version-mismatch]: This redirect is only appropriate for resource versions. API versioning
+   does not affect the resource's path (reflected in its modeling using the `IBM-API-Version`
+   header), and therefore if the resource cannot be represented at the requested API version,
+   `400 Bad Request` MUST be returned.
 
 [^401-403-meaning]: Details on the semantics of `401` and `403` can be found in a [2010 working
    group email](https://lists.w3.org/Archives/Public/ietf-http-wg/2010JulSep/0085.html){: external}

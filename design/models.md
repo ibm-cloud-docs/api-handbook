@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2024
-lastupdated: "2024-06-27"
+lastupdated: "2024-10-11"
 
 subcollection: api-handbook
 
@@ -24,6 +24,9 @@ should not be dictated by how the system itself represents or stores objects int
 between models and internal structures — such as classes — must be well-behaved but it need not be
 one-to-one.
 
+Models MUST NOT be used to mimic dictionaries (for example, using "key" and "value" as properties
+in a model). To learn about dictionaries, see the [Dictionary](/docs/api-handbook?topic=api-handbook-types#dictionary) section.
+
 An API's models should be described and implemented consistently in the API's specification and
 documentation and in the service that provides the API. Where possible, automated tooling and
 testing should be used to ensure this consistency.
@@ -40,6 +43,11 @@ A model specifies the following about each field:
 *  Nullability: If the field may contain an explicitly `null` value
 *  Mutability: If the field may be explicitly changed via the API
 *  Rules: Any constraints on the field's values in addition to ones imposed by its type
+
+Fields MUST be defined with the above information. If field names are unknown in advance
+and system behavior does not rely on any specific fields, a [dictionary](/docs/api-handbook?topic=api-handbook-types#dictionary)
+type should be used instead of a model. Models MUST NOT include fields whose names are not predetermined.
+{:note: .note}
 
 ### Field types
 {: #field-types}
@@ -60,14 +68,18 @@ linked to more information.
    specifically-formatted date string.
 *  A [Date/Time](/docs/api-handbook?topic=api-handbook-types#datetime) field contains a
    specifically-formatted date and time string.
-*  A [CRN](/docs/api-handbook?topic=api-handbook-types#crn) field contains a Cloud Resource Name.
+*  A [CRN](/docs/api-handbook?topic=api-handbook-types#crn) field contains a Cloud Resource Name as a string.
 *  An [Enumeration](/docs/api-handbook?topic=api-handbook-types#enumeration) field contains one of a
    predefined set of lower snake case strings.
-*  A [Model](/docs/api-handbook?topic=api-handbook-types#model) field contains a nested object. This
-   object must be an instance of a specific model; the field's definition must specify this model.
+*  A [Model](/docs/api-handbook?topic=api-handbook-types#model) field contains a nested object with a predefined structure, whose
+   property names are known in advance. This object must be an instance of a specific model;
+   the field's definition must specify this model.
 *  An [Array](/docs/api-handbook?topic=api-handbook-types#array) field contains an array which
    itself contains zero or more values. Each value must conform to a specific type (excluding the
    Array type itself); the field's definition must specify this type.
+*  A [Dictionary](/docs/api-handbook?topic=api-handbook-types#dictionary) field contains a nested object, whose property names are not predefined,
+   which itself contains zero or more key/value pairs. Each value must conform to a specific type
+   (excluding the Dictionary type itself); the field's definition must specify this type.
 
 ### Required, optional, and nullable fields
 {: #required-optional-and-nullable}

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2024
+lastupdated: "2024-10-11"
 
 subcollection: api-handbook
 
@@ -51,11 +51,11 @@ To facilitate reading resources across collections, one or more path parameters 
 request URL MAY be wildcarded with the `-` (hyphen or dash) character. For example, `GET
 /v1/farms/-/barns` requests all barns, regardless of the farm.
 
-Wildcards MUST be limited to collection `GET` methods, which may only support wildcards for path parameters. Path
-parameters that support wildcards MUST be explicitly documented. Wildcard support MUST NOT affect
-any pagination, filtering, and sorting support otherwise provided by a collection method. The
-sorting requirement means wildcards MUST NOT be used if duplicate resources could be returned, or if
-not all sort options can be supported.
+Wildcards MUST be limited to collection `GET` methods, which may only support wildcards for path
+parameters. Path parameters that support wildcards MUST be explicitly documented. Wildcard support
+MUST NOT affect any pagination, filtering, and sorting support otherwise provided by a collection
+method. The sorting requirement means wildcards MUST NOT be used if duplicate resources could be
+returned, or if not all sort options can be supported.
 
 ## Individual resource URLs
 {: #individual-resource-urls}
@@ -68,7 +68,20 @@ unique account identifier.
 Each individual resource's URL SHOULD be included in the root of its representation as the `href`
 property. This URL SHOULD be complete and begin with the protocol (e.g.,
 `https://api.example.com/v2/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195`). The wildcard character
-(`-`) MUST NOT appear in the URL (i.e., canonical parent identifiers MUST be used).
+(`-`) MUST NOT appear in the property value (i.e., canonical parent identifiers MUST be used).
+
+## Wildcard individual URLs
+{: #wildcard-individual-urls}
+
+As a convenience for clients, resource URLs that include parent resource identifiers but are
+uniquely identified[^uniquely-identified] by the final identifier MAY allow clients to wildcard any
+parent resource identifiers with the `-` (hyphen or dash) character (e.g. `GET
+/v1/farms/-/barns/dc0eff9d-5a8c-46b9-9553-e1a0e554caaf`). The final identifier MUST NOT be
+wildcarded, and any path parameters that support wildcards MUST be explicitly documented. The server
+MUST NOT return the resource, but instead return [`301 Moved` with a `resolved`
+code](/docs/api-handbook?topic=api-handbook-status-codes#301-302-303-and-307-response-bodies)
+
+[^uniquely-identified]: That is, the resource identifier is unique by virtue of an architectural guarantee, not transiently unique because no ambiguity currently exists in the system's state.
 
 [^collection-response]: Encapsulation of arrays is always required for reasons outlined under the
    [Object

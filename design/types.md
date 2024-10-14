@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2021
-lastupdated: "2021-06-30"
+  years: 2019, 2024
+lastupdated: "2024-10-11"
 
 subcollection: api-handbook
 
@@ -31,8 +31,9 @@ The following types are described below:
 *  [Date/Time](#datetime)
 *  [CRN](#crn)
 *  [Enumeration](#enumeration)
-*  [Model](#model)
 *  [Array](#array)
+*  [Dictionary](#dictionary)
+*  [Model](#model)
 
 ## Identifier
 {: #identifier}
@@ -631,6 +632,60 @@ In a request body, an array field MAY be optional.
 | `minItems`  |                      | `minItems` MUST be present. |
 | `maxItems`  |                      | `maxItems` MUST be present. |
 {: caption="Schema guidance for arrays in requests" caption-side="bottom"}
+
+
+## Dictionary
+{: #dictionary}
+
+Dictionaries are a category of types for collections of key/value pairs, where each value has the
+same type and the names of the keys are not predetermined. Each individual dictionary type is
+defined as a collection of same-type keys, where each key maps to a value of a specific type. For
+example, a model might specify a field with a [string](#string)-to-[integer](#integer) dictionary
+type. Consequently, this field could only contain a dictionary with zero or more entries that map a
+[string](#string) value to an [integer](#integer) value, such as mapping a city's name to its respective population:
+
+```json
+{
+   "tokyo": 13515271,
+   "chicago": 2746388,
+   "lima": 8894000
+}
+```
+
+### Dictionaries vs Models
+{: #dictionaries-vs-models}
+
+A dictionary is not a [model](#model). Models define static properties that are known in advance and can be relied upon. Dictionary keys are dynamic, are not known in advance, and cannot be safely relied upon. If a field is logically coupled with a resource definition, if system behavior depends on the presence of a field, or if a field is otherwise necessary, it MUST be defined as a model property and MUST NOT be represented within a dictionary.
+
+Model/dictionary hybrids MUST NOT be used. That is, a schema MUST NOT define both statically-named properties and
+dynamically-named properties. If both static and dynamic property names are needed, they MUST be supported via a
+separate model and dictionary, respectively.
+
+Where possible, models SHOULD be used. For operation request and response bodies, models MUST be used.
+In other cases, dictionaries MAY be used where field names cannot be statically defined,
+such as when fields cannot be known in advance (e.g. environment variables for a runtime).
+Dictionaries MUST NOT be used as non-finalized or non-contractual models. They are exclusively appropriate for
+use cases where keys are, by design, not known until _runtime_.
+
+### Keys
+{: dictionary-keys}
+
+*  Keys MUST be unique within a single dictionary instance.
+*  Keys MUST be restricted to a reasonable maximum length.
+*  Keys MUST be restricted to a reasonable character set.
+
+### Values
+{: dictionary-values}
+
+*  Values MUST all be of the same type. This type MUST be explicitly defined.
+*  Values MUST NOT be dictionary types - avoid "dictionaries of dictionaries".
+
+| Constraint                 | Recommended value    | Description |
+| -------------------------- | -------------------- | ----------- |
+| `type`                     | `object`             | `type` MUST be `object`. |
+| `additionalProperties`     |                      | `additionalProperties` MUST be present and MUST be a schema describing the type of each value. |
+| `maxProperties`            | Between 100 and 1000 | `maxProperties` MUST be present and the limit on the number of properties present in a dictionary MUST be enforced. |
+{: caption="Schema guidance for dictionaries" caption-side="bottom"}
 
 
 ## Model
