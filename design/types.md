@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2024
-lastupdated: "2024-10-11"
+lastupdated: "2024-11-12"
 
 subcollection: api-handbook
 
@@ -184,7 +184,7 @@ scientific notation.
 
 | Constraint  | Recommended value                                              | Description |
 | ----------- | -------------------------------------------------------------- | ----------- |
-| `type`      | `integer`                                                      | `type` MUST be `string`. |
+| `type`      | `integer`                                                      | `type` MUST be `integer`. |
 | `format`    | `int32` or `int64`                                             | `format` MUST be `int32` or `int64`. |
 | `minimum`   | ≥`-2147483648` for `int32` or ≥`-9007199254740991` for `int64` | `minimum` value SHOULD be present. |
 | `maximum`   | ≤`2147483647` for `int32` or ≤`9007199254740991` for `int64`   | `maximum` value SHOULD be present. |
@@ -224,7 +224,7 @@ included in a request. Failure to match constraints MUST cause the entire reques
 
 | Constraint  | Recommended value                                              | Description |
 | ----------- | -------------------------------------------------------------- | ----------- |
-| `type`      | `integer`                                                      | `type` MUST be `string`. |
+| `type`      | `integer`                                                      | `type` MUST be `integer`. |
 | `format`    | `int32` or `int64`                                             | `format` MUST be `int32` or `int64`. |
 | `minimum`   | ≥`-2147483648` for `int32` or ≥`-9007199254740991` for `int64` | `minimum` value MUST be present. |
 | `maximum`   | ≤`2147483647` for `int32` or ≤`9007199254740991` for `int64`   | `maximum` value MUST be present. |

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2024
-lastupdated: "2024-07-31"
+lastupdated: "2024-12-05"
 
 subcollection: api-handbook
 
@@ -139,8 +139,10 @@ up-to-date and use optimistic locking in order to mitigate race conditions.
 ### Recommended `If-Match` support
 {: #recommended-if-match-support}
 
-The `If-Match` header SHOULD be supported for all `POST`[^post-on-resource], `PUT`, `PATCH`, and
-`DELETE` operations on a resource for which an `ETag` header is returned.
+The `If-Match` header SHOULD be supported:
+- Where [required for robustness](/docs/api-handbook?topic=api-handbook-robustness#optimistic-locking).
+- For all `POST`[^post-on-resource], `PUT`, `PATCH`, and `DELETE` operations on a resource for which
+  an `ETag` header is returned.
 
 [^post-on-resource]: `If-Match` is only applicable to `POST` requests which mutate or operate on an
    existing resource, such as those used for [exceptional

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020, 2024
-lastupdated: "2024-07-31"
+lastupdated: "2024-12-05"
 
 subcollection: api-handbook
 
@@ -77,6 +77,10 @@ developer made. For this reason, any change must be carefully evaluated for what
 assumptions which could have been made by client developers would render the change incompatible
 with existing code.
 
+If SDKs are being generated from the API definition, API changes that otherwise would be considered
+backward-compatible can result in an SDK change that breaks existing SDK clients.
+{: important}
+
 The following directives MUST be used as the basis for classifying changes but SHOULD be
 supplemented with analysis of real-world API usage.
 
@@ -89,10 +93,13 @@ evolutionary updates:
 *  Adding a new path
 *  Adding a new method to an existing path
 *  Adding a new property to a response schema
+*  Changing an optional property to be required in a response schema
+*  Changing a required property to be optional in a request schema
 *  Supporting a new optional query parameter, header, or property in a request schema
 *  Expanding acceptable values for an existing query parameter, header, or property in a request
    schema
 *  Reducing possible values for a property in a response schema
+*  Adding a response body (to accompany an existing status code)
 
 #### Special cases for backward-compatibility
 {: #special-cases-for-backward-compatibility}
@@ -170,6 +177,8 @@ case](#special-cases-for-backward-compatibility) applies:
 *  Removing or renaming an existing query parameter
 *  Removing or renaming an existing property in a request or response schema
 *  Adding a new required query parameter, header, or property in a request schema
+*  Changing a required property to be optional in a response schema
+*  Changing an optional property to be required in a request schema
 *  Changing the status code for a particular scenario (except when the existing status code is
    `404`)
 *  Reducing acceptable values for an existing query parameter, header, or property in a request

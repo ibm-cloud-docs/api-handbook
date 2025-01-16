@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2024
-lastupdated: "2024-10-11"
+  years: 2019, 2025
+lastupdated: "2025-01-16"
 
 subcollection: api-handbook
 
@@ -185,11 +185,11 @@ the server MUST respond with a `400 Bad Request`, exactly as if the resource did
 {: #conflicts}
 
 Though [RFC 7231][rfc-7231-409] suggests `409 Conflict` be limited to conflicts between a request
-and the "target resource," this handbook recommends a broader view of what constitutes a
-conflict. Specifically, a request SHOULD be deemed in conflict (and receive a `409` status code) if
-the request is syntactically and semantically valid but cannot be processed because of the
-client-mutable state of one or more existing resources that would be used by the request in a way
-the system deems invalid.
+and the "target resource," this handbook recommends a broader view of what constitutes a conflict.
+Specifically, a request SHOULD be deemed in conflict (and receive a `409` status code) if the
+request is syntactically and semantically valid but cannot be processed because of the
+client-mutable state of one or more existing resources that would interact with the resource created
+or updated by the request in a way the system deems invalid.
 
 `409 Conflict` SHOULD NOT be returned for a request that the system can determine could not be
 successfully resubmitted after the client made other requests to resolve conflicts with the state
@@ -201,6 +201,9 @@ The following scenarios SHOULD result in a `409 Conflict`:
 
 *  A request would update a certain property in a resource with a value that isn't compatible with
    the current value of another property in the resource.
+*  A request would update or create a resource with a value for a property that is required to be
+   unique within a certain scope (such as a name in a namespace or an IP address in a subnet) when
+   that value is already used by another resource in the same scope.
 *  A request would update or create a resource with a binding to an existing resource that already
    has an exclusive binding or has reached its binding limit.
 *  A request would use an existing resource (for example, to generate a new resource) which has
