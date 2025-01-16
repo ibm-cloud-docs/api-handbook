@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2024
-lastupdated: "2024-10-11"
+  years: 2019, 2025
+lastupdated: "2025-01-16"
 
 subcollection: api-handbook
 
@@ -33,16 +33,57 @@ the collection. This response object MAY also include collection metadata, such 
     {
       "id": "499aed3c-3f49-4a04-8e69-44c2f2894195",
       "company_name": "Aperture Science",
-      "href": "https://api.example.com/v1/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195"
+      "href": "https://api.example.com/v2/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195"
     },
     {
       "id": "2f27ff7b-3183-4e9a-a085-db457402ee95",
       "company_name": "Black Mesa",
-      "href": "https://api.example.com/v1/accounts/2f27ff7b-3183-4e9a-a085-db457402ee95"
+      "href": "https://api.example.com/v2/accounts/2f27ff7b-3183-4e9a-a085-db457402ee95"
     }
   ]
 }
 ```
+
+## Non-canonical collection URLs
+{: #non-canonical-collection-urls}
+
+A resource has only one _canonical_ location (also known as its _permanent_ location), which is
+reflected in its `href` property. By extension, a resource has only one canonical collection, such
+as `/v2/accounts` in the example above. However, relationships with other resources may warrant
+adding _non-canonical_ collections. Consider a [conference speaker
+scenario](/docs/api-handbook?topic=api-handbook-operations#bindings-to-multiple-other-resources),
+where `PUT /v1/conferences/{conference_id}/speakers/{id}` is used to add a speaker to a conference.
+In this case, `/v1/conferences` and `/v1/speakers` are the canonical collections for conferences and
+speakers respectively. In contrast, `/v1/conferences/{conference_id}/speakers` is the non-canonical
+collection listing the speakers for a given conference.
+
+Since non-canonical collections are intended to list associations between resource types, and access
+to those resource types may require different authorizatons, the representation of the collection
+SHOULD return [reference schemas](/docs/api-handbook?topic=api-handbook-schemas#reference-schemas) rather than canonical or summary schemas.
+
+### Example non-canonical collection response
+{: #example-non-canonical-collection-response}
+
+```json
+{
+  "speakers": [
+    {
+      "id": "1ed3d170-5cd7-466e-8c11-787d0228809f",
+      "name": "brian-kernighan",
+      "href": "https://api.example.com/v1/speakers/1ed3d170-5cd7-466e-8c11-787d0228809f"
+    },
+    {
+      "id": "fa25c029-d7b9-4348-805b-8bd3b5eed8f2",
+      "name": "vint-cerf",
+      "href": "https://api.example.com/v1/speakers/fa25c029-d7b9-4348-805b-8bd3b5eed8f2"
+    }
+  ]
+}
+```
+
+The shown `href` values reflect the speaker's canonical location, which a client can use to
+retrieve the speaker's canonical schema (if the client has permission).
+{:note: .note}
 
 ## Wildcard collection URLs
 {: #wildcard-collection-urls}
@@ -65,8 +106,8 @@ start with the URL of the collection.[^hierarchical-url]  For example, an accoun
 `/v2/accounts` collection would have the URL `/v2/accounts/:account_id` where `:account_id` is the
 unique account identifier.
 
-Each individual resource's URL SHOULD be included in the root of its representation as the `href`
-property. This URL SHOULD be complete and begin with the protocol (e.g.,
+Each individual resource's canonical URL SHOULD be included in the root of its representation as the
+`href` property. This URL SHOULD be complete and begin with the protocol (e.g.,
 `https://api.example.com/v2/accounts/499aed3c-3f49-4a04-8e69-44c2f2894195`). The wildcard character
 (`-`) MUST NOT appear in the property value (i.e., canonical parent identifiers MUST be used).
 

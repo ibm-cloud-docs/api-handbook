@@ -1,7 +1,7 @@
 ---
 copyright:
-  years: 2021, 2024
-lastupdated: "2024-07-31"
+  years: 2021, 2025
+lastupdated: "2025-01-16"
 subcollection: api-handbook
 ---
 
@@ -92,7 +92,8 @@ one other resource. In the example used, a club must have exactly one treasurer.
 
 | Verb      | Example method and path     | Success status code | Recommended operation ID | Description |
 | --------- | --------------------------- | ------------------- | ------------------------ | ----------- |
-| `replace` | `PUT /clubs/{id}/treasurer` | `200 OK`            | `replace_club_treasurer` | Replace an existing binding with one between a _treasurer_ identified in the request body and the _club_ identified by `{id}` |
+| `replace` | `PUT /clubs/{id}/treasurer` | `200 OK`            | `replace_club_treasurer` | Replace the existing binding with one between a _treasurer_ identified in the request body and the _club_ identified by `{id}` |
+| `get`     | `GET /clubs/{id}/treasurer` | `200 OK`            | `get_club_treasurer`     | Retrieve the _treasurer_ bound to the _club_ identified by `{id}` |
 {: caption="Operations for a required binding to one other resource" caption-side="bottom"}
 
 #### A resource's optional binding to one other resource
@@ -105,6 +106,7 @@ one other resource. In the example used, a hero might have one sidekick, but no 
 | --------- | ------------------------------ | ----------------------------------------------- | ------------------------ | ----------- |
 | `set`     | `PUT /heroes/{id}/sidekick`    | `201 Created` or `200 OK` (if a binding exists) | `set_hero_sidekick`      | Create (or replace an existing binding with) a binding between a _sidekick_ identified in the request body and the _hero_ identified by `{id}` |
 | `unset`   | `DELETE /heroes/{id}/sidekick` | `204 No Content`                                | `unset_hero_sidekick`    | Remove the binding between the _sidekick_ and the _hero_ identified by `{id}` |
+| `get`     | `GET /heroes/{id}/sidekick`    | `200 OK` (if a binding exists)                  | `get_hero_sidekick`      | Retrieve the _sidekick_ bound to the _hero_ identified by `{id}` |
 {: caption="Operations for an optional binding to one other resource" caption-side="bottom"}
 
 The verbs `set` and `unset` SHOULD NOT be used except in a symmetrical pair of operations.
@@ -119,6 +121,8 @@ resources. In the example used, a conference can have many speakers.
 | --------- | --------------------------------------------------- | ------------------------------------------------- | --------------------------- | ----------- |
 | `add`     | `PUT /conferences/{conference_id}/speakers/{id}`    | `201 Created` or `200 OK` (if the binding exists) | `add_conference_speaker`    | Create (or ensure) a binding between the _conference_ identified by `{conference_id}` and the _speaker_ identified by `{id}` |
 | `remove`  | `DELETE /conferences/{conference_id}/speakers/{id}` | `204 No Content`                                  | `remove_conference_speaker` | Remove the binding between the _conference_ identified by `{conference_id}` and the _speaker_ identified by `{id}` |
+| `get`  | `GET /conferences/{conference_id}/speakers/{id}` | `200 OK` (if the binding exists)                        | `get_conference_speaker` | Retrieve the binding between the _conference_ identified by `{conference_id}` and the _speaker_ identified by `{id}`  |
+| `list`  | `GET /conferences/{conference_id}/speakers` | `200 OK` (if the conference exists)                         | `list_conference_speakers` | Retrieve the speaker bindings for the _conference_ identified by `{conference_id}` |
 {: caption="Operations for bindings to multiple other resources" caption-side="bottom"}
 
 The verbs `add` and `remove` SHOULD NOT be used except in a symmetrical pair of operations.

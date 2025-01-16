@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2024
-lastupdated: "2024-06-27"
+  years: 2019, 2025
+lastupdated: "2025-01-16"
 
 subcollection: api-handbook
 
@@ -46,20 +46,21 @@ valid.
 
 When one resource is a child of another resource, its path MAY reflect this hierarchical
 relationship. However, in many cases, it may be deemed more appropriate for subordinate resources to
-have their own top-level collections. Moreover, a resource's permanent location (represented in its
-`href` property) SHOULD be under the shallowest collection where it is represented.
+have their own top-level collections. Moreover, a resource's permanent location (reflected in its
+`href` property and also known as its canonical location) SHOULD be under the shallowest collection
+where it is represented.
 
-Consider the following path representing ticket `456`, belonging to user `123`:
-`/v2/users/123/tickets/456`. If it is acceptable for tickets to be accessible _only_ via the users
-that own them, this may be a reasonable design. But if there is ever a need for a collection of
-_all_ tickets, a collection would exist at, for example, `/v2/tickets` and an individual ticket at
-`/v2/tickets/456`.
+Consider `/v2/users/123/tickets/456`, representing ticket `456`, belonging to user `123`. If it is
+acceptable for tickets to be accessible _only_ via the users that own them, this may be a reasonable
+design. But if there is ever a need for a collection of _all_ tickets, that collection would exist
+at `/v2/tickets` and an individual ticket at `/v2/tickets/456`.
 
 Additionally, if a collection of all tickets exists, it may be more practical for the collection of
 tickets belonging to user `123` to exist at `/v2/tickets?user=123` than at `/v2/users/123/tickets`.
-It is not forbidden, however, for a server to implement such collections redundantly.
+The server might also implement such collections redundantly using [non-canonical
+collections](docs/api-handbook?topic=api-handbook-collections-overview#non-canonical-collection-urls).
 
-## Contraints
+## Constraints
 {: #uri-constraints}
 
 Services MUST have a documented and enforced service-wide length limit for URIs and this limit

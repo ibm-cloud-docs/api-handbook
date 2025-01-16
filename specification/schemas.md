@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2024
-lastupdated: "2024-06-27"
+  years: 2019, 2025
+lastupdated: "2025-01-16"
 
 subcollection: api-handbook
 
@@ -69,13 +69,18 @@ A graph fragment variant of the same schema might define objects such as:
 
 The schema for a [resource collection](/docs/api-handbook?topic=api-handbook-collections-overview)
 returned by a [list operation](/docs/api-handbook?topic=api-handbook-operations#standard-operations)
-SHOULD be the name of the canonical schema for the resource type, suffixed with `Collection`.
+SHOULD be constructed by concatenating the singular form of each of its path segments in upper camel
+case, and suffixing with `Collection`.
 
-For example, a `GET /goat/{goat_id}/chores` operation would return a resource collection
-represented with the `GoatChoreCollection` schema.
+For example, a `GET /goats/{goat_id}/chores` operation would return a resource collection represented
+with the `GoatChoreCollection` schema. This applies regardless of if `GET /goats/{goat_id}/chores`
+is a [canonical or non-canonical collection](docs/api-handbook?topic=api-handbook-collections-overview).
 
-Each resource in a collection SHOULD be represented with its canonical schema. If performance
-considerations make it infeasible to return the canonical representation of a schema, a
+#### Canonical collection representation
+{: #canonical-collection-representation}
+
+Each resource in a canonical collection SHOULD be represented with its canonical schema. If
+performance considerations make it infeasible to return the canonical representation of a schema, a
 lighter-weight schema variant suffixed with `Summary` MAY be used. The summary representation of a
 resource SHOULD include all the critical information that would be expected in a user interface or
 command-line interface listing such resources.
@@ -85,6 +90,13 @@ For example, a `GreebleCollection` would contain an array of resources represent
 
 A summary schema MUST be a [graph fragment](#graph-fragment-pattern) variant of the canonical
 schema for the resource type.
+
+#### Non-canonical collection representation
+{: #non-canonical-collection-representation}
+
+Each resource in a non-canonical collection SHOULD be represented with its reference schema.
+For example, a `ConferenceSpeakerCollection` would contain an array of resources represented
+with the `SpeakerReference` schema.
 
 ### Resource creation and replacement schemas
 {: #creation-and-replacement-schemas}
@@ -116,8 +128,8 @@ the canonical schema itself SHOULD be used in requests to create or replace a re
 When a related resource is referenced within another resource's schema, properties of the related
 resource SHOULD be represented with a schema with the name of the related resource's canonical
 schema, suffixed with `Reference`. The property that a resource reference is embedded in MAY be
-named for the related resource type or (especially if the relationship is polymorphic) the nature
-of the relationship.
+named for the related resource type or (especially if the relationship is polymorphic) the nature of
+the relationship.
 
 A resource reference MUST be a [graph fragment](#graph-fragment-pattern) variant of the canonical
 schema (and, if it exists, the summary schema) for the resource type except for properties that
@@ -129,6 +141,10 @@ resource, such as a user-defined name SHOULD also be included in the reference. 
 resource is native to the service in which the reference is returned, its `href` SHOULD be included.
 Finally, if the resource has a CRN, its `crn` property SHOULD also be included. Other properties
 SHOULD NOT be included in a resource reference.
+
+Operations that [create, retrieve, and list bindings between
+resources](/docs/api-handbook?topic=api-handbook-operations#resource-binding-operations) SHOULD also
+return reference schemas.
 
 ### Resource identity schemas
 {: #identity-schemas}
