@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "title": "IBM Cloud API Handbook",
+  "introduction": "IBM's conventions, design patterns, and best practices for cloud APIs.",
+  "section_topics": {
+    "links": [
+      {
+        "title": "Introduction to using this handbook",
+        "href": "/docs/api-handbook?topic=api-handbook-intro"
+      },
+      {
+        "title": "Headers",
+        "href": "/docs/api-handbook?topic=api-handbook-headers"
+      },
+      {
+        "title": "Status codes",
+        "href": "/docs/api-handbook?topic=api-handbook-status-codes"
+      },
+      {
+        "title": "Types",
+        "href": "/docs/api-handbook?topic=api-handbook-types"
+      },
+      {
+        "title": "Compatibility",
+        "href": "/docs/api-handbook?topic=api-handbook-change-compatibility"
+      },
+      {
+        "title": "Schemas",
+        "href": "/docs/api-handbook?topic=api-handbook-schemas"
+      },
+      {
+        "title": "Operations",
+        "href": "/docs/api-handbook?topic=api-handbook-operations"
+      }
+    ]
+  }
+}

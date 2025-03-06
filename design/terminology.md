@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2025
+lastupdated: "2025-02-06"
 
 subcollection: api-handbook
 
@@ -31,3 +31,7 @@ abbreviations are used, they MUST be used consistently.
 Brand names and code names SHOULD be avoided in field names, URL segment names, and query parameter
 names. Brand names MAY be used in enumeration value names, if necessary. Where possible, resources
 and resource fields SHOULD be named with industry-standard, widely-understood terms.
+
+## Language
+{: #language}
+Names MUST be in American English.
