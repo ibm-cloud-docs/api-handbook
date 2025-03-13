@@ -6,8 +6,8 @@ toc:
     href: /docs/api-handbook
     path: api-handbook
     label: IBM Cloud API Handbook
-  entries: 
-  - navgroup: 
+  entries:
+  - navgroup:
       id: reference
       topics:
       - index.md
@@ -31,6 +31,7 @@ toc:
           - design/uris.md
           - design/long-running-operations.md
           - design/errors.md
+          - design/expressions.md
           - design/security.md
           - design/robustness.md
       - topicgroup:

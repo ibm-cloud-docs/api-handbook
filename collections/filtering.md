@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-12-01"
+  years: 2019, 2025
+lastupdated: "2025-03-06"
 
 subcollection: api-handbook
 
@@ -118,7 +118,5 @@ support prefixing a value with `not:` in order to invert the default matching lo
 ## Advanced querying
 {: #advanced-querying}
 
-Careful consideration should be given to providing any advanced query syntax. It is preferred that
-any syntax exposed not constrain future technology choices to a specific backend technology. For
-this reason, services SHOULD expose only a well-specified, standardized query syntax. If the service
-itself parses queries, care should be taken that it does so in a robust, secure manner.
+If support for more advanced queries are needed, the [Common Expression Language](https://cel.dev/){: external} MUST be used
+as covered in [expressions](/docs/api-handbook?topic=api-handbook-expressions).
