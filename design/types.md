@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2024
-lastupdated: "2024-11-12"
+  years: 2019, 2025
+lastupdated: "2025-03-26"
 
 subcollection: api-handbook
 
@@ -226,8 +226,8 @@ included in a request. Failure to match constraints MUST cause the entire reques
 | ----------- | -------------------------------------------------------------- | ----------- |
 | `type`      | `integer`                                                      | `type` MUST be `integer`. |
 | `format`    | `int32` or `int64`                                             | `format` MUST be `int32` or `int64`. |
-| `minimum`   | ≥`-2147483648` for `int32` or ≥`-9007199254740991` for `int64` | `minimum` value MUST be present. |
-| `maximum`   | ≤`2147483647` for `int32` or ≤`9007199254740991` for `int64`   | `maximum` value MUST be present. |
+| `minimum`   | ≥`-2147483648` for `int32` or ≥`-9007199254740991` for `int64` | `minimum` value MUST be present and MUST NOT be less than the minimum recommnended value. |
+| `maximum`   | ≤`2147483647` for `int32` or ≤`9007199254740991` for `int64`   | `maximum` value MUST be present and MUST NOT be greater than the maximum recommnended value. |
 {: caption="Schema guidance for integers in requests" caption-side="bottom"}
 
 

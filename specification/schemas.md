@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-01-16"
+lastupdated: "2025-03-26"
 
 subcollection: api-handbook
 
@@ -37,8 +37,8 @@ the `BoatOar` schema.
 
 Non-canonical variations of a resource schema, such as those used to create or refer to a resource,
 SHOULD be "graph fragment" variants of the schema. A graph fragment schema has the same structure
-as its canonical schema with some properties omitted from the schema or from any nested object
-schemas. For example, if a schema defines objects such as the following:
+as its canonical schema, but may omit one or more properties from the schema or from any nested
+object schemas. For example, if a schema defines objects such as the following:
 
 ```json
 {
