@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2021
-lastupdated: "2021-06-30"
+  years: 2019, 2025
+lastupdated: "2025-03-28"
 
 subcollection: api-handbook
 
@@ -37,8 +37,8 @@ contain a `status_code` field, as outlined below:
 ## Error model
 {: #error-model}
 
-An error model MUST contain a `code` and a `message` field, SHOULD contain a `more_info` field, and
-MAY contain a `target` field, as outlined below:
+An error model MUST contain a `code` and a `message` field, SHOULD contain a `more_info`[^more-info]
+field, and MAY contain a `target` field, as outlined below:
 
 | Field | Type | Description |
 | ----- | ---- | ----------- |
@@ -50,6 +50,10 @@ MAY contain a `target` field, as outlined below:
 
 The error model MAY be extended with additional fields to better specify the error. The `target`
 field can be considered a standardized example of such an extension.
+
+[^more-info]: The naming of this field has been maintained for historical reasons despite its
+   conflict [with other guidance](/docs/api-handbook?topic=api-handbook-terminology#construction).
+
 
 ## Error target model
 {: #error-target-model}
