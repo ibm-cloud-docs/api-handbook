@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2021
-lastupdated: "2021-06-30"
+  years: 2019, 2025
+lastupdated: "2025-04-03"
 
 subcollection: api-handbook
 
@@ -88,11 +88,11 @@ Content` status.[^post-not-for-create]
 ## PUT
 {: #put}
 
-A successful `PUT` request SHOULD replace an existing resource or, in specific cases, create a new
-resource.
+A successful `PUT` request SHOULD replace an existing resource. If a resource is not yet located at
+the requested URI, the `PUT` request MAY create a new resource, as discussed below.
 
 The resource impacted by a `PUT` request MUST be located at the URI used in the request.[^put-uri]
-For example, if `PUT /users/bob` updates a user, `GET /users/bob` MUST retrieve the same user.
+For example, if `PUT /users/bob` replaces a user, `GET /users/bob` MUST retrieve the same user.
 
 When a `PUT` request is successfully and synchronously used to replace an existing resource, a
 status of `200 OK` MUST be returned.[^put-update-success]

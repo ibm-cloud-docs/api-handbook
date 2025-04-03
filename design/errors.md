@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-03-28"
+lastupdated: "2025-04-03"
 
 subcollection: api-handbook
 
@@ -13,12 +13,17 @@ subcollection: api-handbook
 
 In the event that a request cannot be fulfilled, the server MUST return an appropriate `400`-series
 or `500`-series status code. More information on when specific status codes should be used can be
-found in the [Status Codes](/docs/api-handbook?topic=api-handbook-status-codes) section. If a `400`-series or
-`500`-series status code is returned, the response body MUST be an error container model.
+found in the [Status Codes](/docs/api-handbook?topic=api-handbook-status-codes) section. If a
+`400`-series or `500`-series status code is returned, the response body MUST be an error container
+model.
 
 Any `500` or `503` response made in production MUST be logged and treated as a critical failure
 requiring an emergency fix. There MUST NOT be long-running known causes for `500` or `503` status
 errors.
+
+Any request that fails with `400`-series or `500`-series status code, except for `500` itself, MUST
+NOT result in user-visible changes to any resources, and MUST NOT incur any costs to the
+client.[^side-effects]
 
 ## Error container model
 {: #error-container-model}
@@ -44,7 +49,7 @@ field, and MAY contain a `target` field, as outlined below:
 | ----- | ---- | ----------- |
 | `code` | Enumeration | This field MUST contain a snake case string succinctly identifying the problem. This field SHOULD NOT indicate which field, parameter, or header caused the error, as this is better done with an error target model. |
 | `message` | String | This field MUST contain a plainly-written, developer-oriented explanation of the solution to the problem in complete, well-formed sentences. |
-| `more_info` | URL | This field SHOULD contain a publicly-accessible URL where information about the error can be read in a web browser. |
+| `more_info` | URL | This field SHOULD be present and, if present, MUST contain a publicly-accessible HTTP(S) URL where information about the error can be read in a web browser. |
 | `target` | Error Target Model | This field MAY contain an error target model. Otherwise, it MUST be omitted. |
 {: caption="Error model" caption-side="bottom"}
 
@@ -153,3 +158,8 @@ enclose field names, parameter names, header names, and specific values.
 
 The robustness principle section has been moved to a [new page](/docs/api-handbook?topic=api-handbook-robustness), and
 the previous guidance has been substantially repudiated.
+
+[^side-effects]: However, logging and metric collection are permissible even for unfilfilled
+  requests. Additionally, although a server MUST NOT directly return `504 Gateway Timeout`, network
+  connectivity issues may lead to an upstream processing element (such as a global load balancer)
+  returning `504 Gateway Timeout` even though the server has successfully processed the request.
