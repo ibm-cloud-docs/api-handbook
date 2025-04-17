@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-03-26"
+lastupdated: "2025-04-10"
 
 subcollection: api-handbook
 
@@ -32,6 +32,7 @@ The following types are described below:
 *  [CRN](#crn)
 *  [Enumeration](#enumeration)
 *  [Array](#array)
+*  [Base64-Encoded Data](#base64-encoded-data)
 *  [Dictionary](#dictionary)
 *  [Model](#model)
 
@@ -326,6 +327,7 @@ as a literal empty string (`""`).
 | Constraint  | Recommended value | Description |
 | ----------- | ----------------- | ----------- |
 | `type`      | `string`          | `type` MUST be `string`. |
+| `format`    |                   | `format` SHOULD NOT be present[^legacy-string-formats]. |
 | `minLength` |                   | `minLength` SHOULD be present. |
 | `maxLength` |                   | `maxLength` SHOULD be present. |
 | `pattern`   |                   | `pattern` SHOULD be present unless character constraints cannot be expressed in a regular expression. |
@@ -355,6 +357,7 @@ NOT do the same.
 | Constraint  | Recommended value    | Description |
 | ----------- | -------------------- | ----------- |
 | `type`      | `string`             | `type` MUST be `string`. |
+| `format`    |                      | `format` MUST NOT be present. |
 | `minLength` |                      | `minLength` MUST be present. |
 | `maxLength` |                      | `maxLength` MUST be present. |
 | `pattern`   |                      | `pattern` SHOULD be present unless character constraints cannot be expressed in a regular expression. |
@@ -633,6 +636,59 @@ In a request body, an array field MAY be optional.
 | `maxItems`  |                      | `maxItems` MUST be present. |
 {: caption="Schema guidance for arrays in requests" caption-side="bottom"}
 
+## Base64-encoded data
+{: #base64-encoded-data}
+
+The base64-encoded data type provides for an arbitrary sequence of data. The value MUST be a JSON
+string encoded in base64 with padding, specified by Section 4 of [RFC 4648 standard base64
+encoding](https://datatracker.ietf.org/doc/html/rfc4648#section-4){: external}. The client is
+responsible for encoding the value in requests, and decoding the value in responses, though this may
+be hidden from the user (such as automatically performed by an SDK).
+
+### Response format
+{: #base64-encoded-data-return-format}
+
+For responses, a base64-encoded data field SHOULD have a documented maximum length and MUST have a
+pattern at least as restrictive as shown below. If the field allows a zero-length value, the field
+MUST be required in a response body.
+
+For the sake of backward-compatible future expansions, documented constraints MAY be more permissive
+(allowing for longer sequences) for responses than for requests.
+
+A base64-encoded data value MUST be returned as a base64 encoded JSON string.
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `byte`             | `format` MUST be `byte`. |
+| `minLength` |                   | `minLength` SHOULD be present. |
+| `maxLength` |                   | `maxLength` SHOULD be present. |
+| `pattern`   | `^[A-Za-z0-9+\/=]*$` | `pattern` MAY be more restrictive |
+{: caption="Schema guidance for base64-encoded data in responses" caption-side="bottom"}
+
+### Request formats
+{: #base64-encoded-data-accepted-formats}
+
+For requests, a base64-encoded data field MUST have documented minimum and maximum lengths and MUST
+have a pattern at least as restrictive as shown below. If the field allows a zero-length value, it
+SHOULD be optional in a request body, and if it is optional, its default value MUST be a zero-length
+value, represented as a literal empty string (`""`).
+
+A base64-encoded data value MUST be provided as a base-64 encoded JSON string.
+
+Length and pattern constraints MUST be checked prior to any other processing of the base64-encoded
+data included in requests. Failure to match constraints MUST cause the entire request to fail with a
+`400` status code and appropriate error response model.
+
+| Constraint  | Recommended value | Description |
+| ----------- | ----------------- | ----------- |
+| `type`      | `string`          | `type` MUST be `string`. |
+| `format`    | `byte`            | `format` MUST be `byte`. |
+| `minLength` |                   | `minLength` MUST be present. |
+| `maxLength` |                   | `maxLength` MUST be present. |
+| `pattern`   | `^[A-Za-z0-9+\/=]*$` | `pattern` MAY be more restrictive |
+{: caption="Schema guidance for base64-encoded datas in requests" caption-side="bottom"}
+
 
 ## Dictionary
 {: #dictionary}
@@ -703,3 +759,8 @@ field.
    7159](https://datatracker.ietf.org/doc/html/rfc7159#section-3){: external}, `true`, `false`, and
    `null` values are called "literal names," but in this document we refer to them as "JSON
    keywords."
+
+[^legacy-string-formats]: The `email` format is permitted as a specialization of the string type,
+   but is expected to become its own first-class type in a future update to the handbook. The
+   `password` format is permitted as a hint that the string's value is sensitive, but is expected to
+   be phased out in favor of a more robust mechanism once one is available.

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2020, 2024
-lastupdated: "2024-12-05"
+  years: 2020, 2025
+lastupdated: "2025-04-10"
 
 subcollection: api-handbook
 
@@ -100,6 +100,7 @@ evolutionary updates:
    schema
 *  Reducing possible values for a property in a response schema
 *  Adding a response body (to accompany an existing status code)
+*  Adding more validation checks to an existing dry run request
 
 #### Special cases for backward-compatibility
 {: #special-cases-for-backward-compatibility}

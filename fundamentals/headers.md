@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2024
-lastupdated: "2024-12-05"
+  years: 2019, 2025
+lastupdated: "2025-04-10"
 
 subcollection: api-handbook
 
@@ -273,11 +273,81 @@ and MAY be used for any implementation of rate limiting.
 | X-RateLimit-Reset | Response | If rate limiting is active, this header MUST indicate the time at which the current rate limit window resets, as a UNIX timestamp. |
 {: caption="Rate limiting headers" caption-side="bottom"}
 
-## Version headers
+## IBM Cloud headers
 
 | Header | Type | Description |
 | ------ | ---- | ----------- |
+| [IBM-API-Dry-Run](#dry-run) | Request | This header MAY be supported for requests that allow simulation of the operation. This header MUST NOT be required. See [below](#dry-run) for more details. |
+| [IBM-API-Dry-Run](#dry-run) | Response | If the operation supports dry-run and the caller requested a supported dry-run type, this header MUST be included with the caller's requested value. Otherwise, this header MUST NOT be included. |
 | [IBM-API-Version](/docs/api-handbook?topic=api-handbook-changes-overview#date-based-api-versioning) | Request | This header MUST be supplied to services that support it. The value of this header MUST be the version of the API requested by the client. |
+
+### Dry-run
+{: #dry-run}
+
+The `IBM-API-Dry-Run` header allows an operation to be simulated to a varying extent. This is
+useful in a number of situations, including:
+- An interactive client which needs to present different choices to the user depending on their
+  authorization level, consumption against quota, and other run-time criteria.
+- An interactive client which does not wish to duplicate complex or computationally expensive
+  server-side validation logic.
+- A client which wishes to short-circuit computationally expensive work by performing a dry-run with
+  mock input. Only if the dry-run succeeds will the client eat the cost of creating the real input.
+- A client written to explore an API without creating, updating, or deleting any persisted
+  resources.
+- An automated API contract test which doesn't require any cleanup steps.
+
+If an operation supports `IBM-API-Dry-Run`, it MUST support the `validate` value and MAY also
+support the `mock` value. When a request is made with a supported value, the response MUST reflect
+that value back in an identical `IBM-API-Dry-Run` response header. If a request includes
+`IBM-API-Dry-Run` for an operation that does not support the header, or does not recognize or
+support the value provided, the service MUST respond with `400 Bad Request`.
+
+Any request including the `IBM-API-Dry-Run` header MUST NOT cause any side effects observable in
+other (concurrent or subsequent) requests to the API. These requests MUST still generate logs and
+auditing events as usual, but any log or event that is directly tied to the request MUST preserve
+the `IBM-API-Dry-Run` header and value alongside the rest of the information about the request.
+
+Even if a dry-run request succeeds, due to limitations of the dry-run validation or changes in the
+surrounding environment, a subsequent otherwise-identical actual may fail. As such, APIs supporting
+this header SHOULD advise clients on how to robustly use dry-run.{:note}
+
+### Validation
+
+When a request includes the `IBM-API-Dry-Run` header with the `validate` value, the service MUST
+perform best-effort validation on the request. If a problem is found with the request, the service
+MUST respond with an error response identical to the one that would be supplied for a normal
+request. If no problems are found, the service MUST respond with `204 No Content`.
+
+Validation MUST include authentication and coherency checks for path parameters, query parameters,
+other request headers, and the request body. That is, the service MUST verify the authentication
+token provided with the request, and MUST validate that values provided in the request are
+well-formed, conform the defined schemas, and are self-consistent.
+
+Validation SHOULD include authorization, quota checks, and conflict checks. That is, the service
+SHOULD verify that:
+- The authenticated caller is authorized to perform the requested operation.
+- The requested operation would not cause account quotas to be exceeded.
+- The requested operation would not conflict with existing system state.
+
+Validation MAY include capacity checks. That is, a service MAY verify whether physical capacity
+exists to fulfill the request.
+
+The API documentation MUST specify which forms of validation are performed. If the validation
+differs depending on the operation, it MUST be documented on a per-operation basis.
+
+### Mocking
+
+When a request includes the `IBM-API-Dry-Run` header with the `mock` value, and the operation
+supports it, the same validation used for the `validate` value MUST be performed, and the same error
+responses MUST be provided as applicable. However, if the validation is successful, the service MUST
+respond with the operation's normal success code (such as `201 Created` or `202 Accepted`), normal
+headers, and the normal response schema (if any), with realistic data mocked as needed.
+
+When returning mock data, the server MUST conform to the operation's response schema (in particular,
+all required properties MUST be present). The mock data SHOULD NOT conflict with an actual resource
+(such as having a `crn` or `name` that actually exists), and SHOULD adhere to industry best
+practices for example values, such as domain names that end in `example.com` and IP addresses from
+`192.0.2.0/24`.
 
 ## Custom headers
 {: #custom-headers}
