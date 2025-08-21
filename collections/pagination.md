@@ -1,8 +1,8 @@
 ---
 
 copyright:
-    years: 2019, 2024
-lastupdated: "2024-06-27"
+    years: 2019, 2025
+lastupdated: "2025-07-31"
 
 subcollection: api-handbook
 
@@ -35,7 +35,10 @@ In the scenarios specified below, paginated collections MUST return the fields `
 `next`, and `last` in the collection object. When present, each of these fields MUST contain an
 object with an `href` field containing a URL for the first, previous, next, or last page,
 respectively. The URLs in these fields MUST be complete and begin with a protocol (e.g.,
-`https://api.example.com/v2/accounts?offset=200&limit=50`).
+`https://api.example.com/v2/accounts?offset=200&limit=50`). If the client provided filter and/or
+`sort` parameters, all returned URLs MUST account for them (e.g., by including them in the URLs
+directly, or by encoding them in the `start` token). The service MAY enforce that any provided
+filter and/or sort parameters are consistent with the `start` token.
 
 The `first` link SHOULD be included for all pages (including the first and last pages).
 

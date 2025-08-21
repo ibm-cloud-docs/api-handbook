@@ -55,5 +55,9 @@ toc:
           - specification/schemas.md
           - specification/types-and-formats.md
           - specification/standard-behavior.md
-          - specification/writing.md
+          - specification/writing.md<internal>
+      - topicgroup:
+          label: Process
+          topics:
+          - process/expert-review-runbook.md</internal>
       - meta/contributing.md

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020, 2025
-lastupdated: "2025-04-10"
+lastupdated: "2025-08-07"
 
 subcollection: api-handbook
 
@@ -138,23 +138,21 @@ preceding client robustness approaches can be respected:
 
 *  Expanding possible values for a property in a response schema; for example, a new value in an
    enumeration, a lower minimum or higher maximum, or a more permissive string pattern.
+*  Expanding the types of resources that could be referenced by an `href` or embedded reference
+   schema within the context of another resource.
 *  Adding a new required property to a previously unsupported variant of a request
    schema[^new-required-property].
 *  Reducing acceptable values for a property for a previously unsupported variant of a request
    schema[^reducing-acceptable-values].
-*  Expanding the types of resources that could be referenced by an `href` or embedded reference
-   schema within the context of another resource.
+*  Changing the default value for a property for a previously unsupported variant of a request
+   schema.
 
-#### Changing default values
-{: #changing-default-values}
-
-Additionally, a default value for a property in a request MAY be changed if the new default has no
-increase in price or regressions in performance or supported features at the time of the change.
-
-For example, the default pricing profile for a new resource may be changed if the new default is
-considered better in all respects and is an equal or lower price at the time of the change. (The
-profile that was previously default may be made less expensive at the same time, or after, but not
-before the change.)
+Additionally, a default value for a property in a request MUST NOT be changed if the new default
+increases the price, regresses performance, or regresses the supported features at the time of the
+change. For example, the default pricing profile for a resource MUST NOT be changed if the new
+default is a regression in any respect, or is higher price at the time of the change. (The profile
+that was previously default may be made less expensive at the same time, or after, but not before
+the change.)
 
 #### Resolving API definition errata
 {: #resolving-api-definition-errata}
@@ -186,7 +184,9 @@ case](#special-cases-for-backward-compatibility) applies:
    schema
 *  Changing the semantics of a value for an existing query parameter, header, or property in a
    response schema
-*  Changing a default value or behavior for an already-valid request
+*  Changing a behavior for an already-valid request
+*  Changing a default value such that an already-valid request will behave
+   differently[^changed-default-value]
 *  Redefining the nature of any relationship between resources
 
 #### Migrating to updated robustness best practices
@@ -218,3 +218,8 @@ specific account on a specific service deployment.
 [^reducing-acceptable-values]: In other words, acceptable values for an existing property must only
    be eliminated in combination with values for the rest of the schema's properties that would have
    previously been invalid.
+
+[^changed-default-value]: For example, suppose a property that defaulted to a fixed value is
+   changed to default to a value that depends on the values of other specified properties.
+   Provided the resulting default value matches the previous default fixed value for all previously
+   supported requests, this change is considered backward-compatible.

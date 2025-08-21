@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-04-10"
+lastupdated: "2025-06-25"
 
 subcollection: api-handbook
 
@@ -308,8 +308,8 @@ auditing events as usual, but any log or event that is directly tied to the requ
 the `IBM-API-Dry-Run` header and value alongside the rest of the information about the request.
 
 Even if a dry-run request succeeds, due to limitations of the dry-run validation or changes in the
-surrounding environment, a subsequent otherwise-identical actual may fail. As such, APIs supporting
-this header SHOULD advise clients on how to robustly use dry-run.{:note}
+surrounding environment, a subsequent request (without the `IBM-API-Dry-Run` header) may fail. As
+such, APIs supporting this header SHOULD advise clients on how to robustly use dry-run.{:note}
 
 ### Validation
 

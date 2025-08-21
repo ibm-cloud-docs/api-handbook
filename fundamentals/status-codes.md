@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-01-16"
+lastupdated: "2025-06-12"
 
 subcollection: api-handbook
 
@@ -246,8 +246,10 @@ The following scenarios SHOULD NOT result in a `409 Conflict`:
 | Code  | Meaning | Description |
 | ----- | ------- | ----------- |
 | `500` | [Internal Server Error](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1){: external} | This code MUST be returned when a fatal error caused by an unexpected condition occurs on the server and was not caused by the client.[^500-detectable-errors] |
-| `501` | [Not Implemented](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.2){: external} | The code MUST be returned when the server does not recognize the request method. This code MUST only be used for methods not documented under [Methods](/docs/api-handbook?topic=api-handbook-methods). See also `405` under [client errors](#client-errors-4xx). |
-| `503` | [Service Unavailable](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.4){: external} | This code SHOULD be returned when the server is temporarily unavailable because it is overloaded or down for maintenance. The server MAY include a `Retry-After` header telling the client when it should try submitting the request again. |
+| `501` | [Not Implemented](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.2){: external} | This code MUST be returned when the server does not recognize the request method. This code MUST only be used for methods not documented under [Methods](/docs/api-handbook?topic=api-handbook-methods). See also `405` under [client errors](#client-errors-4xx). |
+| `502` | [Bad Gateway](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.3){: external} | This code MUST be returned when a gateway (such as an application load balancer or web application firewall) for a service is able to determine that a response it received from a service is invalid. It MUST NOT be returned by a service itself. |
+| `503` | [Service Unavailable](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.4){: external} | This code SHOULD be returned when the server is temporarily unavailable because it is overloaded, down for maintenance, or cannot finish processing a request [in a timely manner](/docs/api-handbook?topic=api-handbook-performance#timeouts). The server MAY include a `Retry-After` header telling the client when it should try submitting the request again. |
+| `504` | [Gateway Timeout](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.5){: external} | This code MUST be returned by a gateway (such as an application load balancer or web application firewall) when the [maximum request processing time](/docs/api-handbook?topic=api-handbook-performance#timeouts) is exceeded. It MUST NOT be returned by a service itself (see `503`). |
 | `505` | [HTTP Version Not Supported](https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.6){: external} | This code SHOULD be returned when the server does not support the HTTP protocol version used in a request. The response SHOULD contain a document describing which protocols the server does support. |
 {: caption="Server error status codes" caption-side="bottom"}
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-03-26"
+lastupdated: "2025-07-25"
 
 subcollection: api-handbook
 
@@ -150,8 +150,10 @@ return reference schemas.
 {: #identity-schemas}
 
 When a related resource is referenced within a request schema (such as a resource prototype), a
-schema with the name of the related resource's canonical schema, suffixed with `Identity`, should
-be used for the same property name used to reference the resource in the response.
+schema with the name of the related resource's canonical schema, suffixed with `Identity`, should be
+used for the same property name used to reference the resource in the response. Since it serves a
+symmetric role, the identity schema MUST be a [graph fragment](#graph-fragment-pattern) of the
+reference schema.
 
 For resources native to the service in which the identity is needed, the identifying property MUST
 be the unique, immutable handle (usually its `id`) as represented in the final path parameter of
@@ -165,7 +167,9 @@ The request schema used in an operation to update a resource with a [JSON merge
 patch][rfc7396]{: external} SHOULD be the name of the canonical schema for the resource type,
 suffixed with `Patch`. In accordance with the JSON merge patch format, this schema MUST be a [graph
 fragment](#graph-fragment-pattern) of the canonical schema, and MUST NOT have any required
-properties.
+properties. Further, so that clients can create the resource in its desired configuration,
+this schema MUST be a graph fragment of the prototype schema, and all properties MUST support the
+same values as the prototype schema.
 
 [rfc7396]: https://datatracker.ietf.org/doc/html/rfc7396
 
