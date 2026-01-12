@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2025
-lastupdated: "2025-06-12"
+lastupdated: "2025-09-25"
 
 subcollection: api-handbook
 
@@ -239,6 +239,49 @@ The following scenarios SHOULD NOT result in a `409 Conflict`:
    also include a safe `POST` request in [certain scenarios][post-other-uses].
 
 [post-other-uses]: /docs/api-handbook?topic=api-handbook-methods#post-other-uses
+
+### Request validation order
+{: #request-validation-order}
+
+A service may receive a request that has several client errors. For example, an unauthenticated
+client (`401`) may submit a request to access a resource that does not exist (`404`). However, HTTP
+permits only a single code to be returned. For security, performance, and predictability reasons,
+services MUST validate requests in phases. Services are free to perform the checks within each phase
+in any order, but SHOULD document that order. If any validation step fails, the service MUST stop
+processing the request and return the specified code.
+
+Because of network outages, at any phase of processing, `408 Request Timeout` may be returned.
+{: note}
+
+#### Phase 1 (Preliminary Checks)
+
+* Validate that API rate limit has not been exceeded. If it has, return `429 Too Many Requests`.
+* Authenticate the client. If authentication fails, return `401 Unauthorized`.
+
+#### Phase 2 (URI Checks)
+
+* Validate the URI length. If it is too long, return `414 URI Too Long`.
+* Validate that the method is permitted for the resource. If it is not, return `405 Method Not
+  Allowed`.
+* Validate the existence of each resource in the URI. If any resource is invalid, return `404
+  Resource Not Found` or `410 Gone` as appropriate for the resource.
+* Validate that the client is authorized to access each resource in the URI. If access to any
+  resource is not authorized, return `403 Forbidden`.
+
+#### Phase 3 (Header/Request Body Checks)
+
+* Validate all headers. If any header is invalid, return `406 Not Acceptable`, `412 Precondition
+  Failed`, `413 Content Too Large`, `415 Unsupported Media Type`, as appropriate for the header.
+* If the client will send a request body, but that body has not been received return `100: Continue`
+ if required by the
+ [HTTP specification `100-continue` semantics](https://www.rfc-editor.org/rfc/rfc9110#status.100).
+ If the size of the body was unknown during header validation and exceeds the maximum allowed size
+ during receipt return `413 Content Too Large`.
+* Validate that the client is authorized to access each property in the request body. If access to
+  any property is not authorized, return `403 Forbidden`.
+* Validate properties in the request body (including the existence of resources of resources in the
+  body). If any property is invalid, return `409 Conflict` or `400 Bad Request`, as appropriate for
+  the property.
 
 ## Server errors: 5xx
 {: #server-errors-5xx}
