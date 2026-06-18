@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2025
-lastupdated: "2025-04-03"
+  years: 2019, 2026
+lastupdated: "2026-06-10"
 
 subcollection: api-handbook
 
@@ -47,7 +47,7 @@ field, and MAY contain a `target` field, as outlined below:
 
 | Field | Type | Description |
 | ----- | ---- | ----------- |
-| `code` | Enumeration | This field MUST contain a snake case string succinctly identifying the problem. This field SHOULD NOT indicate which field, parameter, or header caused the error, as this is better done with an error target model. |
+| `code` | Enumeration | This field MUST contain a snake case string succinctly identifying the problem. This field SHOULD NOT indicate which field, parameter, or header caused the error, as this is better done with an error target model. Service APIs MAY use `anyOf` to allow any string for more than 100 error codes, but MUST document common error codes in the enumeration. |
 | `message` | String | This field MUST contain a plainly-written, developer-oriented explanation of the solution to the problem in complete, well-formed sentences. |
 | `more_info` | URL | This field SHOULD be present and, if present, MUST contain a publicly-accessible HTTP(S) URL where information about the error can be read in a web browser. |
 | `target` | Error Target Model | This field MAY contain an error target model. Otherwise, it MUST be omitted. |
