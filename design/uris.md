@@ -224,7 +224,7 @@ components:
 ## Query parameters
 {: #query-parameters}
 
-### Contraints
+### Constraints
 {: #query-parameter-constraints}
 
 Each query parameter supported for an operation MUST have a documented and enforced maximum length
